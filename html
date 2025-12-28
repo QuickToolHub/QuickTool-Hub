@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickToolHub - One Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+        
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: #0c4a6e;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Header */
+        .site-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .site-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.1);
+        }
+
+        .site-logo i {
+            color: #0ea5e9;
+            font-size: 32px;
+        }
+
+        .site-logo h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .site-tagline {
+            font-size: 18px;
+            color: #475569;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin: 0 auto 15px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Tools Container */
+        .tools-container {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(14, 165, 233, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .tools-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .tools-header h2 {
+            font-size: 28px;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tools-filter {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: white;
+            color: #64748b;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: #0ea5e9;
+            color: white;
+            border-color: #0ea5e9;
+        }
+
+        /* Tools Grid */
+        .tools-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-box {
+            border: 2px solid #f1f5f9;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .tool-box:hover {
+            border-color: #0ea5e9;
+            box-shadow: 0 15px 40px rgba(14, 165, 233, 0.15);
+        }
+
+        .tool-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #0ea5e9, #3b82f6);
+        }
+
+        .tool-box-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .tool-box-header i {
+            font-size: 28px;
+            color: #0ea5e9;
+            width: 50px;
+            height: 50px;
+            background: rgba(14, 165, 233, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tool-box h3 {
+            font-size: 18px;
+            color: #0f172a;
+            margin-bottom: 5px;
+        }
+
+        .tool-box p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .tool-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tool-rating {
+            color: #f59e0b;
+            font-size: 14px;
+        }
+
+        .tool-use-btn {
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tool-use-btn:hover {
+            background: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        /* Categories */
+        .categories-section {
+            margin-bottom: 40px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+        }
+
+        .category-1 .category-icon { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
+        .category-2 .category-icon { background: linear-gradient(135deg, #10b981, #34d399); }
+        .category-3 .category-icon { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .category-4 .category-icon { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+
+        .category-card h3 {
+            font-size: 20px;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .category-card p {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .category-count {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #64748b;
+            border-top: 2px solid #f1f5f9;
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: #475569;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #0ea5e9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tools-grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .tools-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .quick-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="site-logo">
+                <i class="fas fa-tools"></i>
+                <h1>QuickToolHub</h1>
+            </div>
+            <p class="site-tagline">
+                50+ free tools for PDF, images, text, and more. No registration, no limits.
+            </p>
+        </header>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="stat-number">Instant</div>
+                <div class="stat-label">No waiting time</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="stat-number">100% Safe</div>
+                <div class="stat-label">Files stay private</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-infinity"></i>
+                </div>
+                <div class="stat-number">Unlimited</div>
+                <div class="stat-label">No usage limits</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-number">Free</div>
+                <div class="stat-label">Always free</div>
+            </div>
+        </div>
+
+        <!-- Main Tools Section -->
+        <div class="tools-container">
+            <div class="tools-header">
+                <h2><i class="fas fa-rocket"></i> All Tools</h2>
+                <div style="display: flex; gap: 15px;">
+                    <div style="position: relative;">
+                        <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #94a3b8;"></i>
+                        <input type="text" placeholder="Search tools..." style="padding: 12px 15px 12px 45px; border: 2px solid #e2e8f0; border-radius: 10px; width: 250px;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tools-filter">
+                <button class="filter-btn active">All Tools</button>
+                <button class="filter-btn">Most Popular</button>
+                <button class="filter-btn">PDF Tools</button>
+                <button class="filter-btn">Image Tools</button>
+                <button class="filter-btn">Text Tools</button>
+                <button class="filter-btn">AI Tools</button>
+                <button class="filter-btn">Converters</button>
+                <button class="filter-btn">New Tools</button>
+            </div>
+
+            <div class="tools-grid-3">
+                <div class="tool-box">
+                    <div class="tool-box-header">
+                        <i class="fas fa-file-pdf"></i>
+                        <div>
+                            <h3>PDF Compressor</h3>
+                            <div class="tool-rating">
+                                <i class="fas fa-star"></i> 4.9
+                            </div>
+                        </div>
+                    </div>
+                    <p>Reduce PDF file size without losing quality. Perfect for email sharing.</p>
+                    <div class="tool-meta">
+                        <span style="color: #64748b; font-size: 14px;">Used 2.5K times today</span>
+                        <button class="tool-use-btn">Use Now</button>
+                    </div>
+                </div>
+
+                <div class="tool-box">
+                    <div class="tool-box-header">
+                        <i class="fas fa-image"></i>
+                        <div>
+                            <h3>Image Resizer</h3>
+                            <div class="tool-rating">
+                                <i class="fas fa-star"></i> 4.8
+                            </div>
+                        </div>
+                    </div>
+                    <p>Resize images to any dimension. Support for JPG, PNG, WebP formats.</p>
+                    <div class="tool-meta">
+                        <span style="color: #64748b; font-size: 14px;">Used 1.8K times today</span>
+                        <button class="tool-use-btn">Use Now</button>
+                    </div>
+                </div>
+
+                <div class="tool-box">
+                    <div class="tool-box-header">
+                        <i class="fas fa-lock"></i>
+                        <div>
+                            <h3>PDF Password</h3>
+                            <div class="tool-rating">
+                                <i class="fas fa-star"></i> 4.7
+                            </div>
+                        </div>
+                    </div>
+                    <p>Add or remove password protection from PDF documents securely.</p>
+                    <div class="tool-meta">
+                        <span style="color: #64748b; font-size: 14px;">Used 1.2K times today</span>
+                        <button class="tool-use-btn">Use Now</button>
+                    </div>
+                </div>
+
+                <div class="tool-box">
+                    <div class="tool-box-header">
+                        <i class="fas fa-qrcode"></i>
+                        <div>
+                            <h3>QR Generator</h3>
+                            <div class="tool-rating">
+                                <i class="fas fa-star"></i> 4.9
+                            </div>
+                        </div>
+                    </div>
+                    <p>Create custom QR codes for URLs, text, contact info, and WiFi.</p>
+                    <div class="tool-meta">
+                        <span style="color: #64748b; font-size: 14px;">Used 950 times today</span>
+                        <button class="tool-use-btn">Use Now</button>
+                    </div>
+                </div>
+
+                <div class="tool-box">
+                    <div class="tool-box-header">
+                        <i class="fas fa-file-word"></i>
+                        <div>
+                            <h3>PDF to Word</h3>
+                            <div class="tool-rating">
+                                <i class="fas fa-star"></i> 4.6
+                            </div>
+                        </div>
+                    </div>
+                    <p>Convert PDF documents to editable Word format with perfect formatting.</p>
+                    <div class="tool-meta">
+                        <span style="color: #64748b; font-size: 14px;">Used 800 times today</span>
+                        <button class="tool-use-btn">Use Now</button>
+                    </div>
+                </div>
+
+                <div class="tool-box">
+                    <div class="tool-box-header">
+                        <i class="fas fa-compress-alt"></i>
+                        <div>
+                            <h3>Image Compressor</h3>
+                            <div class="tool-rating">
+                                <i class="fas fa-star"></i> 4.8
+                            </div>
+                        </div>
+                    </div>
+                    <p>Compress images up to 90% smaller while maintaining visual quality.</p>
+                    <div class="tool-meta">
+                        <span style="color: #64748b; font-size: 14px;">Used 1.5K times today</span>
+                        <button class="tool-use-btn">Use Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <section class="categories-section">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #0f172a; font-size: 28px;">
+                Browse by Category 📁
+            </h2>
+            <div class="categories-grid">
+                <div class="category-card category-1">
+                    <div class="category-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>PDF Tools</h3>
+                    <p>Compress, merge, convert, protect and edit PDF files.</p>
+                    <div class="category-count">12 Tools</div>
+                </div>
+
+                <div class="category-card category-2">
+                    <div class="category-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>Image Tools</h3>
+                    <p>Resize, compress, convert, edit and optimize images.</p>
+                    <div class="category-count">15 Tools</div>
+                </div>
+
+                <div class="category-card category-3">
+                    <div class="category-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Text Tools</h3>
+                    <p>Format, count, convert, analyze and manipulate text.</p>
+                    <div class="category-count">8 Tools</div>
+                </div>
+
+                <div class="category-card category-4">
+                    <div class="category-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Tools</h3>
+                    <p>AI-powered tools for content creation and optimization.</p>
+                    <div class="category-count">5 Tools</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p style="font-size: 18px; color: #0f172a; margin-bottom: 10px; font-weight: 600;">
+                QuickToolHub
+            </p>
+            <p style="margin-bottom: 20px; color: #64748b;">
+                Your all-in-one solution for free online tools
+            </p>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Contact</a>
+                <a href="#">GitHub</a>
+                <a href="#">Twitter</a>
+            </div>
+            <p style="margin-top: 30px; font-size: 14px; color: #94a3b8;">
+                © 2024 QuickToolHub. All tools are 100% free and open source.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Tool use buttons
+        document.querySelectorAll('.tool-use-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const toolName = this.closest('.tool-box').querySelector('h3').textContent;
+                alert(`Opening: ${toolName}`);
+            });
+        });
+
+        // Category cards
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.querySelector('h3').textContent;
+                alert(`Browsing: ${category} tools`);
+            });
+        });
+
+        // Tool boxes
+        document.querySelectorAll('.tool-box').forEach(box => {
+            box.addEventListener('click', function() {
+                const toolName = this.querySelector('h3').textContent;
+                alert(`Opening: ${toolName} tool`);
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('input[placeholder="Search tools..."]');
+        searchInput.addEventListener('input', function() {
+            const term = this.value.toLowerCase();
+            document.querySelectorAll('.tool-box').forEach(box => {
+                const title = box.querySelector('h3').textContent.toLowerCase();
+                const desc = box.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(term) || desc.includes(term)) {
+                    box.style.display = 'block';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
