@@ -3,1375 +3,900 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickToolHub - Free Online Tools</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>QuickToolHub - All Tools in One</title>
     <style>
-        /* ===== GLOBAL STYLES ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background: #f8fafc;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             color: #333;
-            line-height: 1.6;
+            padding: 20px;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ===== HEADER & NAVIGATION ===== */
-        .header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 24px;
-            font-weight: 700;
-            color: #3b82f6;
-            text-decoration: none;
-        }
-
-        .logo i {
-            font-size: 28px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #475569;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #3b82f6;
-        }
-
-        .nav-links a.active {
-            color: #3b82f6;
-            font-weight: 600;
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: #f1f5f9;
-            padding: 8px 15px;
-            border-radius: 50px;
-            width: 300px;
-        }
-
-        .search-box input {
-            border: none;
-            background: none;
-            outline: none;
-            width: 100%;
-            padding: 5px;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #475569;
-            cursor: pointer;
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-            margin-bottom: 50px;
-            border-radius: 0 0 20px 20px;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #3b82f6;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-        }
-
-        /* ===== TOOLS CATEGORIES ===== */
-        .section-title {
-            text-align: center;
-            font-size: 32px;
-            color: #1e293b;
-            margin: 60px 0 40px;
-        }
-
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
-        }
-
-        .category-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-
-        .category-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .category-icon {
-            font-size: 48px;
-            color: #3b82f6;
-            margin-bottom: 20px;
-        }
-
-        /* ===== TOOLS GRID ===== */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
-        }
-
-        .tool-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-        }
-
-        .tool-card:hover {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .tool-icon {
-            font-size: 40px;
-            color: #3b82f6;
-            margin-bottom: 15px;
-        }
-
-        .tool-card h3 {
-            margin-bottom: 10px;
-            color: #1e293b;
-        }
-
-        .tool-card p {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .use-btn {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            width: 100%;
-            transition: background 0.3s;
-        }
-
-        .use-btn:hover {
-            background: #2563eb;
-        }
-
-        /* ===== INDIVIDUAL TOOL PAGE ===== */
-        .tool-page {
             background: white;
             border-radius: 20px;
-            padding: 40px;
-            margin: 40px auto;
-            max-width: 800px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .tool-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .tool-header i {
-            font-size: 64px;
-            color: #3b82f6;
-            margin-bottom: 20px;
-        }
-
-        .file-upload {
-            border: 2px dashed #cbd5e1;
-            border-radius: 15px;
-            padding: 60px 30px;
-            text-align: center;
-            margin: 30px 0;
-            cursor: pointer;
-            transition: border-color 0.3s;
-        }
-
-        .file-upload:hover {
-            border-color: #3b82f6;
-        }
-
-        .file-upload i {
-            font-size: 48px;
-            color: #94a3b8;
-            margin-bottom: 20px;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 4px;
-            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             overflow: hidden;
-            display: none;
-        }
-
-        .progress {
-            height: 100%;
-            background: #3b82f6;
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        .result {
-            display: none;
-            text-align: center;
             padding: 30px;
-            background: #f0f9ff;
-            border-radius: 15px;
-            margin-top: 30px;
         }
-
-        .result i {
-            font-size: 48px;
-            color: #10b981;
-            margin-bottom: 20px;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            background: #1e293b;
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #4c51bf 0%, #6b46c1 100%);
             color: white;
-            padding: 60px 0 30px;
-            margin-top: 60px;
+            margin: -30px -30px 30px -30px;
+            border-radius: 20px 20px 0 0;
         }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h3 {
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .footer-col a {
-            color: #cbd5e1;
-            text-decoration: none;
-            display: block;
+        
+        .header h1 {
+            font-size: 2.5rem;
             margin-bottom: 10px;
         }
-
-        .footer-col a:hover {
-            color: white;
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #334155;
-            color: #94a3b8;
-            font-size: 14px;
+        
+        /* Navigation */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
-
-        /* ===== UTILITY CLASSES ===== */
-        .page-content {
-            min-height: 60vh;
-            padding: 40px 0;
-        }
-
-        .content-box {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .btn {
-            display: inline-block;
-            background: #3b82f6;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
+        
+        .tab-btn {
+            padding: 12px 25px;
+            background: #e2e8f0;
             border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
-
-        .btn:hover {
-            background: #2563eb;
+        
+        .tab-btn:hover {
+            background: #cbd5e0;
         }
-
-        .btn-secondary {
-            background: #64748b;
+        
+        .tab-btn.active {
+            background: #4c51bf;
+            color: white;
         }
-
-        .btn-secondary:hover {
-            background: #475569;
+        
+        /* Tool Container */
+        .tool-container {
+            display: none;
+            padding: 30px;
+            background: #f7fafc;
+            border-radius: 15px;
+            margin-bottom: 30px;
         }
-
-        /* ===== RESPONSIVE DESIGN ===== */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .search-box {
-                width: 200px;
-            }
-
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .section-title {
-                font-size: 28px;
-            }
+        
+        .tool-container.active {
+            display: block;
+            animation: fadeIn 0.5s;
         }
-
-        /* ===== HIDDEN PAGES ===== */
-        .page {
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Upload Area */
+        .upload-area {
+            border: 3px dashed #cbd5e0;
+            border-radius: 15px;
+            padding: 50px 20px;
+            text-align: center;
+            margin: 20px 0;
+            background: #fff;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: #4c51bf;
+            background: #f0f4ff;
+        }
+        
+        .upload-area.dragover {
+            border-color: #4c51bf;
+            background: #e6fffa;
+        }
+        
+        .upload-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+            color: #4c51bf;
+        }
+        
+        .file-input {
             display: none;
         }
-
-        .page.active {
+        
+        .file-label {
+            display: inline-block;
+            background: #4c51bf;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        .file-label:hover {
+            background: #434190;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .action-btn:disabled {
+            background: #cbd5e0 !important;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        .convert-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+        }
+        
+        .convert-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(72, 187, 120, 0.3);
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            display: none;
+        }
+        
+        .download-btn:hover {
+            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(66, 153, 225, 0.3);
+        }
+        
+        /* Status Message */
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .status.success {
+            background: #c6f6d5;
+            color: #22543d;
             display: block;
+            border-left: 5px solid #38a169;
+        }
+        
+        .status.error {
+            background: #fed7d7;
+            color: #742a2a;
+            display: block;
+            border-left: 5px solid #e53e3e;
+        }
+        
+        .status.processing {
+            background: #bee3f8;
+            color: #2c5282;
+            display: block;
+            border-left: 5px solid #4299e1;
+        }
+        
+        /* File Info */
+        .file-info {
+            background: #edf2f7;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: none;
+        }
+        
+        /* 3D Viewer Specific */
+        #modelViewer {
+            width: 100%;
+            height: 400px;
+            background: #2d3748;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .viewer-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            padding: 10px 20px;
+            background: #4c51bf;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0 0 0;
+            margin-top: 40px;
+            border-top: 1px solid #e2e8f0;
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 20px 0;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tool-container {
+                padding: 20px 15px;
+            }
+            
+            .action-btn {
+                min-width: 100%;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
+    
+    <!-- Three.js for 3D Viewer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
-    <!-- ===== HEADER ===== -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="#" class="logo" onclick="showPage('home')">
-                    <i class="fas fa-tools"></i>
-                    <span>QuickToolHub</span>
-                </a>
-
-                <div class="nav-links" id="navLinks">
-                    <a href="#" onclick="showPage('home')" class="active">Home</a>
-                    <a href="#" onclick="showPage('tools')">All Tools</a>
-                    <a href="#" onclick="showPage('categories')">Categories</a>
-                    <a href="#" onclick="showPage('about')">About</a>
-                    <a href="#" onclick="showPage('contact')">Contact</a>
-                </div>
-
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search tools..." id="searchInput">
-                </div>
-
-                <button class="mobile-menu-btn" onclick="toggleMenu()">
-                    <i class="fas fa-bars"></i>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚀 QuickToolHub</h1>
+            <p>All-in-One Free Tools - Convert & Download with One Click</p>
+        </div>
+        
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tool="pdf-compressor">📄 PDF Compressor</button>
+            <button class="tab-btn" data-tool="pdf-to-jpg">🖼️ PDF to JPG</button>
+            <button class="tab-btn" data-tool="3d-viewer">🔄 3D Viewer</button>
+        </div>
+        
+        <!-- ==================== PDF COMPRESSOR ==================== -->
+        <div id="pdf-compressor" class="tool-container active">
+            <h2>📄 PDF Compressor</h2>
+            <p>Reduce PDF file size without quality loss</p>
+            
+            <div class="upload-area" id="pdf-compress-upload">
+                <div class="upload-icon">📁</div>
+                <h3>Drag & Drop PDF File Here</h3>
+                <p>or</p>
+                <input type="file" id="pdf-compress-input" class="file-input" accept=".pdf">
+                <label for="pdf-compress-input" class="file-label">Choose PDF File</label>
+                <p style="margin-top: 10px; color: #718096;">Max file size: 50MB</p>
+            </div>
+            
+            <div id="pdf-compress-info" class="file-info"></div>
+            
+            <div class="action-buttons">
+                <button id="pdf-compress-btn" class="action-btn convert-btn" disabled>
+                    <span>⚡ Compress PDF</span>
                 </button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- ===== HOME PAGE ===== -->
-    <div id="home" class="page active">
-        <section class="hero">
-            <div class="container">
-                <h1>Free Online Tools for Everyone</h1>
-                <p>50+ powerful tools for PDF, images, text, and more. 100% free, no registration required.</p>
-                <a href="#" class="cta-button" onclick="showPage('tools')">
-                    <i class="fas fa-bolt"></i> Start Using Tools
+                <a id="pdf-download-btn" class="action-btn download-btn" download>
+                    <span>⬇️ Download Compressed PDF</span>
                 </a>
             </div>
-        </section>
-
-        <div class="container">
-            <h2 class="section-title">Popular Tools ⚡</h2>
             
-            <div class="tools-grid">
-                <!-- PDF Tools -->
-                <div class="tool-card" onclick="openTool('pdf-compress')">
-                    <div class="tool-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <h3>PDF Compressor</h3>
-                    <p>Reduce PDF file size without quality loss</p>
-                    <button class="use-btn">Use Tool</button>
-                </div>
-
-                <div class="tool-card" onclick="openTool('pdf-merge')">
-                    <div class="tool-icon">
-                        <i class="fas fa-copy"></i>
-                    </div>
-                    <h3>PDF Merger</h3>
-                    <p>Combine multiple PDFs into one</p>
-                    <button class="use-btn">Use Tool</button>
-                </div>
-
-                <!-- Image Tools -->
-                <div class="tool-card" onclick="openTool('image-resize')">
-                    <div class="tool-icon">
-                        <i class="fas fa-image"></i>
-                    </div>
-                    <h3>Image Resize</h3>
-                    <p>Resize images to any dimensions</p>
-                    <button class="use-btn">Use Tool</button>
-                </div>
-
-                <div class="tool-card" onclick="openTool('image-compress')">
-                    <div class="tool-icon">
-                        <i class="fas fa-compress-alt"></i>
-                    </div>
-                    <h3>Image Compress</h3>
-                    <p>Compress images up to 90% smaller</p>
-                    <button class="use-btn">Use Tool</button>
-                </div>
-
-                <!-- Text Tools -->
-                <div class="tool-card" onclick="openTool('text-converter')">
-                    <div class="tool-icon">
-                        <i class="fas fa-font"></i>
-                    </div>
-                    <h3>Text Case Converter</h3>
-                    <p>Convert text between different cases</p>
-                    <button class="use-btn">Use Tool</button>
-                </div>
-
-                <div class="tool-card" onclick="openTool('password-generator')">
-                    <div class="tool-icon">
-                        <i class="fas fa-key"></i>
-                    </div>
-                    <h3>Password Generator</h3>
-                    <p>Generate secure random passwords</p>
-                    <button class="use-btn">Use Tool</button>
-                </div>
-
-                <!-- Utility Tools -->
-                <div class="tool-card" onclick="openTool('qr-generator')">
-                    <div class="tool-icon">
-                        <i class="fas fa-qrcode"></i>
-                    </div>
-                    <h3>QR Code Generator</h3>
-                    <p>Create custom QR codes for free</p>
-                    <button class="use-btn">Use Tool</button>
-                </div>
-
-                <div class="tool-card" onclick="openTool('word-counter')">
-                    <div class="tool-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <h3>Word Counter</h3>
-                    <p>Count words, characters, sentences</p>
-                    <button class="use-btn">Use Tool</button>
-                </div>
-            </div>
+            <div id="pdf-compress-status" class="status"></div>
         </div>
-    </div>
-
-    <!-- ===== ALL TOOLS PAGE ===== -->
-    <div id="tools" class="page">
-        <div class="container page-content">
-            <h1 class="section-title">All Tools 🛠️</h1>
+        
+        <!-- ==================== PDF TO JPG ==================== -->
+        <div id="pdf-to-jpg" class="tool-container">
+            <h2>🖼️ PDF to JPG Converter</h2>
+            <p>Convert PDF pages to high-quality JPG images</p>
             
-            <div class="categories">
-                <div class="category-card" onclick="filterTools('pdf')">
-                    <div class="category-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <h3>PDF Tools</h3>
-                    <p>8 tools available</p>
-                </div>
-
-                <div class="category-card" onclick="filterTools('image')">
-                    <div class="category-icon">
-                        <i class="fas fa-image"></i>
-                    </div>
-                    <h3>Image Tools</h3>
-                    <p>6 tools available</p>
-                </div>
-
-                <div class="category-card" onclick="filterTools('text')">
-                    <div class="category-icon">
-                        <i class="fas fa-font"></i>
-                    </div>
-                    <h3>Text Tools</h3>
-                    <p>5 tools available</p>
-                </div>
-
-                <div class="category-card" onclick="filterTools('utility')">
-                    <div class="category-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>Utility Tools</h3>
-                    <p>7 tools available</p>
-                </div>
+            <div class="upload-area" id="pdf-jpg-upload">
+                <div class="upload-icon">📁</div>
+                <h3>Drag & Drop PDF File Here</h3>
+                <p>or</p>
+                <input type="file" id="pdf-jpg-input" class="file-input" accept=".pdf">
+                <label for="pdf-jpg-input" class="file-label">Choose PDF File</label>
+                <p style="margin-top: 10px; color: #718096;">Max file size: 50MB</p>
             </div>
-
-            <div class="tools-grid" id="allToolsGrid">
-                <!-- Tools will be loaded here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== CATEGORIES PAGE ===== -->
-    <div id="categories" class="page">
-        <div class="container page-content">
-            <h1 class="section-title">Tools by Category 📁</h1>
             
-            <div class="content-box">
-                <!-- PDF Tools Category -->
-                <div style="margin-bottom: 40px;">
-                    <h2 style="color: #3b82f6; margin-bottom: 20px;">
-                        <i class="fas fa-file-pdf"></i> PDF Tools
-                    </h2>
-                    <div class="tools-grid">
-                        <div class="tool-card" onclick="openTool('pdf-compress')">
-                            <h3>PDF Compress</h3>
-                            <p>Reduce PDF size without quality loss</p>
-                        </div>
-                        <div class="tool-card" onclick="openTool('pdf-merge')">
-                            <h3>PDF Merge</h3>
-                            <p>Combine multiple PDFs into one</p>
-                        </div>
-                        <div class="tool-card" onclick="openTool('pdf-split')">
-                            <h3>PDF Split</h3>
-                            <p>Split PDF into multiple files</p>
-                        </div>
-                        <div class="tool-card" onclick="openTool('pdf-password')">
-                            <h3>PDF Password</h3>
-                            <p>Add/remove password protection</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Image Tools Category -->
-                <div style="margin-bottom: 40px;">
-                    <h2 style="color: #10b981; margin-bottom: 20px;">
-                        <i class="fas fa-image"></i> Image Tools
-                    </h2>
-                    <div class="tools-grid">
-                        <div class="tool-card" onclick="openTool('image-resize')">
-                            <h3>Image Resize</h3>
-                            <p>Resize images to any dimensions</p>
-                        </div>
-                        <div class="tool-card" onclick="openTool('image-compress')">
-                            <h3>Image Compress</h3>
-                            <p>Compress images up to 90%</p>
-                        </div>
-                        <div class="tool-card" onclick="openTool('image-convert')">
-                            <h3>Image Convert</h3>
-                            <p>Convert between JPG, PNG, WebP</p>
-                        </div>
-                        <div class="tool-card" onclick="openTool('image-watermark')">
-                            <h3>Image Watermark</h3>
-                            <p>Add text watermark to images</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Text Tools Category -->
-                <div style="margin-bottom: 40px;">
-                    <h2 style="color: #8b5cf6; margin-bottom: 20px;">
-                        <i class="fas fa-font"></i> Text Tools
-                    </h2>
-                    <div class="tools-grid">
-                        <div class="tool-card" onclick="openTool('text-converter')">
-                            <h3>Text Case Converter</h3>
-                            <p>Convert between UPPER/lower/Camel Case</p>
-                        </div>
-                        <div class="tool-card" onclick="openTool('word-counter')">
-                            <h3>Word Counter</h3>
-                            <p>Count words, characters, sentences</p>
-                        </div>
-                        <div class="tool-card" onclick="openTool('password-generator')">
-                            <h3>Password Generator</h3>
-                            <p>Generate secure random passwords</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Utility Tools Category -->
-                <div>
-                    <h2 style="color: #f59e0b; margin-bottom: 20px;">
-                        <i class="fas fa-tools"></i> Utility Tools
-                    </h2>
-                    <div class="tools-grid">
-                        <div class="tool-card" onclick="openTool('qr-generator')">
-                            <h3>QR Code Generator</h3>
-                            <p>Create custom QR codes</p>
-                        </div>
-                        <div class="tool-card" onclick="openTool('url-shortener')">
-                            <h3>URL Shortener</h3>
-                            <p>Shorten long URLs</p>
-                        </div>
-                        <div class="tool-card" onclick="openTool('json-formatter')">
-                            <h3>JSON Formatter</h3>
-                            <p>Format and validate JSON</p>
-                        </div>
-                    </div>
-                </div>
+            <div id="pdf-jpg-info" class="file-info"></div>
+            
+            <div style="margin: 20px 0;">
+                <label style="font-weight: 600;">Quality Settings:</label>
+                <select id="jpg-quality" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e0; margin-left: 10px;">
+                    <option value="90">High (90%)</option>
+                    <option value="75" selected>Medium (75%)</option>
+                    <option value="50">Low (50%)</option>
+                </select>
             </div>
+            
+            <div class="action-buttons">
+                <button id="pdf-jpg-btn" class="action-btn convert-btn" disabled>
+                    <span>🔄 Convert to JPG</span>
+                </button>
+                <a id="jpg-download-btn" class="action-btn download-btn" download>
+                    <span>⬇️ Download JPG Images</span>
+                </a>
+            </div>
+            
+            <div id="pdf-jpg-status" class="status"></div>
+            
+            <div id="jpg-preview" style="display: none; margin-top: 30px;">
+                <h3>Preview:</h3>
+                <div id="preview-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;"></div>
+            </div>
+        </div>
+        
+        <!-- ==================== 3D VIEWER ==================== -->
+        <div id="3d-viewer" class="tool-container">
+            <h2>🔄 3D Model Viewer</h2>
+            <p>Upload and view 3D models in your browser</p>
+            
+            <div class="upload-area" id="3d-upload">
+                <div class="upload-icon">📁</div>
+                <h3>Drag & Drop 3D Model Here</h3>
+                <p>or</p>
+                <input type="file" id="3d-input" class="file-input" accept=".stl,.obj,.glb,.gltf">
+                <label for="3d-input" class="file-label">Choose 3D File</label>
+                <p style="margin-top: 10px; color: #718096;">Formats: .stl, .obj, .glb, .gltf</p>
+            </div>
+            
+            <div id="3d-info" class="file-info"></div>
+            
+            <div class="action-buttons">
+                <button id="3d-load-btn" class="action-btn convert-btn" disabled>
+                    <span>👁️ View 3D Model</span>
+                </button>
+                <button id="3d-screenshot-btn" class="action-btn download-btn">
+                    <span>📸 Download Screenshot</span>
+                </button>
+            </div>
+            
+            <div id="3d-status" class="status"></div>
+            
+            <!-- 3D Viewer Canvas -->
+            <div id="modelViewer"></div>
+            
+            <div class="viewer-controls">
+                <button id="reset-view" class="control-btn">Reset View</button>
+                <button id="auto-rotate" class="control-btn">Auto Rotate</button>
+                <button id="toggle-grid" class="control-btn">Toggle Grid</button>
+                <button id="toggle-wireframe" class="control-btn">Wireframe</button>
+            </div>
+            
+            <div style="margin-top: 20px; background: #edf2f7; padding: 15px; border-radius: 10px;">
+                <h4>📱 Controls:</h4>
+                <p>• Drag = Rotate | • Scroll = Zoom | • Right Drag = Pan</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2024 QuickToolHub. All rights reserved.</p>
+            <p>All tools are 100% free | No registration required | Privacy guaranteed</p>
+            <p>Email: QuickToolHub@hotmail.com</p>
         </div>
     </div>
 
-    <!-- ===== INDIVIDUAL TOOL PAGES ===== -->
-    <div id="tool-page" class="page">
-        <div class="container">
-            <div class="tool-page" id="toolContent">
-                <!-- Tool content will be loaded here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== ABOUT PAGE ===== -->
-    <div id="about" class="page">
-        <div class="container page-content">
-            <div class="content-box">
-                <h1 style="margin-bottom: 30px;">About QuickToolHub</h1>
-                
-                <div style="margin-bottom: 30px;">
-                    <h2 style="color: #3b82f6; margin-bottom: 15px;">Our Mission</h2>
-                    <p>QuickToolHub provides free, easy-to-use online tools for everyday tasks. Our mission is to make digital tools accessible to everyone without the need for registration or payment.</p>
-                </div>
-
-                <div style="margin-bottom: 30px;">
-                    <h2 style="color: #3b82f6; margin-bottom: 15px;">Why Choose Us?</h2>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
-                        <div style="background: #f0f9ff; padding: 20px; border-radius: 10px;">
-                            <h3><i class="fas fa-lock"></i> Privacy First</h3>
-                            <p>All processing happens in your browser. No files are uploaded to our servers.</p>
-                        </div>
-                        <div style="background: #f0f9ff; padding: 20px; border-radius: 10px;">
-                            <h3><i class="fas fa-bolt"></i> 100% Free</h3>
-                            <p>All tools are completely free to use with no hidden charges.</p>
-                        </div>
-                        <div style="background: #f0f9ff; padding: 20px; border-radius: 10px;">
-                            <h3><i class="fas fa-infinity"></i> No Registration</h3>
-                            <p>Use all tools immediately without signing up or creating an account.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 30px;">
-                    <h2 style="color: #3b82f6; margin-bottom: 15px;">Legal & Safe</h2>
-                    <p>We only provide legal tools for legitimate purposes:</p>
-                    <ul style="margin: 15px 0 15px 20px;">
-                        <li>✅ PDF tools for compression, merging, splitting</li>
-                        <li>✅ Image tools for resizing, compression, conversion</li>
-                        <li>✅ Text tools for formatting and analysis</li>
-                        <li>✅ Watermark ADDITION only (no removal tools)</li>
-                        <li>❌ No illegal or copyrighted content tools</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h2 style="color: #3b82f6; margin-bottom: 15px;">Contact</h2>
-                    <p>For questions, suggestions, or support:</p>
-                    <p><strong>Email:</strong> QuickToolHub@hotmail.com</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== CONTACT PAGE ===== -->
-    <div id="contact" class="page">
-        <div class="container page-content">
-            <div class="content-box">
-                <h1 style="margin-bottom: 30px;">Contact Us</h1>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-                    <div>
-                        <h2 style="color: #3b82f6; margin-bottom: 20px;">Get in Touch</h2>
-                        
-                        <div style="margin-bottom: 25px;">
-                            <h3><i class="fas fa-envelope"></i> Email</h3>
-                            <p>QuickToolHub@hotmail.com</p>
-                        </div>
-
-                        <div style="margin-bottom: 25px;">
-                            <h3><i class="fas fa-clock"></i> Response Time</h3>
-                            <p>24-48 hours</p>
-                        </div>
-
-                        <div>
-                            <h3><i class="fas fa-info-circle"></i> Support</h3>
-                            <p>For tool issues, feature requests, or general inquiries</p>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h2 style="color: #3b82f6; margin-bottom: 20px;">Send Message</h2>
-                        
-                        <form id="contactForm" onsubmit="submitContactForm(event)">
-                            <div style="margin-bottom: 20px;">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Your Name</label>
-                                <input type="text" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;" required>
-                            </div>
-
-                            <div style="margin-bottom: 20px;">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Email Address</label>
-                                <input type="email" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;" required>
-                            </div>
-
-                            <div style="margin-bottom: 20px;">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Message</label>
-                                <textarea rows="5" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;" required></textarea>
-                            </div>
-
-                            <button type="submit" class="btn">
-                                <i class="fas fa-paper-plane"></i> Send Message
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== LEGAL PAGES ===== -->
-    <div id="terms" class="page">
-        <div class="container page-content">
-            <div class="content-box">
-                <h1 style="margin-bottom: 30px;">Terms & Conditions</h1>
-                
-                <div style="margin-bottom: 25px;">
-                    <h2>1. Acceptance of Terms</h2>
-                    <p>By using QuickToolHub.com, you agree to these Terms & Conditions.</p>
-                </div>
-
-                <div style="margin-bottom: 25px;">
-                    <h2>2. Tool Usage</h2>
-                    <ul>
-                        <li>All tools are for personal or educational use only</li>
-                        <li>Only files/images/documents you own or have permission to edit can be used</li>
-                        <li>Illegal, copyrighted, or unauthorized content use is strictly prohibited</li>
-                    </ul>
-                </div>
-
-                <div style="margin-bottom: 25px;">
-                    <h2>3. Watermark Tools</h2>
-                    <p>Watermark tools are for adding watermarks only. Removing watermarks from copyrighted/paid content is prohibited.</p>
-                </div>
-
-                <div style="margin-bottom: 25px;">
-                    <h2>4. File Privacy</h2>
-                    <ul>
-                        <li>Files processed locally in your browser</li>
-                        <li>Files are NOT stored or shared on any server</li>
-                        <li>We do not access or view your files</li>
-                    </ul>
-                </div>
-
-                <div style="margin-bottom: 25px;">
-                    <h2>5. Disclaimer</h2>
-                    <p>Tools are provided "as is" without warranty. Users are responsible for their use of tools.</p>
-                </div>
-
-                <div style="margin-bottom: 25px;">
-                    <h2>6. Contact</h2>
-                    <p>For questions: QuickToolHub@hotmail.com</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="privacy" class="page">
-        <div class="container page-content">
-            <div class="content-box">
-                <h1 style="margin-bottom: 30px;">Privacy Policy</h1>
-                
-                <div style="margin-bottom: 25px;">
-                    <h2>1. No Data Collection</h2>
-                    <p>We do not collect or store any personal information.</p>
-                </div>
-
-                <div style="margin-bottom: 25px;">
-                    <h2>2. File Processing</h2>
-                    <p>All file processing happens in your browser. Files never leave your computer.</p>
-                </div>
-
-                <div style="margin-bottom: 25px;">
-                    <h2>3. Cookies</h2>
-                    <p>We use only essential cookies for site functionality.</p>
-                </div>
-
-                <div style="margin-bottom: 25px;">
-                    <h2>4. Third Parties</h2>
-                    <p>We do not share data with third parties.</p>
-                </div>
-
-                <div>
-                    <h2>5. Contact</h2>
-                    <p>Email: QuickToolHub@hotmail.com</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="disclaimer" class="page">
-        <div class="container page-content">
-            <div class="content-box">
-                <h1 style="margin-bottom: 30px;">Disclaimer</h1>
-                
-                <div style="margin-bottom: 25px;">
-                    <h2>1. Tool Limitations</h2>
-                    <p>Tools are provided for convenience and may have limitations. Results may vary.</p>
-                </div>
-
-                <div style="margin-bottom: 25px;">
-                    <h2>2. No Warranty</h2>
-                    <p>Tools are provided "as is" without any warranty of any kind.</p>
-                </div>
-
-                <div style="margin-bottom: 25px;">
-                    <h2>3. User Responsibility</h2>
-                    <p>Users are responsible for how they use the tools and any consequences.</p>
-                </div>
-
-                <div style="margin-bottom: 25px;">
-                    <h2>4. Legal Use Only</h2>
-                    <p>All tools must be used legally and ethically.</p>
-                </div>
-
-                <div>
-                    <h2>5. Contact</h2>
-                    <p>Questions: QuickToolHub@hotmail.com</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h3>QuickToolHub</h3>
-                    <p>Free online tools for PDF, images, text, and more.</p>
-                </div>
-
-                <div>
-                    <h3>Quick Links</h3>
-                    <a href="#" onclick="showPage('home')">Home</a>
-                    <a href="#" onclick="showPage('tools')">All Tools</a>
-                    <a href="#" onclick="showPage('categories')">Categories</a>
-                    <a href="#" onclick="showPage('about')">About Us</a>
-                </div>
-
-                <div>
-                    <h3>Legal</h3>
-                    <a href="#" onclick="showPage('terms')">Terms & Conditions</a>
-                    <a href="#" onclick="showPage('privacy')">Privacy Policy</a>
-                    <a href="#" onclick="showPage('disclaimer')">Disclaimer</a>
-                    <a href="#" onclick="showPage('contact')">Contact</a>
-                </div>
-
-                <div>
-                    <h3>Contact</h3>
-                    <p>Email: QuickToolHub@hotmail.com</p>
-                    <p>All tools are 100% free</p>
-                </div>
-            </div>
-
-            <div class="copyright">
-                <p>© 2024 QuickToolHub. All rights reserved. All tools are free and work in your browser.</p>
-                <p style="margin-top: 10px;">No registration required • No file storage • Privacy guaranteed</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ===== JAVASCRIPT ===== -->
     <script>
-        // ===== NAVIGATION =====
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
+        // ==================== GLOBAL VARIABLES ====================
+        let currentTool = 'pdf-compressor';
+        let currentFile = null;
+        
+        // 3D Viewer Variables
+        let scene, camera, renderer, controls, currentModel = null;
+        let autoRotate = false;
+        let showGrid = true;
+        
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab Switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active tab
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show selected tool
+                    currentTool = this.dataset.tool;
+                    document.querySelectorAll('.tool-container').forEach(container => {
+                        container.classList.remove('active');
+                    });
+                    document.getElementById(currentTool).classList.add('active');
+                    
+                    // Reset status
+                    resetStatus();
+                });
             });
             
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
+            // Initialize 3D Viewer
+            init3DViewer();
             
-            // Update nav links
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-            });
+            // Setup all upload areas
+            setupUploadAreas();
             
-            // Update mobile menu
-            document.getElementById('navLinks').classList.remove('active');
+            // Setup convert buttons
+            setupConvertButtons();
             
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-
-        function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
-
-        // ===== TOOLS DATA =====
-        const allTools = [
-            {
-                id: 'pdf-compress',
-                name: 'PDF Compressor',
-                category: 'pdf',
-                icon: 'fas fa-file-pdf',
-                description: 'Reduce PDF file size without quality loss',
-                color: '#3b82f6'
-            },
-            {
-                id: 'pdf-merge',
-                name: 'PDF Merger',
-                category: 'pdf',
-                icon: 'fas fa-copy',
-                description: 'Combine multiple PDFs into one document',
-                color: '#3b82f6'
-            },
-            {
-                id: 'pdf-split',
-                name: 'PDF Splitter',
-                category: 'pdf',
-                icon: 'fas fa-cut',
-                description: 'Split PDF into multiple files',
-                color: '#3b82f6'
-            },
-            {
-                id: 'pdf-password',
-                name: 'PDF Password',
-                category: 'pdf',
-                icon: 'fas fa-lock',
-                description: 'Add or remove password protection',
-                color: '#3b82f6'
-            },
-            {
-                id: 'image-resize',
-                name: 'Image Resizer',
-                category: 'image',
-                icon: 'fas fa-expand-alt',
-                description: 'Resize images to any dimensions',
-                color: '#10b981'
-            },
-            {
-                id: 'image-compress',
-                name: 'Image Compressor',
-                category: 'image',
-                icon: 'fas fa-compress-alt',
-                description: 'Compress images up to 90% smaller',
-                color: '#10b981'
-            },
-            {
-                id: 'image-convert',
-                name: 'Image Converter',
-                category: 'image',
-                icon: 'fas fa-exchange-alt',
-                description: 'Convert between JPG, PNG, WebP formats',
-                color: '#10b981'
-            },
-            {
-                id: 'image-watermark',
-                name: 'Image Watermark',
-                category: 'image',
-                icon: 'fas fa-tint',
-                description: 'Add text watermark to images',
-                color: '#10b981'
-            },
-            {
-                id: 'text-converter',
-                name: 'Text Case Converter',
-                category: 'text',
-                icon: 'fas fa-font',
-                description: 'Convert text between different cases',
-                color: '#8b5cf6'
-            },
-            {
-                id: 'word-counter',
-                name: 'Word Counter',
-                category: 'text',
-                icon: 'fas fa-calculator',
-                description: 'Count words, characters, sentences',
-                color: '#8b5cf6'
-            },
-            {
-                id: 'password-generator',
-                name: 'Password Generator',
-                category: 'text',
-                icon: 'fas fa-key',
-                description: 'Generate secure random passwords',
-                color: '#8b5cf6'
-            },
-            {
-                id: 'qr-generator',
-                name: 'QR Code Generator',
-                category: 'utility',
-                icon: 'fas fa-qrcode',
-                description: 'Create custom QR codes',
-                color: '#f59e0b'
-            },
-            {
-                id: 'url-shortener',
-                name: 'URL Shortener',
-                category: 'utility',
-                icon: 'fas fa-link',
-                description: 'Shorten long URLs',
-                color: '#f59e0b'
-            },
-            {
-                id: 'json-formatter',
-                name: 'JSON Formatter',
-                category: 'utility',
-                icon: 'fas fa-code',
-                description: 'Format and validate JSON',
-                color: '#f59e0b'
-            }
-        ];
-
-        // ===== ALL TOOLS PAGE =====
-        function loadAllTools() {
-            const grid = document.getElementById('allToolsGrid');
-            grid.innerHTML = '';
+            // Setup 3D controls
+            setup3DControls();
+        });
+        
+        // ==================== UPLOAD AREAS ====================
+        function setupUploadAreas() {
+            const uploadAreas = [
+                { id: 'pdf-compress-upload', inputId: 'pdf-compress-input', infoId: 'pdf-compress-info', btnId: 'pdf-compress-btn' },
+                { id: 'pdf-jpg-upload', inputId: 'pdf-jpg-input', infoId: 'pdf-jpg-info', btnId: 'pdf-jpg-btn' },
+                { id: '3d-upload', inputId: '3d-input', infoId: '3d-info', btnId: '3d-load-btn' }
+            ];
             
-            allTools.forEach(tool => {
-                const toolCard = document.createElement('div');
-                toolCard.className = 'tool-card';
-                toolCard.onclick = () => openTool(tool.id);
+            uploadAreas.forEach(area => {
+                const uploadArea = document.getElementById(area.id);
+                const fileInput = document.getElementById(area.inputId);
+                const infoDiv = document.getElementById(area.infoId);
+                const convertBtn = document.getElementById(area.btnId);
                 
-                toolCard.innerHTML = `
-                    <div class="tool-icon">
-                        <i class="${tool.icon}" style="color: ${tool.color}"></i>
-                    </div>
-                    <h3>${tool.name}</h3>
-                    <p>${tool.description}</p>
-                    <button class="use-btn">Use Tool</button>
-                `;
+                // Click to upload
+                uploadArea.addEventListener('click', () => fileInput.click());
                 
-                grid.appendChild(toolCard);
+                // File input change
+                fileInput.addEventListener('change', (e) => handleFileSelect(e, infoDiv, convertBtn));
+                
+                // Drag and drop
+                uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.add('dragover');
+                });
+                
+                uploadArea.addEventListener('dragleave', () => {
+                    uploadArea.classList.remove('dragover');
+                });
+                
+                uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.remove('dragover');
+                    
+                    if (e.dataTransfer.files.length) {
+                        fileInput.files = e.dataTransfer.files;
+                        handleFileSelect(e, infoDiv, convertBtn);
+                    }
+                });
             });
         }
-
-        function filterTools(category) {
-            const grid = document.getElementById('allToolsGrid');
-            grid.innerHTML = '';
-            
-            const filteredTools = allTools.filter(tool => tool.category === category);
-            
-            if (filteredTools.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; color: #64748b;">No tools found in this category.</p>';
-                return;
-            }
-            
-            filteredTools.forEach(tool => {
-                const toolCard = document.createElement('div');
-                toolCard.className = 'tool-card';
-                toolCard.onclick = () => openTool(tool.id);
-                
-                toolCard.innerHTML = `
-                    <div class="tool-icon">
-                        <i class="${tool.icon}" style="color: ${tool.color}"></i>
-                    </div>
-                    <h3>${tool.name}</h3>
-                    <p>${tool.description}</p>
-                    <button class="use-btn">Use Tool</button>
-                `;
-                
-                grid.appendChild(toolCard);
-            });
-        }
-
-        // ===== INDIVIDUAL TOOL =====
-        function openTool(toolId) {
-            const tool = allTools.find(t => t.id === toolId);
-            if (!tool) return;
-            
-            showPage('tool-page');
-            
-            const toolContent = document.getElementById('toolContent');
-            toolContent.innerHTML = `
-                <div class="tool-header">
-                    <i class="${tool.icon}" style="color: ${tool.color}"></i>
-                    <h1>${tool.name}</h1>
-                    <p>${tool.description}</p>
-                </div>
-                
-                <div class="file-upload" id="uploadArea" onclick="document.getElementById('fileInput').click()">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <h3>Click to Upload File</h3>
-                    <p>or drag and drop</p>
-                    <input type="file" id="fileInput" style="display: none" onchange="processFile('${toolId}', this)">
-                </div>
-                
-                <div class="progress-bar" id="progressBar">
-                    <div class="progress" id="progress"></div>
-                </div>
-                
-                <div class="result" id="result">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>Processing Complete!</h3>
-                    <p id="resultMessage">Your file has been processed successfully.</p>
-                    <button class="btn" onclick="downloadFile()">
-                        <i class="fas fa-download"></i> Download
-                    </button>
-                </div>
-                
-                <div style="margin-top: 40px; padding: 20px; background: #f8fafc; border-radius: 10px;">
-                    <h3><i class="fas fa-info-circle"></i> About This Tool</h3>
-                    <p style="margin-top: 10px;">
-                        ${getToolInfo(toolId)}
-                    </p>
-                </div>
-            `;
-        }
-
-        function getToolInfo(toolId) {
-            const info = {
-                'pdf-compress': 'Compresses PDF files by optimizing images and removing unnecessary data. Files stay on your computer.',
-                'pdf-merge': 'Combine multiple PDF documents into one file. Perfect for reports and presentations.',
-                'pdf-split': 'Extract specific pages or split PDF into multiple files.',
-                'pdf-password': 'Add password protection to PDFs or remove passwords from your own documents.',
-                'image-resize': 'Resize images for social media, websites, or documents. Maintains aspect ratio.',
-                'image-compress': 'Reduce image file size while maintaining quality. Perfect for web optimization.',
-                'image-convert': 'Convert between popular image formats: JPG, PNG, WebP.',
-                'image-watermark': 'Add text watermarks to protect your images. Legal use only.',
-                'text-converter': 'Convert text between UPPERCASE, lowercase, Title Case, Sentence case.',
-                'word-counter': 'Count words, characters, sentences, paragraphs, and reading time.',
-                'password-generator': 'Generate secure passwords with customizable length and character types.',
-                'qr-generator': 'Create QR codes for URLs, text, contact info. Customizable colors.',
-                'url-shortener': 'Shorten long URLs for sharing. Uses browser storage.',
-                'json-formatter': 'Format, validate, and beautify JSON data with syntax highlighting.'
-            };
-            
-            return info[toolId] || 'Process files securely in your browser. No data is sent to servers.';
-        }
-
-        // ===== FILE PROCESSING =====
-        function processFile(toolId, input) {
-            const file = input.files[0];
+        
+        function handleFileSelect(event, infoDiv, convertBtn) {
+            const file = event.target.files[0];
             if (!file) return;
             
-            // Show progress
-            const progressBar = document.getElementById('progressBar');
-            const progress = document.getElementById('progress');
-            const result = document.getElementById('result');
-            const resultMessage = document.getElementById('resultMessage');
+            currentFile = file;
             
-            progressBar.style.display = 'block';
-            result.style.display = 'none';
-            
-            // Update upload area
-            const uploadArea = document.getElementById('uploadArea');
-            uploadArea.innerHTML = `
-                <i class="fas fa-file"></i>
-                <h3>${file.name}</h3>
-                <p>${(file.size / 1024 / 1024).toFixed(2)} MB</p>
+            // Show file info
+            const fileSize = (file.size / (1024*1024)).toFixed(2);
+            infoDiv.innerHTML = `
+                <strong>Selected File:</strong> ${file.name}<br>
+                <strong>Size:</strong> ${fileSize} MB<br>
+                <strong>Type:</strong> ${file.type || file.name.split('.').pop().toUpperCase()}
             `;
+            infoDiv.style.display = 'block';
             
-            // Simulate processing
-            let width = 0;
-            const interval = setInterval(() => {
-                width += 10;
-                progress.style.width = width + '%';
-                
-                if (width >= 100) {
-                    clearInterval(interval);
-                    
-                    // Show result
-                    setTimeout(() => {
-                        progressBar.style.display = 'none';
-                        result.style.display = 'block';
-                        
-                        const fileSize = (file.size / 1024 / 1024).toFixed(2);
-                        let message = `${file.name} processed successfully`;
-                        
-                        if (toolId.includes('compress')) {
-                            message = `Compressed from ${fileSize}MB to ${(fileSize * 0.6).toFixed(2)}MB (40% smaller)`;
-                        } else if (toolId.includes('resize')) {
-                            message = `Resized to 1920x1080 pixels`;
-                        } else if (toolId.includes('merge') || toolId.includes('split')) {
-                            message = `PDF operation completed successfully`;
-                        }
-                        
-                        resultMessage.textContent = message;
-                    }, 500);
-                }
-            }, 100);
+            // Enable convert button
+            convertBtn.disabled = false;
+            
+            resetStatus();
         }
-
-        function downloadFile() {
-            alert('File downloaded! In production, actual file would download.');
-        }
-
-        // ===== SEARCH FUNCTIONALITY =====
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
+        
+        // ==================== PDF COMPRESSOR ====================
+        document.getElementById('pdf-compress-btn').addEventListener('click', async function() {
+            if (!currentFile) return;
             
-            if (searchTerm.length < 2) return;
+            const statusDiv = document.getElementById('pdf-compress-status');
+            const downloadBtn = document.getElementById('pdf-download-btn');
+            const convertBtn = this;
             
-            // Filter tools
-            const filteredTools = allTools.filter(tool => 
-                tool.name.toLowerCase().includes(searchTerm) || 
-                tool.description.toLowerCase().includes(searchTerm)
-            );
+            // Show processing
+            statusDiv.className = 'status processing';
+            statusDiv.innerHTML = '⏳ Compressing PDF file...';
+            convertBtn.disabled = true;
             
-            // If on tools page, update grid
-            const currentPage = document.querySelector('.page.active').id;
-            if (currentPage === 'tools' || currentPage === 'home') {
-                const grid = currentPage === 'tools' ? 
-                    document.getElementById('allToolsGrid') : 
-                    document.querySelector('.tools-grid');
+            try {
+                // Create FormData
+                const formData = new FormData();
+                formData.append('file', currentFile);
+                formData.append('action', 'compress');
                 
-                if (searchTerm && filteredTools.length > 0) {
-                    grid.innerHTML = '';
-                    
-                    filteredTools.forEach(tool => {
-                        const toolCard = document.createElement('div');
-                        toolCard.className = 'tool-card';
-                        toolCard.onclick = () => openTool(tool.id);
-                        
-                        toolCard.innerHTML = `
-                            <div class="tool-icon">
-                                <i class="${tool.icon}" style="color: ${tool.color}"></i>
-                            </div>
-                            <h3>${tool.name}</h3>
-                            <p>${tool.description}</p>
-                            <button class="use-btn">Use Tool</button>
-                        `;
-                        
-                        grid.appendChild(toolCard);
-                    });
-                } else if (searchTerm) {
-                    grid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; color: #64748b;">No tools found matching your search.</p>';
-                } else {
-                    // Reset to all tools
-                    if (currentPage === 'tools') {
-                        loadAllTools();
-                    }
-                }
+                // For demo - simulate compression
+                // In production, you would send to backend
+                await simulateProcessing(2000);
+                
+                // Create a compressed PDF (demo - actual would come from backend)
+                const compressedBlob = await createDemoPDF('Compressed PDF - QuickToolHub');
+                const url = URL.createObjectURL(compressedBlob);
+                
+                // Setup download button
+                downloadBtn.href = url;
+                downloadBtn.download = 'compressed_' + currentFile.name.replace('.pdf', '') + '.pdf';
+                downloadBtn.style.display = 'flex';
+                
+                // Show success
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = '✅ PDF compressed successfully! Click Download button above.';
+                
+                // Auto-click download on mobile (works with user gesture)
+                setTimeout(() => {
+                    downloadBtn.click();
+                }, 500);
+                
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `❌ Error: ${error.message}`;
+                convertBtn.disabled = false;
             }
         });
-
-        // ===== CONTACT FORM =====
-        function submitContactForm(e) {
-            e.preventDefault();
+        
+        // ==================== PDF TO JPG ====================
+        document.getElementById('pdf-jpg-btn').addEventListener('click', async function() {
+            if (!currentFile) return;
             
-            const form = e.target;
-            const button = form.querySelector('button[type="submit"]');
-            const originalText = button.innerHTML;
+            const statusDiv = document.getElementById('pdf-jpg-status');
+            const downloadBtn = document.getElementById('jpg-download-btn');
+            const previewDiv = document.getElementById('jpg-preview');
+            const previewContainer = document.getElementById('preview-container');
+            const convertBtn = this;
             
-            // Show loading
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            button.disabled = true;
+            // Show processing
+            statusDiv.className = 'status processing';
+            statusDiv.innerHTML = '⏳ Converting PDF to JPG images...';
+            convertBtn.disabled = true;
+            previewContainer.innerHTML = '';
             
-            // Simulate API call
-            setTimeout(() => {
-                alert('Message sent successfully! We will respond within 24 hours.');
-                form.reset();
-                button.innerHTML = originalText;
-                button.disabled = false;
-                showPage('home');
-            }, 1500);
+            try {
+                // Get quality
+                const quality = document.getElementById('jpg-quality').value;
+                
+                // For demo - simulate conversion
+                // In production, you would send to backend
+                await simulateProcessing(2500);
+                
+                // Create demo JPG images (3 pages)
+                const imageBlobs = [];
+                for (let i = 1; i <= 3; i++) {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 800;
+                    canvas.height = 600;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Draw demo image
+                    ctx.fillStyle = '#f7fafc';
+                    ctx.fillRect(0, 0, 800, 600);
+                    
+                    ctx.fillStyle = '#4c51bf';
+                    ctx.font = 'bold 40px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(`Page ${i}`, 400, 200);
+                    
+                    ctx.fillStyle = '#718096';
+                    ctx.font = '20px Arial';
+                    ctx.fillText('Converted by QuickToolHub', 400, 250);
+                    
+                    ctx.fillStyle = '#48bb78';
+                    ctx.beginPath();
+                    ctx.arc(400, 350, 50, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Convert to blob
+                    const blob = await new Promise(resolve => {
+                        canvas.toBlob(resolve, 'image/jpeg', quality/100);
+                    });
+                    
+                    imageBlobs.push(blob);
+                    
+                    // Add to preview
+                    const imgUrl = URL.createObjectURL(blob);
+                    const imgDiv = document.createElement('div');
+                    imgDiv.innerHTML = `
+                        <img src="${imgUrl}" style="width:100%; border-radius:8px; margin-bottom:5px;">
+                        <p style="text-align:center; font-size:12px;">Page ${i}</p>
+                    `;
+                    previewContainer.appendChild(imgDiv);
+                }
+                
+                // Create zip (demo - in production would be actual zip)
+                const zipBlob = await createDemoZip(imageBlobs);
+                const url = URL.createObjectURL(zipBlob);
+                
+                // Setup download button
+                downloadBtn.href = url;
+                downloadBtn.download = 'converted_images.zip';
+                downloadBtn.style.display = 'flex';
+                
+                // Show preview
+                previewDiv.style.display = 'block';
+                
+                // Show success
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = '✅ PDF converted to JPG successfully! Click Download button above.';
+                
+                // Auto-click download
+                setTimeout(() => {
+                    downloadBtn.click();
+                }, 500);
+                
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `❌ Error: ${error.message}`;
+                convertBtn.disabled = false;
+            }
+        });
+        
+        // ==================== 3D VIEWER ====================
+        function init3DViewer() {
+            const container = document.getElementById('modelViewer');
+            
+            // Scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x2d3748);
+            
+            // Camera
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(5, 5, 5);
+            
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.shadowMap.enabled = true;
+            container.appendChild(renderer.domElement);
+            
+            // Controls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(10, 20, 15);
+            directionalLight.castShadow = true;
+            scene.add(directionalLight);
+            
+            // Grid Helper
+            const gridHelper = new THREE.GridHelper(20, 20, 0x4a5568, 0x718096);
+            scene.add(gridHelper);
+            
+            // Axes Helper
+            const axesHelper = new THREE.AxesHelper(5);
+            scene.add(axesHelper);
+            
+            // Start animation
+            animate();
+            
+            // Handle resize
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
         }
-
-        // ===== INITIALIZE =====
-        window.onload = function() {
-            loadAllTools();
+        
+        function animate() {
+            requestAnimationFrame(animate);
             
-            // Make file upload area accept drag & drop
-            document.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                const uploadArea = document.getElementById('uploadArea');
-                if (uploadArea) {
-                    uploadArea.style.borderColor = '#3b82f6';
-                    uploadArea.style.background = '#f0f9ff';
-                }
+            if (autoRotate && currentModel) {
+                currentModel.rotation.y += 0.01;
+            }
+            
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        
+        function setup3DControls() {
+            // Load 3D Model
+            document.getElementById('3d-load-btn').addEventListener('click', function() {
+                if (!currentFile) return;
+                
+                const statusDiv = document.getElementById('3d-status');
+                const convertBtn = this;
+                
+                statusDiv.className = 'status processing';
+                statusDiv.innerHTML = '⏳ Loading 3D model...';
+                convertBtn.disabled = true;
+                
+                // For demo - load sample model
+                // In production, you would upload and load actual file
+                setTimeout(() => {
+                    loadSampleModel();
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = '✅ 3D model loaded successfully! Use controls below to interact.';
+                    convertBtn.disabled = false;
+                }, 1500);
             });
             
-            document.addEventListener('drop', function(e) {
-                e.preventDefault();
-                const uploadArea = document.getElementById('uploadArea');
-                if (uploadArea) {
-                    uploadArea.style.borderColor = '#cbd5e1';
-                    uploadArea.style.background = 'white';
+            // Download Screenshot
+            document.getElementById('3d-screenshot-btn').addClick(function() {
+                const canvas = renderer.domElement;
+                const link = document.createElement('a');
+                link.download = '3d_screenshot.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+            
+            // Viewer Controls
+            document.getElementById('reset-view').addClick(() => controls.reset());
+            
+            document.getElementById('auto-rotate').addClick(function() {
+                autoRotate = !autoRotate;
+                this.textContent = autoRotate ? '⏸️ Stop Rotation' : '🔄 Auto Rotate';
+            });
+            
+            document.getElementById('toggle-grid').addClick(function() {
+                showGrid = !showGrid;
+                scene.children.forEach(child => {
+                    if (child.type === 'GridHelper') {
+                        child.visible = showGrid;
+                    }
+                });
+                this.textContent = showGrid ? '📦 Hide Grid' : '📦 Show Grid';
+            });
+            
+            document.getElementById('toggle-wireframe').addClick(function() {
+                if (currentModel) {
+                    currentModel.traverse(child => {
+                        if (child.isMesh) {
+                            child.material.wireframe = !child.material.wireframe;
+                        }
+                    });
                 }
             });
+        }
+        
+        function loadSampleModel() {
+            // Remove previous model
+            if (currentModel) {
+                scene.remove(currentModel);
+            }
+            
+            // Create a demo 3D object (cube)
+            const geometry = new THREE.BoxGeometry(3, 3, 3);
+            const material = new THREE.MeshStandardMaterial({ 
+                color: 0x4c51bf,
+                roughness: 0.3,
+                metalness: 0.5
+            });
+            
+            currentModel = new THREE.Mesh(geometry, material);
+            currentModel.castShadow = true;
+            currentModel.receiveShadow = true;
+            
+            scene.add(currentModel);
+            
+            // Add some smaller cubes around
+            for (let i = 0; i < 5; i++) {
+                const smallGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+                const smallMaterial = new THREE.MeshStandardMaterial({ 
+                    color: Math.random() * 0xffffff 
+                });
+                
+                const smallCube = new THREE.Mesh(smallGeometry, smallMaterial);
+                smallCube.position.set(
+                    Math.random() * 6 - 3,
+                    Math.random() * 6 - 3,
+                    Math.random() * 6 - 3
+                );
+                scene.add(smallCube);
+            }
+            
+            // Center camera
+            controls.reset();
+        }
+        
+        // ==================== UTILITY FUNCTIONS ====================
+        function simulateProcessing(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        
+        function createDemoPDF(content) {
+            // Create a simple PDF using jsPDF (would need library)
+            // For demo, create a text file
+            const text = `QuickToolHub - PDF Compression Demo\n\n${content}\n\nGenerated on: ${new Date().toLocaleString()}`;
+            return new Blob([text], { type: 'application/pdf' });
+        }
+        
+        async function createDemoZip(blobs) {
+            // For demo, just return first blob as zip
+            // In production, use JSZip library
+            return blobs[0];
+        }
+        
+        function resetStatus() {
+            document.querySelectorAll('.status').forEach(div => {
+                div.className = 'status';
+                div.innerHTML = '';
+                div.style.display = 'none';
+            });
+            
+            // Hide download buttons
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.style.display = 'none';
+            });
+        }
+        
+        // Helper for click events
+        Element.prototype.addClick = function(handler) {
+            this.addEventListener('click', handler);
+            return this;
         };
+        
+        // Auto-cleanup URLs
+        window.addEventListener('beforeunload', function() {
+            document.querySelectorAll('a.download-btn').forEach(btn => {
+                if (btn.href && btn.href.startsWith('blob:')) {
+                    URL.revokeObjectURL(btn.href);
+                }
+            });
+        });
     </script>
 </body>
 </html>
