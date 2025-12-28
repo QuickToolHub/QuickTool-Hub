@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickToolHub – Free Online Tools</title>
+
+<!-- ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Segoe UI,sans-serif}
+body{background:#f8fafc;color:#334155}
+
+/* LAYOUT */
+.container{max-width:1400px;margin:auto;padding:20px;display:grid;grid-template-columns:260px 1fr;gap:30px}
+
+/* SIDEBAR */
+.sidebar{background:#fff;border-radius:20px;padding:30px 20px;box-shadow:0 5px 20px rgba(0,0,0,.05);position:sticky;top:20px;height:fit-content}
+.logo{display:flex;gap:15px;align-items:center;margin-bottom:40px}
+.logo-icon{width:50px;height:50px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px}
+.logo-text h2{font-size:20px;color:#1e293b}
+.logo-text p{font-size:12px;color:#64748b}
+
+.nav-item{padding:14px;border-radius:12px;margin-bottom:8px;display:flex;gap:12px;cursor:pointer;color:#64748b}
+.nav-item:hover,.nav-item.active{background:#3b82f6;color:#fff}
+
+/* MAIN */
+.main{display:flex;flex-direction:column;gap:30px}
+
+/* HEADER */
+.top{background:#fff;border-radius:20px;padding:25px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 5px 20px rgba(0,0,0,.05)}
+.search{position:relative}
+.search input{padding:12px 15px 12px 40px;border:2px solid #e2e8f0;border-radius:12px;width:260px}
+.search i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#94a3b8}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.stat{background:#fff;border-radius:15px;padding:25px;display:flex;gap:20px;box-shadow:0 5px 20px rgba(0,0,0,.05)}
+.stat i{width:55px;height:55px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff}
+.s1 i{background:#3b82f6}
+.s2 i{background:#10b981}
+.s3 i{background:#f59e0b}
+.s4 i{background:#8b5cf6}
+.stat h3{font-size:26px;color:#1e293b}
+
+/* TOOLS */
+.section{background:#fff;border-radius:20px;padding:30px;box-shadow:0 5px 20px rgba(0,0,0,.05)}
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.tool{border:2px solid #f1f5f9;border-radius:15px;padding:25px;cursor:pointer;transition:.3s}
+.tool:hover{border-color:#3b82f6;transform:translateY(-5px)}
+.tool-head{display:flex;gap:15px;align-items:center}
+.tool-head i{width:50px;height:50px;border-radius:12px;background:rgba(59,130,246,.1);color:#3b82f6;display:flex;align-items:center;justify-content:center}
+.tags span{background:#f1f5f9;padding:4px 12px;border-radius:20px;font-size:12px;margin-right:6px}
+
+/* ACTIVITY */
+.activity{background:#fff;border-radius:20px;padding:30px;box-shadow:0 5px 20px rgba(0,0,0,.05)}
+.act{display:flex;gap:15px;background:#f8fafc;padding:15px;border-radius:12px;margin-bottom:10px}
+.act i{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff}
+.a1 i{background:#3b82f6}
+.a2 i{background:#10b981}
+.a3 i{background:#f59e0b}
+
+/* FOOTER */
+footer{text-align:center;color:#64748b;font-size:14px;padding:20px}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+<div class="logo">
+<div class="logo-icon"><i class="fas fa-tools"></i></div>
+<div class="logo-text">
+<h2>QuickToolHub</h2>
+<p>All Tools Free</p>
+</div>
+</div>
+
+<div class="nav-item active"><i class="fas fa-home"></i>Dashboard</div>
+<div class="nav-item"><i class="fas fa-file-pdf"></i>PDF Tools</div>
+<div class="nav-item"><i class="fas fa-image"></i>Image Tools</div>
+<div class="nav-item"><i class="fas fa-robot"></i>AI Tools</div>
+<div class="nav-item"><i class="fas fa-cog"></i>Settings</div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- HEADER -->
+<div class="top">
+<div>
+<h1>Welcome to QuickToolHub 👋</h1>
+<p>All your online tools in one place</p>
+</div>
+<div class="search">
+<i class="fas fa-search"></i>
+<input type="text" placeholder="Search tools...">
+</div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+<div class="stat s1"><i class="fas fa-tools"></i><div><h3>50+</h3><p>Tools</p></div></div>
+<div class="stat s2"><i class="fas fa-users"></i><div><h3>100K+</h3><p>Users</p></div></div>
+<div class="stat s3"><i class="fas fa-bolt"></i><div><h3>Fast</h3><p>Processing</p></div></div>
+<div class="stat s4"><i class="fas fa-shield"></i><div><h3>100%</h3><p>Secure</p></div></div>
+</div>
+
+<!-- TOOLS -->
+<div class="section">
+<h2>Popular Tools ⭐</h2><br>
+<div class="tools">
+
+<div class="tool">
+<div class="tool-head"><i class="fas fa-file-pdf"></i><h3>PDF Compressor</h3></div>
+<p>Reduce PDF size without quality loss.</p>
+<div class="tags"><span>PDF</span><span>Free</span></div>
+</div>
+
+<div class="tool">
+<div class="tool-head"><i class="fas fa-image"></i><h3>Image Resizer</h3></div>
+<p>Resize images instantly online.</p>
+<div class="tags"><span>Image</span><span>Fast</span></div>
+</div>
+
+<div class="tool">
+<div class="tool-head"><i class="fas fa-lock"></i><h3>PDF Password</h3></div>
+<p>Add or remove PDF protection.</p>
+<div class="tags"><span>Secure</span><span>PDF</span></div>
+</div>
+
+</div>
+</div>
+
+<!-- ACTIVITY -->
+<div class="activity">
+<h2>Recent Activity 📝</h2><br>
+<div class="act a1"><i class="fas fa-file-pdf"></i>PDF Compressed</div>
+<div class="act a2"><i class="fas fa-image"></i>Image Resized</div>
+<div class="act a3"><i class="fas fa-qrcode"></i>QR Generated</div>
+</div>
+
+<footer>
+© 2024 QuickToolHub • No signup • Privacy safe
+</footer>
+
+</div>
+</div>
+
+<script>
+document.querySelectorAll('.tool').forEach(t=>{
+t.onclick=()=>alert("Tool page coming soon");
+});
+</script>
+
+</body>
+</html>
