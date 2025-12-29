@@ -216,11 +216,11 @@ function openTool(id){
             <div style="text-align:center;">
                 <h1>${tool.name}</h1>
                 <p>${tool.desc}</p>
-                <div class="file-upload" onclick="document.getElementById('imgInput').click()">
+                <div class="file-upload" onclick="triggerImageUpload()">
                     <i class="fas fa-cloud-upload-alt" style="font-size:48px;color:#94a3b8;margin-bottom:20px;"></i>
                     <h3>Click to Upload Images</h3>
                     <p>Supports JPG, PNG, WebP. Max 10 images, 5MB each.</p>
-                    <input type="file" id="imgInput" multiple accept="image/*" style="display:none" onchange="convertImagesToPDF(this)">
+                    <input type="file" id="imgInput" multiple accept="image/*" style="display:none">
                 </div>
                 <div id="progressContainer" class="progress-container" style="display:none;">
                     <div id="progressBar" class="progress-bar"></div>
@@ -238,11 +238,11 @@ function openTool(id){
             <div style="text-align:center;">
                 <h1>${tool.name}</h1>
                 <p>${tool.desc}</p>
-                <div class="file-upload" onclick="document.getElementById('pdfInput').click()">
+                <div class="file-upload" onclick="triggerPDFUpload()">
                     <i class="fas fa-file-pdf" style="font-size:48px;color:#94a3b8;margin-bottom:20px;"></i>
                     <h3>Upload PDF to Compress</h3>
                     <p>Select your PDF file (Max 25MB)</p>
-                    <input type="file" id="pdfInput" accept=".pdf" style="display:none" onchange="compressPDF(this)">
+                    <input type="file" id="pdfInput" accept=".pdf" style="display:none">
                 </div>
                 <div id="compressResult" class="result" style="display:none;"></div>
                 <div class="action-buttons">
@@ -291,11 +291,11 @@ function openTool(id){
                 <h1>${tool.name}</h1>
                 <p>${tool.desc}</p>
                 
-                <input type="text" class="tool-input" id="qrText" placeholder="Enter text or URL for QR code" oninput="generateQRCode()">
+                <input type="text" class="tool-input" id="qrText" placeholder="Enter text or URL for QR code">
                 
                 <div style="margin:20px 0;">
                     <label style="display:block;margin-bottom:10px;color:#475569;">QR Code Size:</label>
-                    <select id="qrSize" onchange="generateQRCode()" style="padding:10px;border-radius:8px;border:1px solid #cbd5e1;">
+                    <select id="qrSize" style="padding:10px;border-radius:8px;border:1px solid #cbd5e1;">
                         <option value="200">Small (200px)</option>
                         <option value="300" selected>Medium (300px)</option>
                         <option value="400">Large (400px)</option>
@@ -309,6 +309,9 @@ function openTool(id){
                 </div>
                 
                 <div class="action-buttons">
+                    <button onclick="generateQRCode()" class="download-btn">
+                        <i class="fas fa-qrcode"></i> Generate QR Code
+                    </button>
                     <button onclick="downloadQRCode()" class="download-btn" id="downloadQRBtn" style="display:none;">
                         <i class="fas fa-download"></i> Download QR Code
                     </button>
@@ -324,15 +327,29 @@ function openTool(id){
     if(id==='text-converter'){
         initializeTextConverter();
     } else if(id==='qr-generator'){
+        document.getElementById('qrText').addEventListener('input', generateQRCode);
+        document.getElementById('qrSize').addEventListener('change', generateQRCode);
         generateQRCode();
+    } else if(id==='image-pdf'){
+        document.getElementById('imgInput').addEventListener('change', handleImageUpload);
+    } else if(id==='pdf-compress'){
+        document.getElementById('pdfInput').addEventListener('change', handlePDFUpload);
     }
 }
 
-// ===== IMAGE TO PDF FUNCTION =====
-async function convertImagesToPDF(input){
-    const files=[...input.files];
-    if(files.length===0) return;
+// ===== IMAGE TO PDF FUNCTIONS =====
+function triggerImageUpload() {
+    document.getElementById('imgInput').click();
+}
+
+function handleImageUpload(event) {
+    const files = event.target.files;
+    if (files.length === 0) return; // User cancelled
     
+    convertImagesToPDF(files);
+}
+
+async function convertImagesToPDF(files){
     // Validations
     if(files.length > 10){
         alert('Maximum 10 images allowed!');
@@ -351,7 +368,7 @@ async function convertImagesToPDF(input){
     const progressBar = document.getElementById('progressBar');
     const imagePreview = document.getElementById('imagePreview');
     
-    // Show loading state
+    // Clear previous results
     pdfResult.style.display='block';
     pdfResult.innerHTML = '<div class="loading"><div class="spinner"></div><p>Processing images...</p></div>';
     
@@ -372,7 +389,7 @@ async function convertImagesToPDF(input){
             
             // Show image preview
             const reader = new FileReader();
-            const previewPromise = new Promise((resolve) => {
+            await new Promise((resolve) => {
                 reader.onload = function(e){
                     const imgDiv = document.createElement('div');
                     imgDiv.style.width='100px';
@@ -386,7 +403,6 @@ async function convertImagesToPDF(input){
                 };
                 reader.readAsDataURL(files[i]);
             });
-            await previewPromise;
             
             // Add image to PDF
             const img = new Image();
@@ -446,11 +462,19 @@ async function convertImagesToPDF(input){
     progressContainer.style.display='none';
 }
 
-// ===== PDF COMPRESS FUNCTION =====
-function compressPDF(input){
-    const file = input.files[0];
-    if(!file) return;
+// ===== PDF COMPRESS FUNCTIONS =====
+function triggerPDFUpload() {
+    document.getElementById('pdfInput').click();
+}
+
+function handlePDFUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return; // User cancelled
     
+    compressPDF(file);
+}
+
+function compressPDF(file){
     // Validations
     if(file.size > 25 * 1024 * 1024) {
         alert('File size must be less than 25MB');
@@ -521,7 +545,8 @@ function initializeTextConverter(){
     document.getElementById('textInput').addEventListener('input', function(){
         const activeBtn = document.querySelector('.option-btn.active');
         if(activeBtn) {
-            convertText(activeBtn.onclick.toString().match(/'([^']+)'/)[1]);
+            const type = activeBtn.getAttribute('data-type');
+            convertText(type);
         }
     });
 }
@@ -674,4 +699,4 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 </body>
-    </html>
+</html>
