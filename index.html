@@ -1,123 +1,131 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QuickToolHub - Free Online Tools</title>
-<style>
-    * {margin:0;padding:0;box-sizing:border-box;}
-    body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); min-height:100vh; padding:20px;}
-    .main-container {max-width: 1000px; margin:0 auto; background:white; border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.3); overflow:hidden;}
-    .header {background: linear-gradient(135deg,#4c51bf 0%,#6b46c1 100%); color:white; padding:30px; text-align:center;}
-    .logo {font-size:2.5rem; margin-bottom:10px;}
-    .tagline {font-size:1.1rem; opacity:0.9;}
-    .search-bar {margin:20px auto; text-align:center;}
-    .search-input {width:80%; padding:12px 15px; border-radius:10px; border:1px solid #cbd5e0; font-size:1rem;}
-    .tools-grid {display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; padding:30px;}
-    .tool-card {background:#f8f9fa; border-radius:15px; padding:25px; text-align:center; transition:all 0.3s ease; border:2px solid transparent; cursor:pointer;}
-    .tool-card:hover {transform:translateY(-5px); border-color:#4c51bf; box-shadow:0 10px 30px rgba(76,81,191,0.2);}
-    .tool-icon {font-size:3rem; margin-bottom:15px; color:#4c51bf;}
-    .tool-title {font-size:1.3rem; color:#2d3748; margin-bottom:10px;}
-    .tool-desc {color:#718096; font-size:0.95rem; margin-bottom:20px;}
-    .upload-container {display:none; padding:30px;}
-    .back-btn {background:none; border:none; color:#4c51bf; font-size:1.1rem; cursor:pointer; margin-bottom:20px; display:flex; align-items:center; gap:8px;}
-    .upload-area {border:3px dashed #cbd5e0; border-radius:15px; padding:50px 20px; text-align:center; background:#f7fafc; margin:20px 0; transition:all 0.3s; cursor:pointer;}
-    .upload-area:hover {border-color:#4c51bf; background:#edf2f7;}
-    .upload-icon {font-size:4rem; color:#4c51bf; margin-bottom:20px;}
-    .file-input {display:none;}
-    .choose-btn {background:#4c51bf; color:white; padding:12px 30px; border-radius:8px; border:none; cursor:pointer; font-size:1rem; margin-top:15px;}
-    .action-section {margin-top:30px;}
-    .action-btn {background:linear-gradient(135deg,#48bb78 0%,#38a169 100%); color:white; padding:18px 40px; border:none; border-radius:10px; font-size:1.2rem; font-weight:bold; cursor:pointer; width:100%; transition:all 0.3s; display:flex; align-items:center; justify-content:center; gap:10px;}
-    .action-btn:hover:not(:disabled) {transform:translateY(-2px); box-shadow:0 10px 20px rgba(72,187,120,0.3);}
-    .action-btn:disabled {background:#cbd5e0; cursor:not-allowed;}
-    .download-btn {background:linear-gradient(135deg,#4299e1 0%,#3182ce 100%); margin-top:15px; text-decoration:none;}
-    .status-box {padding:20px; border-radius:10px; margin:20px 0; display:none; animation:fadeIn 0.5s;}
-    @keyframes fadeIn {from {opacity:0; transform:translateY(-10px);} to {opacity:1; transform:translateY(0);}}
-    .status-success {background:#c6f6d5; color:#22543d; border-left:5px solid #38a169;}
-    .status-processing {background:#bee3f8; color:#2c5282; border-left:5px solid #4299e1;}
-    .status-error {background:#fed7d7; color:#742a2a; border-left:5px solid #e53e3e;}
-    .file-info-box {background:#edf2f7; padding:15px; border-radius:10px; margin:15px 0; display:none;}
-    .footer {text-align:center; padding:25px; background:#f7fafc; border-top:1px solid #e2e8f0; color:#718096; font-size:0.9rem;}
-    #viewer-container {width:100%; height:400px; background:#2d3748; border-radius:10px; margin:20px 0; position:relative; overflow:hidden;}
-    .viewer-canvas {width:100%; height:100%;}
-    .controls-bar {display:flex; gap:10px; margin:15px 0; flex-wrap:wrap;}
-    .control-btn {padding:10px 20px; background:#4c51bf; color:white; border:none; border-radius:6px; cursor:pointer; flex:1; min-width:120px;}
-    @media(max-width:768px){.tools-grid{grid-template-columns:1fr; padding:20px;}.header{padding:20px;}.logo{font-size:2rem;}.upload-container{padding:20px;}.search-input{width:95%;}}
-    .ad-banner {margin:20px 0; text-align:center;}
-</style>
+    <meta charset="UTF-8">
+    <title>QuickToolHub - Free Online Tools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* === BASIC RESET === */
+        * {margin:0; padding:0; box-sizing:border-box;}
+        body {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f0f2f5; min-height:100vh; padding:20px;}
+        
+        /* === MAIN CONTAINER === */
+        .main-container {max-width:1000px; margin:0 auto; background:white; border-radius:15px; box-shadow:0 15px 50px rgba(0,0,0,0.2); overflow:hidden;}
+        
+        /* === HEADER === */
+        .header {background:#4c51bf; color:white; padding:30px; text-align:center;}
+        .logo {font-size:2.5rem; margin-bottom:10px;}
+        .tagline {font-size:1.1rem; opacity:0.9;}
+        
+        /* === TOOLS GRID === */
+        .tools-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; padding:30px;}
+        .tool-card {background:#f8f9fa; border-radius:15px; padding:25px; text-align:center; transition:0.3s; border:2px solid transparent; cursor:pointer;}
+        .tool-card:hover {transform:translateY(-5px); border-color:#4c51bf; box-shadow:0 10px 30px rgba(76,81,191,0.2);}
+        .tool-icon {font-size:3rem; margin-bottom:15px; color:#4c51bf;}
+        .tool-title {font-size:1.3rem; color:#2d3748; margin-bottom:10px;}
+        .tool-desc {color:#718096; font-size:0.95rem; margin-bottom:20px;}
+        .choose-btn {background:#4c51bf; color:white; padding:12px 25px; border-radius:8px; border:none; cursor:pointer;}
+        .choose-btn:hover {background:#3c3fbf;}
+        
+        /* === UPLOAD CONTAINER === */
+        .upload-container {display:none; padding:30px;}
+        .back-btn {background:none; border:none; color:#4c51bf; font-size:1.1rem; cursor:pointer; margin-bottom:20px; display:flex; align-items:center; gap:8px;}
+        .upload-area {border:3px dashed #cbd5e0; border-radius:15px; padding:50px 20px; text-align:center; background:#f7fafc; margin:20px 0; cursor:pointer; transition:0.3s;}
+        .upload-area:hover {border-color:#4c51bf; background:#edf2f7;}
+        .upload-icon {font-size:4rem; color:#4c51bf; margin-bottom:20px;}
+        .file-input {display:none;}
+        .status-box {padding:20px; border-radius:10px; margin:20px 0; display:none;}
+        .status-success {background:#c6f6d5; color:#22543d; border-left:5px solid #38a169;}
+        .status-processing {background:#bee3f8; color:#2c5282; border-left:5px solid #4299e1;}
+        .status-error {background:#fed7d7; color:#742a2a; border-left:5px solid #e53e3e;}
+        .action-btn {background:linear-gradient(135deg,#48bb78 0%,#38a169 100%); color:white; padding:18px 40px; border:none; border-radius:10px; font-size:1.2rem; font-weight:bold; cursor:pointer; width:100%; display:flex; justify-content:center; align-items:center; gap:10px; transition:0.3s;}
+        .action-btn:hover:not(:disabled) {transform:translateY(-2px); box-shadow:0 10px 20px rgba(72,187,120,0.3);}
+        .action-btn:disabled {background:#cbd5e0; cursor:not-allowed;}
+        .download-btn {background:linear-gradient(135deg,#4299e1 0%,#3182ce 100%); margin-top:15px; text-decoration:none;}
+        .file-info-box {background:#edf2f7; padding:15px; border-radius:10px; margin:15px 0; display:none;}
+        
+        /* === FOOTER === */
+        .footer {text-align:center; padding:25px; background:#f7fafc; border-top:1px solid #e2e8f0; color:#718096; font-size:0.9rem;}
+        
+        /* === RESPONSIVE === */
+        @media(max-width:768px){.tools-grid{grid-template-columns:1fr; padding:20px;} .header{padding:20px;} .logo{font-size:2rem;} .upload-container{padding:20px;}}
+    </style>
 </head>
 <body>
-<div class="main-container">
-    <!-- HEADER -->
-    <div class="header">
-        <div class="logo">🚀 QuickToolHub</div>
-        <div class="tagline">Free online tools for everyone</div>
-    </div><!-- SEARCH BAR -->
-<div class="search-bar">
-    <input type="text" id="search-input" class="search-input" placeholder="Search tool...">
-</div>
+    <div class="main-container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="logo">🛠️ QuickToolHub</div>
+            <div class="tagline">Free online tools for everyone</div>
+        </div>
 
-<!-- TOOLS GRID -->
-<div id="home-page" class="tools-grid">
-    <div class="tool-card" data-tool="pdf-compress" onclick="openTool('pdf-compress')">
-        <div class="tool-icon">📄</div>
-        <div class="tool-title">PDF Compressor</div>
-        <div class="tool-desc">Reduce PDF size without quality loss</div>
-        <button class="choose-btn">Open Tool</button>
+        <!-- TOOLS GRID -->
+        <div id="home-page" class="tools-grid">
+            <!-- PDF Compressor -->
+            <div class="tool-card" onclick="openTool('pdf-compress')">
+                <div class="tool-icon">📄</div>
+                <div class="tool-title">PDF Compressor</div>
+                <div class="tool-desc">Reduce PDF size without quality loss</div>
+                <button class="choose-btn">Open Tool</button>
+            </div>
+
+            <!-- PDF to JPG -->
+            <div class="tool-card" onclick="openTool('pdf-to-jpg')">
+                <div class="tool-icon">🖼️</div>
+                <div class="tool-title">PDF to JPG</div>
+                <div class="tool-desc">Convert PDF pages to images</div>
+                <button class="choose-btn">Open Tool</button>
+            </div>
+
+            <!-- Image to PDF -->
+            <div class="tool-card" onclick="openTool('img-to-pdf')">
+                <div class="tool-icon">🖼️➡️📄</div>
+                <div class="tool-title">Image to PDF</div>
+                <div class="tool-desc">Convert images to PDF format</div>
+                <button class="choose-btn">Open Tool</button>
+            </div>
+
+            <!-- 3D Viewer -->
+            <div class="tool-card" onclick="openTool('3d-viewer')">
+                <div class="tool-icon">🔄</div>
+                <div class="tool-title">3D Viewer</div>
+                <div class="tool-desc">View 3D models in browser</div>
+                <button class="choose-btn">Open Tool</button>
+            </div>
+        </div>
+
+        <!-- PLACEHOLDER FOR TOOLS -->
+        <div id="pdf-compress-page" class="upload-container"><h2>PDF Compressor Tool</h2></div>
+        <div id="pdf-to-jpg-page" class="upload-container"><h2>PDF to JPG Tool</h2></div>
+        <div id="img-to-pdf-page" class="upload-container"><h2>Image to PDF Tool</h2></div>
+        <div id="3d-viewer-page" class="upload-container"><h2>3D Viewer Tool</h2></div>
+
+        <!-- === Adsterra Ad === -->
+        <div style="text-align:center; margin:20px 0;">
+            <iframe src="https://www.effectivegatecpm.com/sux6c9ywrv?key=644ab26446f2144ed4bbb2a4d4bc526f" style="width:300px;height:250px;border:none;"></iframe>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>© 2024 QuickToolHub. All rights reserved.</p>
+            <p>All tools are 100% free | No registration required | Privacy guaranteed</p>
+            <p>Email: QuickToolHub@hotmail.com</p>
+        </div>
     </div>
-    <div class="tool-card" data-tool="pdf-to-jpg" onclick="openTool('pdf-to-jpg')">
-        <div class="tool-icon">🖼️</div>
-        <div class="tool-title">PDF to JPG</div>
-        <div class="tool-desc">Convert PDF pages to images</div>
-        <button class="choose-btn">Open Tool</button>
-    </div>
-    <div class="tool-card" data-tool="image-to-pdf" onclick="openTool('image-to-pdf')">
-        <div class="tool-icon">🖼️➡️📄</div>
-        <div class="tool-title">Image to PDF</div>
-        <div class="tool-desc">Convert images to a single PDF</div>
-        <button class="choose-btn">Open Tool</button>
-    </div>
-    <div class="tool-card" data-tool="3d-viewer" onclick="openTool('3d-viewer')">
-        <div class="tool-icon">🔄</div>
-        <div class="tool-title">3D Viewer</div>
-        <div class="tool-desc">View 3D models in browser</div>
-        <button class="choose-btn">Open Tool</button>
-    </div>
-</div>
 
-<!-- AD BANNER -->
-<div class="ad-banner">
-    <!-- Adsterra Ad Code -->
-    <script type="text/javascript" src="https://www.effectivegatecpm.com/sux6c9ywrv?key=644ab26446f2144ed4bbb2a4d4bc526f"></script>
-</div>
-
-<!-- Upload/Tools Pages -->
-<!-- PDF COMPRESS, PDF->JPG, IMAGE->PDF, 3D Viewer pages similar to your previous code -->
-
-<!-- FOOTER -->
-<div class="footer">
-    <p>© 2024 QuickToolHub. All rights reserved.</p>
-    <p>All tools are 100% free | No registration required | Privacy guaranteed</p>
-    <p>Email: QuickToolHub@hotmail.com</p>
-</div>
-
-</div><script>
-// Navigation
-let currentTool=null;
-function openTool(tool){currentTool=tool;document.getElementById('home-page').style.display='none';document.querySelectorAll('.upload-container').forEach(d=>d.style.display='none');document.getElementById(tool+'-page').style.display='block';resetTool();}
-function goHome(){document.getElementById('home-page').style.display='grid';document.querySelectorAll('.upload-container').forEach(d=>d.style.display='none');currentTool=null;}
-
-// Search behavior (Option B)
-document.getElementById('search-input').addEventListener('keyup',function(e){
- let val=this.value.toLowerCase().trim();
- if(!val)return;
- document.querySelectorAll('.tool-card').forEach(c=>{
-   if(c.dataset.tool.includes(val)) openTool(c.dataset.tool);
- });
-});
-
-// Setup file inputs & tools logic
-// PDF Compress, PDF->JPG, Image->PDF, 3D Viewer logic same as your previous scripts
-// You can copy the full JS logic from previous code and add new Image->PDF processing using jsPDF library
-
-</script><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script></body>
-</html>
+    <script>
+        // PAGE NAVIGATION
+        let currentTool = null;
+        function openTool(name){
+            document.getElementById('home-page').style.display='none';
+            document.querySelectorAll('.upload-container').forEach(d=>d.style.display='none');
+            currentTool=name+'-page';
+            document.getElementById(currentTool).style.display='block';
+        }
+        function goHome(){
+            document.getElementById('home-page').style.display='grid';
+            document.querySelectorAll('.upload-container').forEach(d=>d.style.display='none');
+        }
+    </script>
+</body>
+   </html>
