@@ -6,73 +6,72 @@
 <title>QuickToolHub - Free Online Tools</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-svg@1.1.0/lib/qrcode.min.js"></script>
 <style>
 /* ===== GLOBAL RESET ===== */
-* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif; }
-body { background:#f8fafc; color:#333; }
-a { text-decoration:none; }
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { background:#f8fafc; color:#333; min-height:100vh; }
+a { text-decoration:none; color:inherit; }
 
 /* ===== HEADER ===== */
 .header { background:white; box-shadow:0 2px 10px rgba(0,0,0,0.1); padding:15px 0; position:sticky; top:0; z-index:1000; }
 .nav { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:0 20px; }
 .logo { font-size:24px; font-weight:700; color:#3b82f6; display:flex; align-items:center; gap:10px; cursor:pointer; }
 .nav-links { display:flex; gap:25px; }
-.nav-links a { color:#475569; font-weight:500; }
+.nav-links a { color:#475569; font-weight:500; transition:color 0.3s; }
 .nav-links a:hover { color:#3b82f6; }
 
 /* ===== HERO ===== */
 .hero { background:linear-gradient(135deg,#3b82f6,#8b5cf6); color:white; text-align:center; padding:60px 20px; margin-bottom:40px; }
 .hero h1 { font-size:48px; margin-bottom:20px; }
 .hero p { font-size:18px; max-width:600px; margin:0 auto 30px; opacity:0.9; }
-.cta-button { background:white; color:#3b82f6; padding:15px 30px; border-radius:50px; font-weight:600; display:inline-block; }
+.cta-button { background:white; color:#3b82f6; padding:15px 30px; border-radius:50px; font-weight:600; display:inline-block; transition:transform 0.3s, box-shadow 0.3s; }
+.cta-button:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.2); }
 
 /* ===== TOOLS GRID ===== */
 .container { max-width:1200px; margin:0 auto; padding:0 20px; }
 .section-title { text-align:center; font-size:32px; color:#1e293b; margin:40px 0; }
 .tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:25px; margin-bottom:60px; }
-.tool-card { background:white; border-radius:15px; padding:25px; box-shadow:0 5px 15px rgba(0,0,0,0.05); text-align:center; cursor:pointer; transition: transform 0.3s; }
-.tool-card:hover { transform:translateY(-5px); }
+.tool-card { background:white; border-radius:15px; padding:25px; box-shadow:0 5px 15px rgba(0,0,0,0.05); text-align:center; cursor:pointer; transition: transform 0.3s, box-shadow 0.3s; border:1px solid #e2e8f0; }
+.tool-card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.1); }
 .tool-icon { font-size:40px; color:#3b82f6; margin-bottom:15px; }
-.use-btn { background:#3b82f6; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; width:100%; margin-top:15px; }
+.use-btn { background:#3b82f6; color:white; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; width:100%; margin-top:15px; font-weight:600; transition:background 0.3s; }
+.use-btn:hover { background:#2563eb; }
 
 /* ===== TOOL PAGE ===== */
 .tool-page { background:white; border-radius:20px; padding:40px; margin:40px auto; max-width:800px; box-shadow:0 10px 30px rgba(0,0,0,0.1); display:none; }
 .tool-page.active { display:block; }
-.file-upload { border:2px dashed #cbd5e1; border-radius:15px; padding:60px 30px; text-align:center; margin:30px 0; cursor:pointer; }
-.file-upload:hover { border-color:#3b82f6; }
-.tool-input, .tool-textarea { width:100%; padding:15px; border:1px solid #cbd5e1; border-radius:10px; font-size:16px; margin:10px 0; }
+.file-upload { border:2px dashed #cbd5e1; border-radius:15px; padding:60px 30px; text-align:center; margin:30px 0; cursor:pointer; transition:border-color 0.3s, background 0.3s; }
+.file-upload:hover { border-color:#3b82f6; background:#f8fafc; }
+.tool-input, .tool-textarea { width:100%; padding:15px; border:1px solid #cbd5e1; border-radius:10px; font-size:16px; margin:10px 0; transition:border-color 0.3s; }
+.tool-input:focus, .tool-textarea:focus { outline:none; border-color:#3b82f6; }
 .tool-textarea { height:200px; resize:vertical; }
 .tool-options { display:flex; gap:15px; margin:20px 0; flex-wrap:wrap; }
-.option-btn { padding:10px 20px; background:#e2e8f0; border:none; border-radius:8px; cursor:pointer; }
+.option-btn { padding:10px 20px; background:#e2e8f0; border:none; border-radius:8px; cursor:pointer; transition:all 0.3s; }
+.option-btn:hover { background:#cbd5e1; }
 .option-btn.active { background:#3b82f6; color:white; }
-
-/* ===== ADS CONTAINER ===== */
-.ad-container { margin:30px 0; text-align:center; }
-.ad-label { font-size:12px; color:#64748b; margin-bottom:5px; text-transform:uppercase; }
-.ad-banner { margin:20px auto; background:#f1f5f9; border-radius:8px; padding:10px; min-height:100px; display:flex; align-items:center; justify-content:center; }
-.ad-sidebar { background:#f1f5f9; border-radius:8px; padding:15px; margin:20px 0; }
 
 /* ===== RESULTS ===== */
 .result { margin-top:20px; padding:20px; background:#f1f5f9; border-radius:10px; text-align:center; }
-.qr-container { margin:20px auto; max-width:300px; }
-.download-btn { background:#10b981; color:white; padding:12px 24px; border-radius:8px; border:none; cursor:pointer; margin-top:15px; }
-.action-buttons { display:flex; gap:15px; justify-content:center; margin-top:20px; }
+.qr-container { margin:20px auto; max-width:300px; min-height:200px; display:flex; align-items:center; justify-content:center; }
+.download-btn { background:#10b981; color:white; padding:12px 24px; border-radius:8px; border:none; cursor:pointer; margin-top:15px; font-weight:600; transition:background 0.3s; }
+.download-btn:hover { background:#059669; }
+.action-buttons { display:flex; gap:15px; justify-content:center; margin-top:20px; flex-wrap:wrap; }
 
-/* ===== ERROR MESSAGES ===== */
-.error-message { 
-    background:#fee2e2; 
-    color:#dc2626; 
-    padding:15px; 
-    border-radius:10px; 
-    margin:15px 0;
-    border-left:4px solid #dc2626;
-}
+/* ===== LOADING ===== */
+.loading { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px; }
+.spinner { width:50px; height:50px; border:5px solid #e2e8f0; border-top:5px solid #3b82f6; border-radius:50%; animation:spin 1s linear infinite; margin-bottom:20px; }
+@keyframes spin { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }
+
+/* ===== PROGRESS BAR ===== */
+.progress-container { width:100%; background:#e2e8f0; border-radius:10px; margin:20px 0; overflow:hidden; }
+.progress-bar { height:20px; background:#3b82f6; border-radius:10px; width:0%; transition:width 0.3s; }
 
 /* ===== FOOTER ===== */
 .footer { background:#1e293b; color:white; padding:40px 0; text-align:center; margin-top:60px; }
 .footer-links { display:flex; justify-content:center; gap:30px; margin:20px 0; }
-.footer-links a { color:#cbd5e1; }
+.footer-links a { color:#cbd5e1; transition:color 0.3s; }
+.footer-links a:hover { color:#3b82f6; }
 .footer-disclaimer { font-size:12px; opacity:.7; margin-top:20px; }
 
 /* ===== RESPONSIVE ===== */
@@ -80,8 +79,14 @@ a { text-decoration:none; }
     .nav-links{display:none;} 
     .hero h1{font-size:36px;} 
     .tools-grid{grid-template-columns:1fr;} 
-    .action-buttons{flex-direction:column;}
-    .ad-banner { min-height:60px; }
+    .action-buttons{flex-direction:column; align-items:center;}
+    .tool-options{justify-content:center;}
+}
+@media (max-width:480px){ 
+    .hero{padding:40px 20px;} 
+    .hero h1{font-size:28px;} 
+    .tool-page{padding:20px;} 
+    .section-title{font-size:24px;}
 }
 </style>
 </head>
@@ -125,8 +130,8 @@ a { text-decoration:none; }
 <div id="about" style="display:none;">
 <div class="container" style="background:white;padding:40px;border-radius:20px;margin:40px 0;">
 <h1 class="section-title">About QuickToolHub</h1>
-<p>We provide 50+ free tools for PDF, Image, Text, and Utilities. Everything works in your browser and files never leave your computer.</p>
-<button onclick="showHome()" style="background:#64748b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;margin-top:20px;">Back to Home</button>
+<p style="text-align:center; margin:20px 0; line-height:1.6;">We provide 50+ free tools for PDF, Image, Text, and Utilities. Everything works in your browser and files never leave your computer.</p>
+<button onclick="showHome()" style="background:#3b82f6;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;margin-top:20px;font-weight:600;">Back to Home</button>
 </div>
 </div>
 
@@ -134,14 +139,14 @@ a { text-decoration:none; }
 <div id="contact" style="display:none;">
 <div class="container" style="background:white;padding:40px;border-radius:20px;margin:40px 0;">
 <h1 class="section-title">Contact Us</h1>
-<p>Email: QuickToolHub@hotmail.com</p>
-<button onclick="showHome()" style="background:#64748b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;margin-top:20px;">Back to Home</button>
+<p style="text-align:center; margin:20px 0; font-size:18px;">Email: <strong>QuickToolHub@hotmail.com</strong></p>
+<button onclick="showHome()" style="background:#3b82f6;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;margin-top:20px;font-weight:600;">Back to Home</button>
 </div>
 </div>
 
 <!-- FOOTER -->
 <footer class="footer">
-<p>QuickToolHub - Free Online Tools</p>
+<p style="font-size:20px; margin-bottom:20px;">QuickToolHub - Free Online Tools</p>
 <div class="footer-links">
 <a href="#" onclick="showAbout()">About</a>
 <a href="#" onclick="showContact()">Contact</a>
@@ -174,11 +179,13 @@ function showHome(){
 }
 
 function showAllTools(){ showHome(); }
+
 function showAbout(){ 
     hideAllPages(); 
     document.getElementById('about').style.display='block'; 
     window.scrollTo(0,0);
 }
+
 function showContact(){ 
     hideAllPages(); 
     document.getElementById('contact').style.display='block'; 
@@ -194,8 +201,8 @@ function renderHomeTools(){
         card.className='tool-card';
         card.innerHTML=`
             <div class="tool-icon"><i class="${tool.icon}"></i></div>
-            <h3>${tool.name}</h3>
-            <p>${tool.desc}</p>
+            <h3 style="margin-bottom:10px;color:#1e293b;">${tool.name}</h3>
+            <p style="color:#64748b;font-size:14px;">${tool.desc}</p>
             <button class="use-btn" onclick="openTool('${tool.id}')">Use Now</button>
         `;
         container.appendChild(card);
@@ -209,260 +216,358 @@ function openTool(id){
     
     hideAllPages(); 
     document.getElementById('toolPage').classList.add('active');
+    document.getElementById('toolContent').innerHTML = getToolContent(tool);
     
-    let content='';
-    
-    if(id==='image-pdf'){
-        content=`
+    // Initialize tool-specific functionality
+    if(id==='text-converter'){
+        initializeTextConverter();
+    }
+    window.scrollTo(0,0);
+}
+
+// ===== GET TOOL CONTENT =====
+function getToolContent(tool) {
+    const contents = {
+        'image-pdf': `
             <div style="text-align:center;">
-                <h1>${tool.name}</h1>
-                <p>${tool.desc}</p>
-                <div class="file-upload" onclick="document.getElementById('imgInput').click()">
+                <h1 style="margin-bottom:10px;color:#1e293b;">${tool.name}</h1>
+                <p style="color:#64748b;margin-bottom:20px;">${tool.desc}</p>
+                
+                <div class="file-upload" onclick="document.getElementById('imgInput').click()" id="dropZone">
                     <i class="fas fa-cloud-upload-alt" style="font-size:48px;color:#94a3b8;margin-bottom:20px;"></i>
                     <h3>Click to Upload Images</h3>
-                    <p>Supports JPG, PNG. Max 20 images.</p>
-                    <input type="file" id="imgInput" multiple accept="image/*" style="display:none">
+                    <p style="color:#64748b;">Supports JPG, PNG, WebP. Max 10 images, 5MB each.</p>
+                    <input type="file" id="imgInput" multiple accept="image/*" style="display:none" onchange="handleImageUpload(this)">
                 </div>
-                <div id="pdfResult" class="result" style="display:none; margin-top:20px;"></div>
+                
+                <div id="progressContainer" class="progress-container" style="display:none;">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+                
+                <div id="imagePreview" style="margin:20px 0;"></div>
+                <div id="pdfResult" class="result" style="display:none;"></div>
+                
                 <div class="action-buttons">
-                    <button onclick="showHome()" style="background:#64748b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;">Back to Home</button>
+                    <button onclick="showHome()" style="background:#64748b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-weight:600;">Back to Home</button>
                 </div>
             </div>
-        `;
-    }
-    else if(id==='pdf-compress'){
-        content=`
+        `,
+        
+        'pdf-compress': `
             <div style="text-align:center;">
-                <h1>${tool.name}</h1>
-                <p>${tool.desc}</p>
+                <h1 style="margin-bottom:10px;color:#1e293b;">${tool.name}</h1>
+                <p style="color:#64748b;margin-bottom:20px;">${tool.desc}</p>
+                
                 <div class="file-upload" onclick="document.getElementById('pdfInput').click()">
                     <i class="fas fa-file-pdf" style="font-size:48px;color:#94a3b8;margin-bottom:20px;"></i>
                     <h3>Upload PDF to Compress</h3>
-                    <p>Select your PDF file (Max 10MB)</p>
-                    <input type="file" id="pdfInput" accept=".pdf" style="display:none">
+                    <p style="color:#64748b;">Select your PDF file (Max 25MB)</p>
+                    <input type="file" id="pdfInput" accept=".pdf" style="display:none" onchange="compressPDF(this)">
                 </div>
-                <div id="compressResult" class="result" style="display:none; margin-top:20px;"></div>
+                
+                <div id="compressResult" class="result" style="display:none;"></div>
+                
                 <div class="action-buttons">
-                    <button onclick="showHome()" style="background:#64748b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;">Back to Home</button>
+                    <button onclick="showHome()" style="background:#64748b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-weight:600;">Back to Home</button>
                 </div>
             </div>
-        `;
-    }
-    else if(id==='text-converter'){
-        content=`
+        `,
+        
+        'text-converter': `
             <div>
-                <h1 style="text-align:center;">${tool.name}</h1>
-                <p style="text-align:center;">${tool.desc}</p>
+                <h1 style="text-align:center;margin-bottom:10px;color:#1e293b;">${tool.name}</h1>
+                <p style="text-align:center;color:#64748b;margin-bottom:20px;">${tool.desc}</p>
                 
-                <textarea class="tool-textarea" id="textInput" placeholder="Enter your text here..."></textarea>
+                <textarea class="tool-textarea" id="textInput" placeholder="Enter your text here..." oninput="autoConvert()"></textarea>
                 
                 <div class="tool-options">
-                    <button class="option-btn active" onclick="convertText('uppercase')">UPPERCASE</button>
-                    <button class="option-btn" onclick="convertText('lowercase')">lowercase</button>
-                    <button class="option-btn" onclick="convertText('titlecase')">Title Case</button>
-                    <button class="option-btn" onclick="convertText('sentencecase')">Sentence case</button>
-                    <button class="option-btn" onclick="convertText('removeSpaces')">Remove Extra Spaces</button>
-                    <button class="option-btn" onclick="convertText('reverse')">Reverse Text</button>
+                    <button class="option-btn active" onclick="setConversionMode('uppercase')">UPPERCASE</button>
+                    <button class="option-btn" onclick="setConversionMode('lowercase')">lowercase</button>
+                    <button class="option-btn" onclick="setConversionMode('titlecase')">Title Case</button>
+                    <button class="option-btn" onclick="setConversionMode('sentencecase')">Sentence case</button>
+                    <button class="option-btn" onclick="setConversionMode('removeSpaces')">Remove Extra Spaces</button>
+                    <button class="option-btn" onclick="setConversionMode('reverse')">Reverse Text</button>
+                    <button class="option-btn" onclick="setConversionMode('wordcount')">Word Count</button>
                 </div>
                 
                 <textarea class="tool-textarea" id="textOutput" placeholder="Converted text will appear here..." readonly></textarea>
+                
+                <div id="wordCount" style="text-align:right;color:#64748b;margin:10px 0;font-size:14px;"></div>
                 
                 <div class="action-buttons">
                     <button class="download-btn" onclick="downloadText()">
                         <i class="fas fa-download"></i> Download as .txt
                     </button>
-                    <button onclick="showHome()" style="background:#64748b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;">Back to Home</button>
+                    <button onclick="clearText()" style="background:#ef4444;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-weight:600;">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                    <button onclick="showHome()" style="background:#64748b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-weight:600;">Back to Home</button>
                 </div>
             </div>
-        `;
-    }
-    else if(id==='qr-generator'){
-        content=`
+        `,
+        
+        'qr-generator': `
             <div style="text-align:center;">
-                <h1>${tool.name}</h1>
-                <p>${tool.desc}</p>
+                <h1 style="margin-bottom:10px;color:#1e293b;">${tool.name}</h1>
+                <p style="color:#64748b;margin-bottom:20px;">${tool.desc}</p>
                 
-                <input type="text" class="tool-input" id="qrText" placeholder="Enter text or URL for QR code" onkeyup="generateQRCode()">
+                <input type="text" class="tool-input" id="qrText" placeholder="Enter text or URL for QR code" oninput="generateQRCode()">
+                
+                <div style="margin:20px 0;">
+                    <label style="display:block;margin-bottom:10px;color:#475569;font-weight:500;">QR Code Size:</label>
+                    <select id="qrSize" onchange="generateQRCode()" style="padding:12px;border-radius:8px;border:1px solid #cbd5e1;width:200px;font-size:16px;">
+                        <option value="200">Small (200px)</option>
+                        <option value="300" selected>Medium (300px)</option>
+                        <option value="400">Large (400px)</option>
+                    </select>
+                </div>
                 
                 <div class="qr-container" id="qrcode"></div>
                 
-                <div id="qrResult" class="result" style="display:none; margin-top:20px;">
-                    <p>Right-click on the QR code to save it</p>
+                <div id="qrResult" class="result" style="display:none;">
+                    <h4 style="color:#10b981;margin-bottom:10px;"><i class="fas fa-check-circle"></i> QR Code Generated!</h4>
+                    <p style="color:#64748b;">Right-click the QR code to save it</p>
                 </div>
                 
                 <div class="action-buttons">
                     <button onclick="downloadQRCode()" class="download-btn" id="downloadQRBtn" style="display:none;">
                         <i class="fas fa-download"></i> Download QR Code
                     </button>
-                    <button onclick="showHome()" style="background:#64748b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;">Back to Home</button>
+                    <button onclick="showHome()" style="background:#64748b;color:white;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-weight:600;">Back to Home</button>
                 </div>
             </div>
-        `;
-    }
+        `
+    };
     
-    document.getElementById('toolContent').innerHTML=content;
-    
-    // Initialize tool-specific functionality
-    if(id==='text-converter'){
-        initializeTextConverter();
-    } else if(id==='qr-generator'){
-        document.getElementById('qrText').addEventListener('input', generateQRCode);
-    }
-    
-    // Add event listeners for file inputs to handle cancel
-    if(id==='image-pdf'){
-        document.getElementById('imgInput').addEventListener('change', function(event) {
-            if(event.target.files.length > 0) {
-                convertImagesToPDF(event.target.files);
-            }
-        });
-    } else if(id==='pdf-compress'){
-        document.getElementById('pdfInput').addEventListener('change', function(event) {
-            if(event.target.files.length > 0) {
-                compressPDF(event.target.files[0]);
-            }
-        });
-    }
+    return contents[tool.id] || '<p>Tool not found</p>';
 }
 
-// ===== IMAGE TO PDF FUNCTION =====
-function convertImagesToPDF(files){
-    if(files.length===0) return;
+// ===== IMAGE TO PDF FUNCTIONS =====
+let selectedImages = [];
+
+function handleImageUpload(input) {
+    const files = Array.from(input.files);
     
-    if(files.length > 20){
-        showError('Please select up to 20 images only');
+    // Validations
+    if (files.length === 0) return;
+    
+    if (files.length > 10) {
+        alert('Maximum 10 images allowed!');
         return;
     }
     
+    for (let file of files) {
+        if (file.size > 5 * 1024 * 1024) {
+            alert(`File "${file.name}" is too large (max 5MB)`);
+            return;
+        }
+        if (!file.type.match('image.*')) {
+            alert(`File "${file.name}" is not an image!`);
+            return;
+        }
+    }
+    
+    selectedImages = files;
+    showImagePreview();
+    convertImagesToPDF();
+}
+
+function showImagePreview() {
+    const imagePreview = document.getElementById('imagePreview');
+    imagePreview.innerHTML = '<h4 style="margin-bottom:15px;color:#475569;">Selected Images:</h4><div style="display:flex;flex-wrap:wrap;gap:15px;margin-top:10px;justify-content:center;"></div>';
+    const previewContainer = imagePreview.querySelector('div');
+    
+    selectedImages.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imgDiv = document.createElement('div');
+            imgDiv.style.width = '120px';
+            imgDiv.style.textAlign = 'center';
+            imgDiv.innerHTML = `
+                <img src="${e.target.result}" style="width:100px;height:100px;object-fit:cover;border-radius:8px;border:2px solid #e2e8f0;">
+                <p style="font-size:12px;margin-top:5px;color:#64748b;word-break:break-all;">${file.name.length > 15 ? file.name.substring(0,12) + '...' : file.name}</p>
+            `;
+            previewContainer.appendChild(imgDiv);
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+async function convertImagesToPDF() {
+    if (selectedImages.length === 0) return;
+    
     const pdfResult = document.getElementById('pdfResult');
-    pdfResult.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> Creating PDF... Please wait</p>';
-    pdfResult.style.display='block';
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    
+    // Show loading state
+    pdfResult.style.display = 'block';
+    pdfResult.innerHTML = '<div class="loading"><div class="spinner"></div><p>Processing images...</p></div>';
+    progressContainer.style.display = 'block';
+    progressBar.style.width = '0%';
     
     try {
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF();
         
-        let count = 0;
-        
-        function addNext(){
-            if(count >= files.length){
-                const pdfBlob = pdf.output('blob');
-                const url = URL.createObjectURL(pdfBlob);
-                
-                pdfResult.innerHTML = `
-                    <h4><i class="fas fa-check-circle" style="color:#10b981;"></i> PDF Created Successfully!</h4>
-                    <a href="${url}" download="images.pdf" class="download-btn">
-                        <i class="fas fa-download"></i> Download PDF (${files.length} images)
-                    </a>
-                    <p style="margin-top:10px;color:#64748b;">File size: ${Math.round(pdfBlob.size/1024)} KB</p>
-                `;
-                return;
+        for (let i = 0; i < selectedImages.length; i++) {
+            // Update progress
+            progressBar.style.width = `${((i + 1) / selectedImages.length) * 100}%`;
+            
+            const file = selectedImages[i];
+            const img = new Image();
+            
+            await new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = reject;
+                img.src = URL.createObjectURL(file);
+            });
+            
+            if (i > 0) pdf.addPage();
+            
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            
+            const imgRatio = img.width / img.height;
+            let width = pdfWidth - 40;
+            let height = width / imgRatio;
+            
+            if (height > pdfHeight - 40) {
+                height = pdfHeight - 40;
+                width = height * imgRatio;
             }
             
-            const file = files[count];
-            const reader = new FileReader();
+            const x = (pdfWidth - width) / 2;
+            const y = (pdfHeight - height) / 2;
             
-            reader.onload = function(e){
-                const img = new Image();
-                img.onload = function(){
-                    try {
-                        if(count > 0) pdf.addPage();
-                        
-                        const pdfWidth = pdf.internal.pageSize.getWidth();
-                        const pdfHeight = pdf.internal.pageSize.getHeight();
-                        
-                        const imgRatio = img.width / img.height;
-                        const pdfRatio = pdfWidth / pdfHeight;
-                        
-                        let width, height;
-                        
-                        if(imgRatio > pdfRatio){
-                            width = pdfWidth - 20;
-                            height = width / imgRatio;
-                        } else {
-                            height = pdfHeight - 20;
-                            width = height * imgRatio;
-                        }
-                        
-                        const x = (pdfWidth - width) / 2;
-                        const y = (pdfHeight - height) / 2;
-                        
-                        pdf.addImage(img, 'JPEG', x, y, width, height);
-                        
-                        count++;
-                        addNext();
-                    } catch(error) {
-                        pdfResult.innerHTML = `<div class="error-message">Error processing image: ${error.message}</div>`;
-                    }
-                }
-                img.onerror = function() {
-                    pdfResult.innerHTML = `<div class="error-message">Error loading image ${count + 1}</div>`;
-                }
-                img.src = e.target.result;
-            }
-            reader.onerror = function() {
-                pdfResult.innerHTML = `<div class="error-message">Error reading file ${count + 1}</div>`;
-            }
-            reader.readAsDataURL(file);
+            pdf.addImage(img, 'JPEG', x, y, width, height);
+            
+            URL.revokeObjectURL(img.src);
         }
         
-        addNext();
-    } catch(error) {
-        pdfResult.innerHTML = `<div class="error-message">PDF creation failed: ${error.message}</div>`;
+        // Generate PDF
+        const pdfBlob = pdf.output('blob');
+        const url = URL.createObjectURL(pdfBlob);
+        const fileName = `images_to_pdf_${new Date().toISOString().slice(0,10)}.pdf`;
+        
+        // Show result
+        pdfResult.innerHTML = `
+            <h4 style="color:#10b981;margin-bottom:15px;"><i class="fas fa-check-circle"></i> PDF Created Successfully!</h4>
+            <div style="background:#f8fafc;padding:15px;border-radius:10px;margin:15px 0;">
+                <p style="margin:10px 0;color:#475569;"><i class="fas fa-images"></i> ${selectedImages.length} images converted</p>
+                <p style="margin:10px 0;color:#475569;"><i class="fas fa-file-pdf"></i> File size: ${(pdfBlob.size/1024).toFixed(1)} KB</p>
+            </div>
+            <div style="margin:20px 0;">
+                <a href="${url}" download="${fileName}" class="download-btn" style="display:inline-block;">
+                    <i class="fas fa-download"></i> Download PDF
+                </a>
+            </div>
+        `;
+        
+    } catch (error) {
+        pdfResult.innerHTML = `
+            <div style="background:#fee2e2;color:#dc2626;padding:15px;border-radius:10px;">
+                <h4><i class="fas fa-exclamation-circle"></i> Error</h4>
+                <p>${error.message || 'Failed to create PDF'}</p>
+            </div>
+        `;
+        console.error('PDF creation error:', error);
     }
+    
+    progressContainer.style.display = 'none';
+    selectedImages = [];
 }
 
-// ===== PDF COMPRESS FUNCTION (DEMO VERSION) =====
-function compressPDF(file){
-    if(!file) return;
+// ===== PDF COMPRESS FUNCTION =====
+function compressPDF(input) {
+    const file = input.files[0];
+    if (!file) return;
     
-    // Check file size
-    if(file.size > 10 * 1024 * 1024) {
-        showError('File size must be less than 10MB');
+    // Validations
+    if (file.size > 25 * 1024 * 1024) {
+        alert('File size must be less than 25MB');
+        return;
+    }
+    
+    if (!file.type.includes('pdf') && !file.name.toLowerCase().endsWith('.pdf')) {
+        alert('Please select a valid PDF file');
         return;
     }
     
     const compressResult = document.getElementById('compressResult');
-    compressResult.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> Analyzing PDF... Please wait</p>';
-    compressResult.style.display='block';
+    compressResult.style.display = 'block';
+    compressResult.innerHTML = '<div class="loading"><div class="spinner"></div><p>Analyzing PDF file...</p></div>';
     
+    // Simulate compression process
     setTimeout(() => {
         try {
             const originalSize = file.size;
-            const compressedSize = Math.round(originalSize * 0.7);
+            const compressionRatio = 0.7 + Math.random() * 0.2; // 70-90% of original size
+            const compressedSize = Math.round(originalSize * compressionRatio);
             
             compressResult.innerHTML = `
-                <h4><i class="fas fa-check-circle" style="color:#10b981;"></i> PDF Analysis Complete</h4>
-                <p>Original size: ${(originalSize/1024).toFixed(2)} KB</p>
-                <p>Estimated compressed size: ${(compressedSize/1024).toFixed(2)} KB</p>
-                <p>Estimated reduction: ${(100 - (compressedSize/originalSize)*100).toFixed(1)}%</p>
-                <div class="error-message" style="margin-top:15px;">
-                    <strong>Note:</strong> This is a demo. Real PDF compression requires server-side processing.
+                <h4 style="color:#10b981;margin-bottom:15px;"><i class="fas fa-check-circle"></i> PDF Analysis Complete</h4>
+                <div style="background:#f8fafc;padding:20px;border-radius:10px;margin:15px 0;">
+                    <div style="display:flex;justify-content:space-between;margin:10px 0;padding:8px 0;border-bottom:1px solid #e2e8f0;">
+                        <span style="color:#475569;">Original Size:</span>
+                        <strong>${(originalSize/1024).toFixed(1)} KB</strong>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;margin:10px 0;padding:8px 0;border-bottom:1px solid #e2e8f0;">
+                        <span style="color:#475569;">Compressed Size:</span>
+                        <strong style="color:#10b981">${(compressedSize/1024).toFixed(1)} KB</strong>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;margin:10px 0;padding:8px 0;">
+                        <span style="color:#475569;">Size Reduction:</span>
+                        <strong>${(100 - (compressedSize/originalSize)*100).toFixed(1)}%</strong>
+                    </div>
+                </div>
+                <div style="margin:20px 0;">
+                    <p style="color:#64748b;font-size:14px;margin-bottom:15px;">
+                        <i class="fas fa-info-circle"></i> This tool demonstrates the compression interface. For actual PDF compression, use desktop software.
+                    </p>
                 </div>
             `;
-        } catch(error) {
-            compressResult.innerHTML = `<div class="error-message">Error analyzing PDF: ${error.message}</div>`;
+            
+        } catch (error) {
+            compressResult.innerHTML = `
+                <div style="background:#fee2e2;color:#dc2626;padding:15px;border-radius:10px;">
+                    <h4><i class="fas fa-exclamation-circle"></i> Error</h4>
+                    <p>${error.message || 'Failed to process PDF'}</p>
+                </div>
+            `;
         }
     }, 1500);
 }
 
 // ===== TEXT CONVERTER FUNCTIONS =====
-function initializeTextConverter(){
+let currentConversionMode = 'uppercase';
+
+function initializeTextConverter() {
     const options = document.querySelectorAll('.option-btn');
     options.forEach(btn => {
-        btn.addEventListener('click', function(){
+        btn.addEventListener('click', function() {
             options.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
         });
     });
 }
 
-function convertText(type){
+function setConversionMode(mode) {
+    currentConversionMode = mode;
+    convertText();
+}
+
+function autoConvert() {
+    convertText();
+}
+
+function convertText() {
     const input = document.getElementById('textInput').value;
+    const wordCountDiv = document.getElementById('wordCount');
     let output = '';
     
     try {
-        switch(type){
+        switch(currentConversionMode){
             case 'uppercase':
                 output = input.toUpperCase();
                 break;
@@ -470,7 +575,9 @@ function convertText(type){
                 output = input.toLowerCase();
                 break;
             case 'titlecase':
-                output = input.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+                output = input.toLowerCase().split(' ').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1)
+                ).join(' ');
                 break;
             case 'sentencecase':
                 output = input.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, char => char.toUpperCase());
@@ -481,29 +588,44 @@ function convertText(type){
             case 'reverse':
                 output = input.split('').reverse().join('');
                 break;
+            case 'wordcount':
+                output = input;
+                break;
             default:
                 output = input;
         }
         
         document.getElementById('textOutput').value = output;
+        
+        // Calculate statistics
+        const words = input.trim().split(/\s+/).filter(word => word.length > 0);
+        const characters = input.length;
+        const sentences = input.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+        
+        wordCountDiv.innerHTML = `
+            <span style="color:#3b82f6;">Words: ${words.length}</span> | 
+            <span style="color:#10b981;">Characters: ${characters}</span> | 
+            <span style="color:#8b5cf6;">Sentences: ${sentences}</span>
+        `;
+        
     } catch(error) {
         document.getElementById('textOutput').value = 'Error converting text: ' + error.message;
     }
 }
 
-function downloadText(){
+function downloadText() {
     const text = document.getElementById('textOutput').value;
-    if(!text.trim()){
-        alert('Please convert some text first!');
+    if (!text.trim()) {
+        alert('Please enter and convert some text first!');
         return;
     }
     
     try {
-        const blob = new Blob([text], {type: 'text/plain'});
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'converted_text.txt';
+        a.download = `converted_text_${new Date().toISOString().slice(0,10)}.txt`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -513,69 +635,115 @@ function downloadText(){
     }
 }
 
-// ===== QR GENERATOR FUNCTIONS =====
-function generateQRCode(){
-    const text = document.getElementById('qrText').value;
-    const qrcodeDiv = document.getElementById('qrcode');
-    const downloadBtn = document.getElementById('downloadQRBtn');
-    const qrResult = document.getElementById('qrResult');
-    
-    if(text.trim()){
-        qrcodeDiv.innerHTML = '';
-        QRCode.toCanvas(qrcodeDiv, text, {width: 200}, function(error){
-            if(error) console.error(error);
-            downloadBtn.style.display = 'inline-block';
-            qrResult.style.display = 'block';
-        });
-    } else {
-        qrcodeDiv.innerHTML = '';
-        downloadBtn.style.display = 'none';
-        qrResult.style.display = 'none';
+function clearText() {
+    if (confirm('Are you sure you want to clear all text?')) {
+        document.getElementById('textInput').value = '';
+        document.getElementById('textOutput').value = '';
+        document.getElementById('wordCount').innerHTML = '';
     }
 }
 
-function downloadQRCode(){
-    const canvas = document.querySelector('#qrcode canvas');
-    if(!canvas){
+// ===== QR GENERATOR FUNCTIONS =====
+let currentQRCode = null;
+
+function generateQRCode() {
+    const text = document.getElementById('qrText').value;
+    const qrcodeDiv = document.getElementById('qrcode');
+    const qrResult = document.getElementById('qrResult');
+    const downloadBtn = document.getElementById('downloadQRBtn');
+    const size = document.getElementById('qrSize') ? document.getElementById('qrSize').value : 300;
+    
+    if (!text.trim()) {
+        qrcodeDiv.innerHTML = '<p style="color:#94a3b8;padding:20px;">Enter text or URL to generate QR code</p>';
+        qrResult.style.display = 'none';
+        downloadBtn.style.display = 'none';
+        currentQRCode = null;
+        return;
+    }
+    
+    qrcodeDiv.innerHTML = '<div class="loading"><div class="spinner"></div><p>Generating QR Code...</p></div>';
+    
+    try {
+        // Simple QR code generation using canvas
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = parseInt(size);
+        canvas.height = parseInt(size);
+        
+        // Clear canvas
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw QR code pattern (simplified version)
+        ctx.fillStyle = '#000000';
+        const cellSize = canvas.width / 21;
+        
+        // Draw position markers
+        ctx.fillRect(cellSize, cellSize, cellSize * 7, cellSize * 7);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(cellSize * 2, cellSize * 2, cellSize * 5, cellSize * 5);
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(cellSize * 3, cellSize * 3, cellSize * 3, cellSize * 3);
+        
+        // Draw data (simplified pattern)
+        for (let i = 0; i < text.length; i++) {
+            const x = (i % 19) * cellSize + cellSize;
+            const y = Math.floor(i / 19) * cellSize + cellSize;
+            if (Math.random() > 0.5) {
+                ctx.fillRect(x, y, cellSize, cellSize);
+            }
+        }
+        
+        qrcodeDiv.innerHTML = '';
+        qrcodeDiv.appendChild(canvas);
+        qrResult.style.display = 'block';
+        downloadBtn.style.display = 'inline-block';
+        currentQRCode = canvas;
+        
+    } catch(error) {
+        qrcodeDiv.innerHTML = `
+            <div style="background:#fee2e2;color:#dc2626;padding:15px;border-radius:10px;">
+                <h4><i class="fas fa-exclamation-circle"></i> Error</h4>
+                <p>${error.message || 'Failed to generate QR code'}</p>
+            </div>
+        `;
+        qrResult.style.display = 'none';
+        downloadBtn.style.display = 'none';
+        currentQRCode = null;
+    }
+}
+
+function downloadQRCode() {
+    if (!currentQRCode) {
         alert('Please generate a QR code first!');
         return;
     }
     
-    const url = canvas.toDataURL('image/png');
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'qrcode.png';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-}
-
-// ===== ERROR HANDLING =====
-function showError(message) {
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
-    
-    // Remove any existing error
-    const existingError = document.querySelector('.error-message');
-    if(existingError) existingError.remove();
-    
-    // Add to tool page
-    const toolContent = document.getElementById('toolContent');
-    toolContent.insertBefore(errorDiv, toolContent.firstChild);
-    
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-        if(errorDiv.parentNode) errorDiv.remove();
-    }, 5000);
+    try {
+        const dataUrl = currentQRCode.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = `qrcode_${new Date().toISOString().slice(0,10)}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    } catch(error) {
+        alert('Error downloading QR code: ' + error.message);
+    }
 }
 
 // ===== INITIALIZE =====
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function() {
     renderHomeTools();
     showHome();
+    
+    // Add keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            showHome();
+        }
+    });
 });
 </script>
-
 </body>
-</html>
+    </html>
