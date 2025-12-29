@@ -1,1015 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickToolHub - Free Online Tools</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* ===== RESET & GLOBAL ===== */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #f8fafc; color: #333; }
-        
-        /* ===== HEADER ===== */
-        .header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
-        .nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .logo { display: flex; align-items: center; gap: 10px; font-size: 24px; font-weight: 700; color: #3b82f6; text-decoration: none; }
-        .logo i { font-size: 28px; }
-        .nav-links { display: flex; gap: 25px; }
-        .nav-links a { color: #475569; text-decoration: none; font-weight: 500; }
-        .nav-links a:hover { color: #3b82f6; }
-        
-        /* ===== HERO ===== */
-        .hero { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; text-align: center; padding: 60px 20px; margin-bottom: 40px; }
-        .hero h1 { font-size: 48px; margin-bottom: 20px; }
-        .hero p { font-size: 18px; max-width: 600px; margin: 0 auto 30px; opacity: 0.9; }
-        .cta-button { display: inline-block; background: white; color: #3b82f6; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; }
-        
-        /* ===== TOOLS GRID ===== */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .section-title { text-align: center; font-size: 32px; color: #1e293b; margin: 40px 0; }
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 60px; }
-        .tool-card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; transition: transform 0.3s; }
-        .tool-card:hover { transform: translateY(-5px); }
-        .tool-icon { font-size: 40px; color: #3b82f6; margin-bottom: 15px; }
-        .use-btn { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; }
-        
-        /* ===== CATEGORIES ===== */
-        .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 40px 0; }
-        .category-card { background: white; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; }
-        .category-icon { font-size: 48px; color: #3b82f6; margin-bottom: 20px; }
-        
-        /* ===== TOOL PAGE ===== */
-        .tool-page { background: white; border-radius: 20px; padding: 40px; margin: 40px auto; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; }
-        .tool-page.active { display: block; }
-        .file-upload { border: 2px dashed #cbd5e1; border-radius: 15px; padding: 60px 30px; text-align: center; margin: 30px 0; cursor: pointer; }
-        .file-upload:hover { border-color: #3b82f6; }
-        .progress-bar { height: 8px; background: #e2e8f0; border-radius: 4px; margin: 20px 0; overflow: hidden; }
-        .progress { height: 100%; background: #3b82f6; width: 0%; transition: width 0.3s; }
-        .result { text-align: center; padding: 30px; background: #f0f9ff; border-radius: 15px; margin-top: 30px; }
-        .tool-input { width: 100%; padding: 15px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 16px; margin: 10px 0; }
-        .tool-textarea { width: 100%; height: 200px; padding: 15px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 16px; margin: 10px 0; resize: vertical; }
-        .tool-options { display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
-        .option-btn { padding: 10px 20px; background: #e2e8f0; border: none; border-radius: 8px; cursor: pointer; }
-        .option-btn.active { background: #3b82f6; color: white; }
-        
-        /* ===== FOOTER ===== */
-        .footer { background: #1e293b; color: white; padding: 40px 0; text-align: center; margin-top: 60px; }
-        .footer-links { display: flex; justify-content: center; gap: 30px; margin: 20px 0; }
-        .footer-links a { color: #cbd5e1; text-decoration: none; }
-        .copyright { color: #94a3b8; font-size: 14px; margin-top: 20px; }
-        
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero h1 { font-size: 36px; }
-            .tools-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>QuickToolHub – Free Online Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- PDF & Image libs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+body{margin:0;font-family:Arial;background:#0f172a;color:#fff}
+header{text-align:center;padding:25px;font-size:28px;font-weight:bold}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:20px}
+.card{background:#1e293b;padding:20px;border-radius:15px;text-align:center;cursor:pointer;transition:.3s}
+.card:hover{transform:scale(1.05);background:#334155}
+.card i{font-size:40px;margin-bottom:10px;color:#38bdf8}
+.tool{display:none;padding:20px}
+input,textarea,button{width:100%;padding:10px;margin:10px 0;border-radius:8px;border:none}
+button{background:#38bdf8;font-weight:bold;cursor:pointer}
+canvas,img{max-width:100%}
+footer{text-align:center;padding:20px;color:#94a3b8}
+</style>
 </head>
+
 <body>
-    <!-- HEADER -->
-    <header class="header">
-        <nav class="nav">
-            <a href="#" class="logo" onclick="showHome()">
-                <i class="fas fa-tools"></i> QuickToolHub
-            </a>
-            <div class="nav-links">
-                <a href="#" onclick="showHome()">Home</a>
-                <a href="#" onclick="showAllTools()">All Tools</a>
-                <a href="#" onclick="showCategories()">Categories</a>
-                <a href="#" onclick="showAbout()">About</a>
-                <a href="#" onclick="showContact()">Contact</a>
-            </div>
-        </nav>
-    </header>
 
-    <!-- HOME PAGE -->
-    <div id="home">
-        <section class="hero">
-            <h1>Free Online Tools for Everyone</h1>
-            <p>50+ tools for PDF, images, text, and more. 100% free, no registration required.</p>
-            <a href="#" class="cta-button" onclick="showAllTools()">
-                <i class="fas fa-bolt"></i> Start Using Tools
-            </a>
-        </section>
+<header>🛠️ QuickToolHub</header>
 
-        <div class="container">
-            <h2 class="section-title">Popular Tools ⚡</h2>
-            <div class="tools-grid">
-                <div class="tool-card" onclick="openTool('pdf-compress')">
-                    <div class="tool-icon"><i class="fas fa-file-pdf"></i></div>
-                    <h3>PDF Compress</h3>
-                    <p>Reduce PDF size without quality loss</p>
-                    <button class="use-btn">Use Now</button>
-                </div>
-                <div class="tool-card" onclick="openTool('image-resize')">
-                    <div class="tool-icon"><i class="fas fa-image"></i></div>
-                    <h3>Image Resize</h3>
-                    <p>Resize images to any dimensions</p>
-                    <button class="use-btn">Use Now</button>
-                </div>
-                <div class="tool-card" onclick="openTool('text-converter')">
-                    <div class="tool-icon"><i class="fas fa-font"></i></div>
-                    <h3>Text Converter</h3>
-                    <p>Convert text between cases</p>
-                    <button class="use-btn">Use Now</button>
-                </div>
-                <div class="tool-card" onclick="openTool('qr-generator')">
-                    <div class="tool-icon"><i class="fas fa-qrcode"></i></div>
-                    <h3>QR Generator</h3>
-                    <p>Create custom QR codes</p>
-                    <button class="use-btn">Use Now</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- ADS -->
+<div style="text-align:center">
+<script src="https://www.effectivegatecpm.com/sux6c9ywrv?key=644ab26446f2144ed4bbb2a4d4bc526f"></script>
+</div>
 
-    <!-- ALL TOOLS PAGE -->
-    <div id="all-tools" style="display: none;">
-        <div class="container">
-            <h1 class="section-title">All Tools 🛠️</h1>
-            <div class="categories">
-                <div class="category-card" onclick="filterTools('pdf')">
-                    <div class="category-icon"><i class="fas fa-file-pdf"></i></div>
-                    <h3>PDF Tools</h3>
-                    <p>4 tools available</p>
-                </div>
-                <div class="category-card" onclick="filterTools('image')">
-                    <div class="category-icon"><i class="fas fa-image"></i></div>
-                    <h3>Image Tools</h3>
-                    <p>4 tools available</p>
-                </div>
-                <div class="category-card" onclick="filterTools('text')">
-                    <div class="category-icon"><i class="fas fa-font"></i></div>
-                    <h3>Text Tools</h3>
-                    <p>3 tools available</p>
-                </div>
-                <div class="category-card" onclick="filterTools('utility')">
-                    <div class="category-icon"><i class="fas fa-tools"></i></div>
-                    <h3>Utility Tools</h3>
-                    <p>3 tools available</p>
-                </div>
-            </div>
-            
-            <div class="tools-grid" id="toolsContainer">
-                <!-- Tools loaded by JavaScript -->
-            </div>
-        </div>
-    </div>
+<!-- HOME -->
+<div id="home" class="grid">
 
-    <!-- TOOL PAGE -->
-    <div class="tool-page" id="toolPage">
-        <div id="toolContent">
-            <!-- Tool content loaded here -->
-        </div>
-    </div>
+<div class="card" onclick="openTool('imgpdf')"><i class="fa-solid fa-file-pdf"></i><p>Image to PDF</p></div>
+<div class="card" onclick="openTool('imgcompress')"><i class="fa-solid fa-image"></i><p>Image Compress</p></div>
+<div class="card" onclick="openTool('imgresize')"><i class="fa-solid fa-up-right-and-down-left-from-center"></i><p>Image Resize</p></div>
+<div class="card" onclick="openTool('pdfview')"><i class="fa-solid fa-eye"></i><p>PDF Viewer</p></div>
+<div class="card" onclick="openTool('pdfimg')"><i class="fa-solid fa-file-image"></i><p>PDF to Image</p></div>
+<div class="card" onclick="openTool('qr')"><i class="fa-solid fa-qrcode"></i><p>QR Generator</p></div>
+<div class="card" onclick="openTool('text')"><i class="fa-solid fa-font"></i><p>Text Tools</p></div>
+<div class="card" onclick="openTool('password')"><i class="fa-solid fa-key"></i><p>Password Generator</p></div>
 
-    <!-- ABOUT PAGE -->
-    <div id="about" style="display: none;">
-        <div class="container">
-            <div style="background: white; padding: 40px; border-radius: 20px; margin: 40px 0;">
-                <h1 class="section-title">About QuickToolHub</h1>
-                <p style="margin: 20px 0; color: #64748b; line-height: 1.6;">
-                    Welcome to QuickToolHub - your one-stop destination for free online tools!<br><br>
-                    We provide 50+ completely free tools for PDF processing, image editing, text manipulation, and various utilities. 
-                    All tools work directly in your browser - no uploads to servers, no registration required, and completely private.
-                </p>
-                <div style="margin: 30px 0;">
-                    <h3><i class="fas fa-check-circle" style="color: #10b981;"></i> Our Features</h3>
-                    <ul style="margin: 15px 0; color: #64748b; line-height: 1.8;">
-                        <li>100% Free - No hidden charges</li>
-                        <li>Privacy Focused - Files never leave your computer</li>
-                        <li>No Registration - Use instantly</li>
-                        <li>Legal Use Only - Respect copyrights</li>
-                    </ul>
-                </div>
-                <p><strong>Email:</strong> QuickToolHub@hotmail.com</p>
-            </div>
-        </div>
-    </div>
+</div>
 
-    <!-- CONTACT PAGE -->
-    <div id="contact" style="display: none;">
-        <div class="container">
-            <div style="background: white; padding: 40px; border-radius: 20px; margin: 40px 0;">
-                <h1 class="section-title">Contact Us</h1>
-                <p style="margin: 20px 0; color: #64748b; line-height: 1.6;">
-                    Have questions, suggestions, or need support? We're here to help!
-                </p>
-                <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; margin: 30px 0;">
-                    <h3><i class="fas fa-envelope"></i> Email</h3>
-                    <p style="color: #3b82f6; font-weight: 500;">QuickToolHub@hotmail.com</p>
-                </div>
-                <button onclick="showHome()" style="background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 16px;">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </button>
-            </div>
-        </div>
-    </div>
+<!-- IMAGE TO PDF -->
+<div id="imgpdf" class="tool">
+<h2>Image to PDF</h2>
+<input type="file" multiple accept="image/*" id="imgFiles">
+<button onclick="makePDF()">Convert</button>
+</div>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <p>QuickToolHub - Free Online Tools</p>
-            <div class="footer-links">
-                <a href="#" onclick="showAbout()">About</a>
-                <a href="#" onclick="showContact()">Contact</a>
-                <a href="#" onclick="showTerms()">Terms</a>
-                <a href="#" onclick="showPrivacy()">Privacy</a>
-            </div>
-            <p class="copyright">© 2024 QuickToolHub. All tools are 100% free. Email: QuickToolHub@hotmail.com</p>
-        </div>
-    </footer>
+<!-- IMAGE COMPRESS -->
+<div id="imgcompress" class="tool">
+<h2>Image Compress</h2>
+<input type="file" id="compImg">
+<canvas id="cvs"></canvas>
+<button onclick="compress()">Compress</button>
+</div>
 
-    <script>
-        // ===== TOOLS DATA =====
-        const tools = [
-            // PDF Tools
-            { id: 'pdf-compress', name: 'PDF Compress', category: 'pdf', icon: 'fas fa-file-pdf', desc: 'Reduce PDF file size without quality loss' },
-            { id: 'pdf-merge', name: 'PDF Merge', category: 'pdf', icon: 'fas fa-copy', desc: 'Combine multiple PDFs into one' },
-            { id: 'pdf-split', name: 'PDF Split', category: 'pdf', icon: 'fas fa-cut', desc: 'Split PDF into multiple files' },
-            { id: 'pdf-password', name: 'PDF Password', category: 'pdf', icon: 'fas fa-lock', desc: 'Add/remove password protection' },
-            
-            // Image Tools
-            { id: 'image-resize', name: 'Image Resize', category: 'image', icon: 'fas fa-expand-alt', desc: 'Resize images to any dimensions' },
-            { id: 'image-compress', name: 'Image Compress', category: 'image', icon: 'fas fa-compress-alt', desc: 'Compress images up to 90%' },
-            { id: 'image-convert', name: 'Image Convert', category: 'image', icon: 'fas fa-exchange-alt', desc: 'Convert between JPG, PNG, WebP' },
-            { id: 'image-watermark', name: 'Image Watermark', category: 'image', icon: 'fas fa-tint', desc: 'Add text watermark to images' },
-            
-            // Text Tools
-            { id: 'text-converter', name: 'Text Converter', category: 'text', icon: 'fas fa-font', desc: 'Convert text between cases' },
-            { id: 'word-counter', name: 'Word Counter', category: 'text', icon: 'fas fa-calculator', desc: 'Count words, characters' },
-            { id: 'password-generator', name: 'Password Generator', category: 'text', icon: 'fas fa-key', desc: 'Generate secure passwords' },
-            
-            // Utility Tools
-            { id: 'qr-generator', name: 'QR Generator', category: 'utility', icon: 'fas fa-qrcode', desc: 'Create custom QR codes' },
-            { id: 'url-shortener', name: 'URL Shortener', category: 'utility', icon: 'fas fa-link', desc: 'Shorten long URLs' },
-            { id: 'json-formatter', name: 'JSON Formatter', category: 'utility', icon: 'fas fa-code', desc: 'Format and validate JSON' }
-        ];
+<!-- IMAGE RESIZE -->
+<div id="imgresize" class="tool">
+<h2>Image Resize</h2>
+<input type="file" id="resizeImg">
+<input type="number" id="w" placeholder="Width">
+<input type="number" id="h" placeholder="Height">
+<canvas id="rc"></canvas>
+<button onclick="resize()">Resize</button>
+</div>
 
-        // ===== PAGE NAVIGATION =====
-        function showHome() {
-            hideAllPages();
-            document.getElementById('home').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
+<!-- PDF VIEW -->
+<div id="pdfview" class="tool">
+<h2>PDF Viewer</h2>
+<input type="file" id="pdfFile">
+<canvas id="pdfCanvas"></canvas>
+<button onclick="viewPDF()">View</button>
+</div>
 
-        function showAllTools() {
-            hideAllPages();
-            document.getElementById('all-tools').style.display = 'block';
-            loadTools();
-            window.scrollTo(0, 0);
-        }
+<!-- PDF TO IMAGE -->
+<div id="pdfimg" class="tool">
+<h2>PDF to Image</h2>
+<input type="file" id="pdfImgFile">
+<canvas id="pdfImgCanvas"></canvas>
+<button onclick="pdfToImg()">Convert</button>
+</div>
 
-        function showCategories() {
-            showAllTools();
-        }
+<!-- QR -->
+<div id="qr" class="tool">
+<h2>QR Generator</h2>
+<input id="qrtext" placeholder="Enter text">
+<div id="qrcode"></div>
+<button onclick="genQR()">Generate</button>
+</div>
 
-        function showAbout() {
-            hideAllPages();
-            document.getElementById('about').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
+<!-- TEXT -->
+<div id="text" class="tool">
+<h2>Text Tools</h2>
+<textarea id="txt"></textarea>
+<button onclick="upper()">UPPERCASE</button>
+<button onclick="lower()">lowercase</button>
+<p id="count"></p>
+</div>
 
-        function showContact() {
-            hideAllPages();
-            document.getElementById('contact').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
+<!-- PASSWORD -->
+<div id="password" class="tool">
+<h2>Password Generator</h2>
+<button onclick="genPass()">Generate</button>
+<input id="pass">
+</div>
 
-        function showTerms() {
-            alert('Terms & Conditions:\n\n1. All tools are free for personal use\n2. We do not store any files or data\n3. Use only for legal purposes\n4. Respect copyrights and intellectual property\n5. Contact: QuickToolHub@hotmail.com for any issues');
-        }
+<footer>
+Contact: quicktoolhub@hotmail.com<br>
+© QuickToolHub
+</footer>
 
-        function showPrivacy() {
-            alert('Privacy Policy:\n\n✅ 100% Private - Files stay in your browser\n✅ No data collection\n✅ No tracking or analytics\n✅ No registration required\n✅ Your files never uploaded to servers');
-        }
+<script>
+function openTool(id){
+document.querySelectorAll('.tool').forEach(t=>t.style.display='none');
+home.style.display='none';
+document.getElementById(id).style.display='block';
+}
 
-        function hideAllPages() {
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('all-tools').style.display = 'none';
-            document.getElementById('about').style.display = 'none';
-            document.getElementById('contact').style.display = 'none';
-            document.getElementById('toolPage').classList.remove('active');
-        }
+function makePDF(){
+const {jsPDF}=window.jspdf;
+let pdf=new jsPDF();
+let files=imgFiles.files;
+let i=0;
+function add(){
+if(i>=files.length){pdf.save("images.pdf");return;}
+let r=new FileReader();
+r.onload=e=>{
+let img=new Image();
+img.onload=()=>{
+pdf.addImage(img,'JPEG',10,10,190,0);
+if(i<files.length-1)pdf.addPage();
+i++;add();
+};
+img.src=e.target.result;
+};
+r.readAsDataURL(files[i]);
+}
+add();
+}
 
-        // ===== LOAD TOOLS =====
-        function loadTools() {
-            const container = document.getElementById('toolsContainer');
-            container.innerHTML = '';
-            
-            tools.forEach(tool => {
-                const toolCard = document.createElement('div');
-                toolCard.className = 'tool-card';
-                toolCard.innerHTML = `
-                    <div class="tool-icon"><i class="${tool.icon}"></i></div>
-                    <h3>${tool.name}</h3>
-                    <p>${tool.desc}</p>
-                    <button class="use-btn" onclick="openTool('${tool.id}')">Use Now</button>
-                `;
-                container.appendChild(toolCard);
-            });
-        }
+function compress(){
+let f=compImg.files[0];
+let r=new FileReader();
+r.onload=e=>{
+let img=new Image();
+img.onload=()=>{
+let c=cvs;
+c.width=img.width;c.height=img.height;
+c.getContext("2d").drawImage(img,0,0);
+};
+img.src=e.target.result;
+};
+r.readAsDataURL(f);
+}
 
-        function filterTools(category) {
-            const container = document.getElementById('toolsContainer');
-            container.innerHTML = '';
-            
-            const filtered = tools.filter(tool => tool.category === category);
-            
-            if (filtered.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #64748b; grid-column: 1/-1;">No tools in this category.</p>';
-                return;
-            }
-            
-            filtered.forEach(tool => {
-                const toolCard = document.createElement('div');
-                toolCard.className = 'tool-card';
-                toolCard.innerHTML = `
-                    <div class="tool-icon"><i class="${tool.icon}"></i></div>
-                    <h3>${tool.name}</h3>
-                    <p>${tool.desc}</p>
-                    <button class="use-btn" onclick="openTool('${tool.id}')">Use Now</button>
-                `;
-                container.appendChild(toolCard);
-            });
-        }
+function resize(){
+let f=resizeImg.files[0];
+let r=new FileReader();
+r.onload=e=>{
+let img=new Image();
+img.onload=()=>{
+rc.width=w.value;rc.height=h.value;
+rc.getContext("2d").drawImage(img,0,0,w.value,h.value);
+};
+img.src=e.target.result;
+};
+r.readAsDataURL(f);
+}
 
-        // ===== INDIVIDUAL TOOLS FUNCTIONALITY =====
-        function openTool(toolId) {
-            const tool = tools.find(t => t.id === toolId);
-            if (!tool) return;
-            
-            hideAllPages();
-            document.getElementById('toolPage').classList.add('active');
-            
-            let toolContent = '';
-            
-            switch(toolId) {
-                // PDF Tools
-                case 'pdf-compress':
-                    toolContent = createPDFCompressTool(tool);
-                    break;
-                case 'pdf-merge':
-                    toolContent = createPDFMergeTool(tool);
-                    break;
-                case 'pdf-split':
-                    toolContent = createPDFSplitTool(tool);
-                    break;
-                case 'pdf-password':
-                    toolContent = createPDFPasswordTool(tool);
-                    break;
-                    
-                // Image Tools
-                case 'image-resize':
-                    toolContent = createImageResizeTool(tool);
-                    break;
-                case 'image-compress':
-                    toolContent = createImageCompressTool(tool);
-                    break;
-                case 'image-convert':
-                    toolContent = createImageConvertTool(tool);
-                    break;
-                case 'image-watermark':
-                    toolContent = createImageWatermarkTool(tool);
-                    break;
-                    
-                // Text Tools
-                case 'text-converter':
-                    toolContent = createTextConverterTool(tool);
-                    break;
-                case 'word-counter':
-                    toolContent = createWordCounterTool(tool);
-                    break;
-                case 'password-generator':
-                    toolContent = createPasswordGeneratorTool(tool);
-                    break;
-                    
-                // Utility Tools
-                case 'qr-generator':
-                    toolContent = createQRGeneratorTool(tool);
-                    break;
-                case 'url-shortener':
-                    toolContent = createURLShortenerTool(tool);
-                    break;
-                case 'json-formatter':
-                    toolContent = createJSONFormatterTool(tool);
-                    break;
-                    
-                default:
-                    toolContent = `<p>Tool not implemented yet.</p>`;
-            }
-            
-            document.getElementById('toolContent').innerHTML = toolContent;
-            window.scrollTo(0, 0);
-        }
+function viewPDF(){
+let f=pdfFile.files[0];
+let r=new FileReader();
+r.onload=e=>{
+pdfjsLib.getDocument(e.target.result).promise.then(pdf=>{
+pdf.getPage(1).then(p=>{
+let v=p.getViewport({scale:1.5});
+pdfCanvas.width=v.width;pdfCanvas.height=v.height;
+p.render({canvasContext:pdfCanvas.getContext("2d"),viewport:v});
+});
+});
+};
+r.readAsArrayBuffer(f);
+}
 
-        // ===== TOOL CREATION FUNCTIONS =====
-        
-        // PDF Compress Tool
-        function createPDFCompressTool(tool) {
-            return `
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <i class="${tool.icon}" style="font-size: 64px; color: #3b82f6;"></i>
-                    <h1>${tool.name}</h1>
-                    <p style="color: #64748b;">${tool.desc}</p>
-                </div>
-                
-                <div class="file-upload" onclick="document.getElementById('pdfFileInput').click()">
-                    <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #94a3b8; margin-bottom: 20px;"></i>
-                    <h3>Click to Upload PDF</h3>
-                    <p>or drag and drop (Max: 50MB)</p>
-                    <input type="file" id="pdfFileInput" accept=".pdf" style="display: none" onchange="compressPDF(this)">
-                </div>
-                
-                <div class="tool-options">
-                    <button class="option-btn active" onclick="setCompressionLevel('low')">Low Compression</button>
-                    <button class="option-btn" onclick="setCompressionLevel('medium')">Medium</button>
-                    <button class="option-btn" onclick="setCompressionLevel('high')">High Compression</button>
-                </div>
-                
-                <div class="progress-bar" id="progressBar" style="display: none;">
-                    <div class="progress" id="progress"></div>
-                </div>
-                
-                <div class="result" id="result" style="display: none;">
-                    <i class="fas fa-check-circle" style="font-size: 48px; color: #10b981; margin-bottom: 20px;"></i>
-                    <h3>✅ PDF Compressed Successfully!</h3>
-                    <p id="resultMessage"></p>
-                    <button onclick="downloadCompressedPDF()" style="background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 15px;">
-                        <i class="fas fa-download"></i> Download Compressed PDF
-                    </button>
-                </div>
-                
-                <div style="margin-top: 40px; padding: 20px; background: #f8fafc; border-radius: 10px;">
-                    <h3><i class="fas fa-info-circle"></i> How to Use</h3>
-                    <p style="margin-top: 10px; color: #64748b;">
-                        1. Upload your PDF file<br>
-                        2. Select compression level<br>
-                        3. Wait for processing<br>
-                        4. Download compressed file
-                    </p>
-                </div>
-                
-                <button onclick="showHome()" style="background: #64748b; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 30px;">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </button>
-            `;
-        }
+function pdfToImg(){viewPDF();}
 
-        // Image Resize Tool
-        function createImageResizeTool(tool) {
-            return `
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <i class="${tool.icon}" style="font-size: 64px; color: #3b82f6;"></i>
-                    <h1>${tool.name}</h1>
-                    <p style="color: #64748b;">${tool.desc}</p>
-                </div>
-                
-                <div class="file-upload" onclick="document.getElementById('imageFileInput').click()">
-                    <i class="fas fa-cloud-upload-alt" style="font-size: 48px; color: #94a3b8; margin-bottom: 20px;"></i>
-                    <h3>Click to Upload Image</h3>
-                    <p>Supports JPG, PNG, WebP (Max: 20MB)</p>
-                    <input type="file" id="imageFileInput" accept="image/*" style="display: none" onchange="handleImageUpload(this)">
-                </div>
-                
-                <div id="resizeControls" style="display: none;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-                        <div>
-                            <label>Width (px)</label>
-                            <input type="number" id="widthInput" class="tool-input" value="800" min="10" max="5000">
-                        </div>
-                        <div>
-                            <label>Height (px)</label>
-                            <input type="number" id="heightInput" class="tool-input" value="600" min="10" max="5000">
-                        </div>
-                    </div>
-                    <div style="margin: 20px 0;">
-                        <label style="display: flex; align-items: center; gap: 10px;">
-                            <input type="checkbox" id="maintainAspect" checked> Maintain aspect ratio
-                        </label>
-                    </div>
-                    <div class="tool-options">
-                        <button class="option-btn" onclick="setPresetSize(800, 600)">800×600</button>
-                        <button class="option-btn" onclick="setPresetSize(1024, 768)">1024×768</button>
-                        <button class="option-btn" onclick="setPresetSize(1920, 1080)">1920×1080</button>
-                        <button class="option-btn" onclick="setPresetSize(1080, 1080)">1080×1080</button>
-                    </div>
-                    <button onclick="resizeImage()" style="background: #3b82f6; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; margin-top: 20px;">
-                        <i class="fas fa-expand-alt"></i> Resize Image
-                    </button>
-                </div>
-                
-                <div id="imagePreview" style="text-align: center; margin: 30px 0; display: none;">
-                    <h4>Preview</h4>
-                    <canvas id="imageCanvas" style="max-width: 100%; border: 1px solid #e2e8f0; border-radius: 10px;"></canvas>
-                    <p id="imageInfo" style="color: #64748b; margin-top: 10px;"></p>
-                </div>
-                
-                <div class="result" id="result" style="display: none;">
-                    <h3>✅ Image Resized!</h3>
-                    <button onclick="downloadResizedImage()" style="background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 15px;">
-                        <i class="fas fa-download"></i> Download Resized Image
-                    </button>
-                </div>
-                
-                <button onclick="showHome()" style="background: #64748b; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 30px;">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </button>
-            `;
-        }
+function genQR(){
+qrcode.innerHTML="";
+new QRCode(qrcode,qrtext.value);
+}
 
-        // Text Converter Tool
-        function createTextConverterTool(tool) {
-            return `
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <i class="${tool.icon}" style="font-size: 64px; color: #3b82f6;"></i>
-                    <h1>${tool.name}</h1>
-                    <p style="color: #64748b;">${tool.desc}</p>
-                </div>
-                
-                <div class="tool-options">
-                    <button class="option-btn active" onclick="convertText('uppercase')">UPPERCASE</button>
-                    <button class="option-btn" onclick="convertText('lowercase')">lowercase</button>
-                    <button class="option-btn" onclick="convertText('titlecase')">Title Case</button>
-                    <button class="option-btn" onclick="convertText('sentencecase')">Sentence case</button>
-                    <button class="option-btn" onclick="convertText('camelcase')">camelCase</button>
-                    <button class="option-btn" onclick="convertText('pascalcase')">PascalCase</button>
-                    <button class="option-btn" onclick="convertText('snakecase')">snake_case</button>
-                    <button class="option-btn" onclick="convertText('kebabcase')">kebab-case</button>
-                </div>
-                
-                <textarea class="tool-textarea" id="textInput" placeholder="Enter your text here...">Welcome to QuickToolHub! We provide free online tools for everyone. Try our text converter tool.</textarea>
-                
-                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-                    <span id="charCount">Characters: 0</span>
-                    <span id="wordCount">Words: 0</span>
-                    <button onclick="copyText()" style="background: #64748b; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
-                        <i class="fas fa-copy"></i> Copy
-                    </button>
-                </div>
-                
-                <textarea class="tool-textarea" id="textOutput" placeholder="Converted text will appear here..." readonly></textarea>
-                
-                <div style="margin-top: 40px; padding: 20px; background: #f8fafc; border-radius: 10px;">
-                    <h3><i class="fas fa-info-circle"></i> Features</h3>
-                    <p style="margin-top: 10px; color: #64748b;">
-                        • 8 different text case conversions<br>
-                        • Real-time character and word count<br>
-                        • One-click copy to clipboard<br>
-                        • No data sent to servers
-                    </p>
-                </div>
-                
-                <button onclick="showHome()" style="background: #64748b; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 30px;">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </button>
-                
-                <script>
-                    updateCounts();
-                    document.getElementById('textInput').addEventListener('input', updateCounts);
-                </script>
-            `;
-        }
+function upper(){txt.value=txt.value.toUpperCase();count();}
+function lower(){txt.value=txt.value.toLowerCase();count();}
+function count(){count.innerText="Words: "+txt.value.split(/\s+/).length;}
 
-        // QR Generator Tool
-        function createQRGeneratorTool(tool) {
-            return `
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <i class="${tool.icon}" style="font-size: 64px; color: #3b82f6;"></i>
-                    <h1>${tool.name}</h1>
-                    <p style="color: #64748b;">${tool.desc}</p>
-                </div>
-                
-                <input type="text" class="tool-input" id="qrText" placeholder="Enter text or URL for QR code" value="https://quicktoolhub.com">
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-                    <div>
-                        <label>Size (pixels)</label>
-                        <input type="range" id="qrSize" min="100" max="500" value="250" class="tool-input" oninput="document.getElementById('sizeValue').textContent = this.value + 'px'">
-                        <span id="sizeValue">250px</span>
-                    </div>
-                    <div>
-                        <label>Color</label>
-                        <input type="color" id="qrColor" value="#3b82f6" class="tool-input" style="height: 40px;">
-                    </div>
-                </div>
-                
-                <button onclick="generateQRCode()" style="background: #3b82f6; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; margin: 20px 0;">
-                    <i class="fas fa-qrcode"></i> Generate QR Code
-                </button>
-                
-                <div style="text-align: center; margin: 30px 0;">
-                    <div id="qrCodeContainer" style="display: inline-block; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                        <!-- QR code will be generated here -->
-                    </div>
-                </div>
-                
-                <div class="result" id="result" style="display: none;">
-                    <button onclick="downloadQRCode()" style="background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin: 10px;">
-                        <i class="fas fa-download"></i> Download PNG
-                    </button>
-                    <button onclick="downloadQRCodeSVG()" style="background: #10b981; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin: 10px;">
-                        <i class="fas fa-download"></i> Download SVG
-                    </button>
-                </div>
-                
-                <button onclick="showHome()" style="background: #64748b; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 30px;">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </button>
-            `;
-        }
+function genPass(){
+let c="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#";
+let p="";
+for(let i=0;i<12;i++)p+=c[Math.floor(Math.random()*c.length)];
+pass.value=p;
+}
+</script>
 
-        // Word Counter Tool
-        function createWordCounterTool(tool) {
-            return `
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <i class="${tool.icon}" style="font-size: 64px; color: #3b82f6;"></i>
-                    <h1>${tool.name}</h1>
-                    <p style="color: #64748b;">${tool.desc}</p>
-                </div>
-                
-                <textarea class="tool-textarea" id="wordCounterInput" placeholder="Paste your text here to count words and characters..."></textarea>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0;">
-                    <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; text-align: center;">
-                        <h3 style="color: #3b82f6;" id="wordCountDisplay">0</h3>
-                        <p>Words</p>
-                    </div>
-                    <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; text-align: center;">
-                        <h3 style="color: #3b82f6;" id="charCountDisplay">0</h3>
-                        <p>Characters</p>
-                    </div>
-                    <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; text-align: center;">
-                        <h3 style="color: #3b82f6;" id="charNoSpaceDisplay">0</h3>
-                        <p>Chars (no spaces)</p>
-                    </div>
-                    <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; text-align: center;">
-                        <h3 style="color: #3b82f6;" id="sentenceCountDisplay">0</h3>
-                        <p>Sentences</p>
-                    </div>
-                </div>
-                
-                <div style="display: flex; gap: 15px; margin: 20px 0;">
-                    <button onclick="clearText()" style="background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
-                        <i class="fas fa-trash"></i> Clear
-                    </button>
-                    <button onclick="pasteText()" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
-                        <i class="fas fa-paste"></i> Paste
-                    </button>
-                    <button onclick="copyCounts()" style="background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
-                        <i class="fas fa-copy"></i> Copy Results
-                    </button>
-                </div>
-                
-                <button onclick="showHome()" style="background: #64748b; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 30px;">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </button>
-            `;
-        }
-
-        // Password Generator Tool
-        function createPasswordGeneratorTool(tool) {
-            return `
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <i class="${tool.icon}" style="font-size: 64px; color: #3b82f6;"></i>
-                    <h1>${tool.name}</h1>
-                    <p style="color: #64748b;">${tool.desc}</p>
-                </div>
-                
-                <div style="background: #f8fafc; padding: 25px; border-radius: 15px; margin: 20px 0;">
-                    <h3 style="margin-bottom: 20px;">Generated Password</h3>
-                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-                        <input type="text" id="passwordOutput" class="tool-input" style="flex: 1; font-family: monospace; font-size: 18px;" readonly>
-                        <button onclick="copyPassword()" style="background: #3b82f6; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer;">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                        <button onclick="generateNewPassword()" style="background: #10b981; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer;">
-                            <i class="fas fa-redo"></i> New
-                        </button>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-                        <input type="range" id="passwordLength" min="8" max="32" value="16" style="flex: 1;" oninput="updateLengthValue()">
-                        <span id="lengthValue" style="min-width: 60px;">16 chars</span>
-                    </div>
-                </div>
-                
-                <div style="margin: 30px 0;">
-                    <h3>Password Options</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
-                        <label style="display: flex; align-items: center; gap: 10px; padding: 15px; background: #f8fafc; border-radius: 8px;">
-                            <input type="checkbox" id="includeUppercase" checked> Uppercase Letters (A-Z)
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 10px; padding: 15px; background: #f8fafc; border-radius: 8px;">
-                            <input type="checkbox" id="includeLowercase" checked> Lowercase Letters (a-z)
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 10px; padding: 15px; background: #f8fafc; border-radius: 8px;">
-                            <input type="checkbox" id="includeNumbers" checked> Numbers (0-9)
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 10px; padding: 15px; background: #f8fafc; border-radius: 8px;">
-                            <input type="checkbox" id="includeSymbols" checked> Symbols (!@#$%^&*)
-                        </label>
-                    </div>
-                </div>
-                
-                <button onclick="generateNewPassword()" style="background: #3b82f6; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; margin: 20px 0;">
-                    <i class="fas fa-key"></i> Generate Strong Password
-                </button>
-                
-                <div style="margin-top: 40px; padding: 20px; background: #f8fafc; border-radius: 10px;">
-                    <h3><i class="fas fa-shield-alt"></i> Password Strength Tips</h3>
-                    <p style="margin-top: 10px; color: #64748b;">
-                        • Use at least 12 characters<br>
-                        • Include numbers, symbols, and mixed case<br>
-                        • Avoid common words and patterns<br>
-                        • Use unique passwords for each account<br>
-                        • Consider using a password manager
-                    </p>
-                </div>
-                
-                <button onclick="showHome()" style="background: #64748b; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 30px;">
-                    <i class="fas fa-arrow-left"></i> Back to Home
-                </button>
-            `;
-        }
-
-        // ===== TOOL FUNCTIONALITY =====
-
-        // Text Converter Functions
-        function updateCounts() {
-            const text = document.getElementById('textInput').value;
-            const charCount = text.length;
-            const wordCount = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
-            
-            document.getElementById('charCount').textContent = `Characters: ${charCount}`;
-            document.getElementById('wordCount').textContent = `Words: ${wordCount}`;
-        }
-
-        function convertText(type) {
-            const input = document.getElementById('textInput').value;
-            let output = '';
-            
-            // Update active button
-            document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            switch(type) {
-                case 'uppercase':
-                    output = input.toUpperCase();
-                    break;
-                case 'lowercase':
-                    output = input.toLowerCase();
-                    break;
-                case 'titlecase':
-                    output = input.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
-                    break;
-                case 'sentencecase':
-                    output = input.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, match => match.toUpperCase());
-                    break;
-                case 'camelcase':
-                    output = input.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (match, char) => char.toUpperCase());
-                    break;
-                case 'pascalcase':
-                    output = input.toLowerCase().replace(/(^|\s+)(.)/g, (match, char) => char.toUpperCase());
-                    break;
-                case 'snakecase':
-                    output = input.toLowerCase().replace(/\s+/g, '_');
-                    break;
-                case 'kebabcase':
-                    output = input.toLowerCase().replace(/\s+/g, '-');
-                    break;
-            }
-            
-            document.getElementById('textOutput').value = output;
-        }
-
-        function copyText() {
-            const output = document.getElementById('textOutput');
-            output.select();
-            document.execCommand('copy');
-            alert('Text copied to clipboard!');
-        }
-
-        // Image Resize Functions
-        let originalImage = null;
-        let resizedImageUrl = null;
-
-        function handleImageUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                originalImage = new Image();
-                originalImage.onload = function() {
-                    document.getElementById('resizeControls').style.display = 'block';
-                    document.getElementById('widthInput').value = originalImage.width;
-                    document.getElementById('heightInput').value = originalImage.height;
-                    updateImageInfo();
-                };
-                originalImage.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function setPresetSize(width, height) {
-            document.getElementById('widthInput').value = width;
-            document.getElementById('heightInput').value = height;
-        }
-
-        function resizeImage() {
-            if (!originalImage) {
-                alert('Please upload an image first');
-                return;
-            }
-            
-            const width = parseInt(document.getElementById('widthInput').value);
-            const height = parseInt(document.getElementById('heightInput').value);
-            
-            const canvas = document.getElementById('imageCanvas');
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = width;
-            canvas.height = height;
-            
-            ctx.drawImage(originalImage, 0, 0, width, height);
-            
-            document.getElementById('imagePreview').style.display = 'block';
-            document.getElementById('result').style.display = 'block';
-            
-            resizedImageUrl = canvas.toDataURL('image/png');
-            updateImageInfo();
-        }
-
-        function updateImageInfo() {
-            if (!originalImage) return;
-            
-            const width = document.getElementById('widthInput').value;
-            const height = document.getElementById('heightInput').value;
-            
-            document.getElementById('imageInfo').textContent = 
-                `Original: ${originalImage.width}×${originalImage.height} | Resized: ${width}×${height}`;
-        }
-
-        function downloadResizedImage() {
-            if (!resizedImageUrl) return;
-            
-            const link = document.createElement('a');
-            link.download = 'resized-image.png';
-            link.href = resizedImageUrl;
-            link.click();
-        }
-
-        // QR Generator Functions
-        function generateQRCode() {
-            const text = document.getElementById('qrText').value;
-            const size = document.getElementById('qrSize').value;
-            const color = document.getElementById('qrColor').value;
-            
-            if (!text.trim()) {
-                alert('Please enter text or URL');
-                return;
-            }
-            
-            // Simple QR code generation using Unicode characters
-            const container = document.getElementById('qrCodeContainer');
-            container.innerHTML = `
-                <div style="width: ${size}px; height: ${size}px; background: ${color}; color: white; display: grid; grid-template-columns: repeat(21, 1fr); grid-template-rows: repeat(21, 1fr);">
-                    ${Array(441).fill().map((_, i) => 
-                        `<div style="background: ${Math.random() > 0.5 ? color : 'white'}; border-radius: 2px;"></div>`
-                    ).join('')}
-                </div>
-                <p style="margin-top: 15px; color: #64748b;">Scan this QR code</p>
-            `;
-            
-            document.getElementById('result').style.display = 'block';
-        }
-
-        function downloadQRCode() {
-            alert('QR Code downloaded as PNG!');
-        }
-
-        function downloadQRCodeSVG() {
-            alert('QR Code downloaded as SVG!');
-        }
-
-        // Word Counter Functions
-        function countWords() {
-            const text = document.getElementById('wordCounterInput').value;
-            
-            // Word count (words separated by spaces)
-            const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
-            
-            // Character count
-            const chars = text.length;
-            
-            // Character count without spaces
-            const charsNoSpace = text.replace(/\s+/g, '').length;
-            
-            // Sentence count (rough estimate)
-            const sentences = text.split(/[.!?]+/).filter(s => s.trim()).length;
-            
-            // Update displays
-            document.getElementById('wordCountDisplay').textContent = words;
-            document.getElementById('charCountDisplay').textContent = chars;
-            document.getElementById('charNoSpaceDisplay').textContent = charsNoSpace;
-            document.getElementById('sentenceCountDisplay').textContent = sentences;
-        }
-
-        function clearText() {
-            document.getElementById('wordCounterInput').value = '';
-            countWords();
-        }
-
-        async function pasteText() {
-            try {
-                const text = await navigator.clipboard.readText();
-                document.getElementById('wordCounterInput').value = text;
-                countWords();
-            } catch (err) {
-                alert('Unable to paste from clipboard');
-            }
-        }
-
-        function copyCounts() {
-            const counts = `Words: ${document.getElementById('wordCountDisplay').textContent}\n` +
-                          `Characters: ${document.getElementById('charCountDisplay').textContent}\n` +
-                          `Characters (no spaces): ${document.getElementById('charNoSpaceDisplay').textContent}\n` +
-                          `Sentences: ${document.getElementById('sentenceCountDisplay').textContent}`;
-            
-            navigator.clipboard.writeText(counts);
-            alert('Counts copied to clipboard!');
-        }
-
-        // Password Generator Functions
-        function generateNewPassword() {
-            const length = parseInt(document.getElementById('passwordLength').value);
-            const includeUppercase = document.getElementById('includeUppercase').checked;
-            const includeLowercase = document.getElementById('includeLowercase').checked;
-            const includeNumbers = document.getElementById('includeNumbers').checked;
-            const includeSymbols = document.getElementById('includeSymbols').checked;
-            
-            let charset = '';
-            if (includeUppercase) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            if (includeLowercase) charset += 'abcdefghijklmnopqrstuvwxyz';
-            if (includeNumbers) charset += '0123456789';
-            if (includeSymbols) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
-            
-            if (charset === '') {
-                alert('Please select at least one character type');
-                return;
-            }
-            
-            let password = '';
-            for (let i = 0; i < length; i++) {
-                const randomIndex = Math.floor(Math.random() * charset.length);
-                password += charset[randomIndex];
-            }
-            
-            document.getElementById('passwordOutput').value = password;
-        }
-
-        function copyPassword() {
-            const password = document.getElementById('passwordOutput').value;
-            if (!password) {
-                alert('Generate a password first');
-                return;
-            }
-            
-            navigator.clipboard.writeText(password);
-            alert('Password copied to clipboard!');
-        }
-
-        function updateLengthValue() {
-            const length = document.getElementById('passwordLength').value;
-            document.getElementById('lengthValue').textContent = `${length} chars`;
-        }
-
-        // Initialize counters and password generator
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize word counter
-            const wordCounterInput = document.getElementById('wordCounterInput');
-            if (wordCounterInput) {
-                wordCounterInput.addEventListener('input', countWords);
-                countWords();
-            }
-            
-            // Initialize password generator
-            generateNewPassword();
-            
-            // Initialize text converter
-            if (document.getElementById('textInput')) {
-                updateCounts();
-                convertText('uppercase');
-            }
-        });
-
-        // ===== INITIALIZE =====
-        window.onload = function() {
-            showHome();
-            generateNewPassword();
-        };
-    </script>
 </body>
-    </html>
+</html>
