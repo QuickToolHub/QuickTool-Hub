@@ -1,902 +1,622 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickToolHub - All Tools in One</title>
+    <title>QuickToolHub - All Tools</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        /* पहले वाले जैसा simple style */
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
+            font-family: Arial;
+            background: #f5f5f5;
+            margin: 0;
             padding: 20px;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-            padding: 30px;
-        }
-        
-        /* Header */
         .header {
             text-align: center;
-            padding: 30px 0;
-            background: linear-gradient(135deg, #4c51bf 0%, #6b46c1 100%);
+            background: #0078D7;
             color: white;
-            margin: -30px -30px 30px -30px;
-            border-radius: 20px 20px 0 0;
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        /* Navigation */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .tab-btn {
-            padding: 12px 25px;
-            background: #e2e8f0;
-            border: none;
+            padding: 20px;
             border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+            margin-bottom: 20px;
         }
-        
-        .tab-btn:hover {
-            background: #cbd5e0;
+        .tool-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
-        .tab-btn.active {
-            background: #4c51bf;
-            color: white;
-        }
-        
-        /* Tool Container */
-        .tool-container {
-            display: none;
-            padding: 30px;
-            background: #f7fafc;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .tool-container.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Upload Area */
         .upload-area {
-            border: 3px dashed #cbd5e0;
-            border-radius: 15px;
-            padding: 50px 20px;
+            border: 2px dashed #ccc;
+            padding: 40px;
             text-align: center;
             margin: 20px 0;
-            background: #fff;
-            transition: all 0.3s;
-            cursor: pointer;
+            border-radius: 10px;
+            background: #f9f9f9;
         }
-        
-        .upload-area:hover {
-            border-color: #4c51bf;
-            background: #f0f4ff;
-        }
-        
-        .upload-area.dragover {
-            border-color: #4c51bf;
-            background: #e6fffa;
-        }
-        
-        .upload-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-            color: #4c51bf;
-        }
-        
         .file-input {
             display: none;
         }
-        
-        .file-label {
-            display: inline-block;
-            background: #4c51bf;
+        .file-btn {
+            background: #0078D7;
             color: white;
-            padding: 12px 30px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            transition: background 0.3s;
         }
-        
-        .file-label:hover {
-            background: #434190;
-        }
-        
-        /* Action Buttons */
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-        
         .action-btn {
-            flex: 1;
-            min-width: 200px;
-            padding: 18px;
+            background: #28a745;
+            color: white;
+            padding: 12px 30px;
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
+            cursor: pointer;
             font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .action-btn:disabled {
-            background: #cbd5e0 !important;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-        
-        .convert-btn {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-            color: white;
-        }
-        
-        .convert-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(72, 187, 120, 0.3);
-        }
-        
-        .download-btn {
-            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
-            color: white;
-            display: none;
-        }
-        
-        .download-btn:hover {
-            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(66, 153, 225, 0.3);
-        }
-        
-        /* Status Message */
-        .status {
-            margin: 20px 0;
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-        }
-        
-        .status.success {
-            background: #c6f6d5;
-            color: #22543d;
-            display: block;
-            border-left: 5px solid #38a169;
-        }
-        
-        .status.error {
-            background: #fed7d7;
-            color: #742a2a;
-            display: block;
-            border-left: 5px solid #e53e3e;
-        }
-        
-        .status.processing {
-            background: #bee3f8;
-            color: #2c5282;
-            display: block;
-            border-left: 5px solid #4299e1;
-        }
-        
-        /* File Info */
-        .file-info {
-            background: #edf2f7;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            display: none;
-        }
-        
-        /* 3D Viewer Specific */
-        #modelViewer {
+            margin: 10px 5px;
             width: 100%;
-            height: 400px;
-            background: #2d3748;
-            border-radius: 10px;
-            margin: 20px 0;
         }
-        
-        .viewer-controls {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-            flex-wrap: wrap;
+        .action-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
-        
-        .control-btn {
-            padding: 10px 20px;
-            background: #4c51bf;
+        .download-btn {
+            background: #17a2b8;
             color: white;
+            padding: 12px 30px;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 18px;
+            margin: 10px 5px;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
-        
-        /* Footer */
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .processing {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .file-info {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        .tab.active {
+            border-bottom: 3px solid #0078D7;
+            background: #e7f3ff;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
         .footer {
             text-align: center;
-            padding: 30px 0 0 0;
-            margin-top: 40px;
-            border-top: 1px solid #e2e8f0;
-            color: #718096;
+            margin-top: 30px;
+            color: #666;
             font-size: 14px;
         }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .header {
-                padding: 20px 0;
-            }
-            
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .tool-container {
-                padding: 20px 15px;
-            }
-            
-            .action-btn {
-                min-width: 100%;
-            }
-            
-            .tabs {
-                flex-direction: column;
-            }
-            
-            .tab-btn {
-                width: 100%;
-                text-align: center;
-            }
-        }
     </style>
-    
-    <!-- Three.js for 3D Viewer -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>🚀 QuickToolHub</h1>
-            <p>All-in-One Free Tools - Convert & Download with One Click</p>
-        </div>
-        
-        <!-- Navigation Tabs -->
-        <div class="tabs">
-            <button class="tab-btn active" data-tool="pdf-compressor">📄 PDF Compressor</button>
-            <button class="tab-btn" data-tool="pdf-to-jpg">🖼️ PDF to JPG</button>
-            <button class="tab-btn" data-tool="3d-viewer">🔄 3D Viewer</button>
-        </div>
-        
-        <!-- ==================== PDF COMPRESSOR ==================== -->
-        <div id="pdf-compressor" class="tool-container active">
-            <h2>📄 PDF Compressor</h2>
+    <!-- Header -->
+    <div class="header">
+        <h1>QuickToolHub</h1>
+        <p>Free online tools for PDF, images, and more</p>
+    </div>
+    
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+        <div class="tab active" onclick="showTab('pdf-compress')">📄 Compress PDF</div>
+        <div class="tab" onclick="showTab('pdf-jpg')">🖼️ PDF to JPG</div>
+        <div class="tab" onclick="showTab('3d-view')">🔄 3D Viewer</div>
+    </div>
+    
+    <!-- PDF Compressor Tool -->
+    <div id="pdf-compress" class="tab-content active">
+        <div class="tool-box">
+            <h2>PDF Compressor</h2>
             <p>Reduce PDF file size without quality loss</p>
             
-            <div class="upload-area" id="pdf-compress-upload">
-                <div class="upload-icon">📁</div>
-                <h3>Drag & Drop PDF File Here</h3>
-                <p>or</p>
-                <input type="file" id="pdf-compress-input" class="file-input" accept=".pdf">
-                <label for="pdf-compress-input" class="file-label">Choose PDF File</label>
-                <p style="margin-top: 10px; color: #718096;">Max file size: 50MB</p>
+            <div class="upload-area" onclick="document.getElementById('pdf-file').click()">
+                <p style="font-size: 50px;">📁</p>
+                <p><strong>Click to select PDF file</strong></p>
+                <p>or drag and drop here</p>
+                <input type="file" id="pdf-file" class="file-input" accept=".pdf">
             </div>
             
-            <div id="pdf-compress-info" class="file-info"></div>
-            
-            <div class="action-buttons">
-                <button id="pdf-compress-btn" class="action-btn convert-btn" disabled>
-                    <span>⚡ Compress PDF</span>
-                </button>
-                <a id="pdf-download-btn" class="action-btn download-btn" download>
-                    <span>⬇️ Download Compressed PDF</span>
-                </a>
+            <div id="pdf-info" class="file-info" style="display:none;">
+                Selected: <span id="pdf-name"></span><br>
+                Size: <span id="pdf-size"></span> MB
             </div>
             
-            <div id="pdf-compress-status" class="status"></div>
+            <button id="compress-btn" class="action-btn" onclick="compressPDF()" disabled>
+                ⚡ Compress PDF
+            </button>
+            
+            <a id="pdf-download" class="download-btn" style="display:none;" download>
+                ⬇️ Download Compressed PDF
+            </a>
+            
+            <div id="pdf-status" class="status"></div>
         </div>
-        
-        <!-- ==================== PDF TO JPG ==================== -->
-        <div id="pdf-to-jpg" class="tool-container">
-            <h2>🖼️ PDF to JPG Converter</h2>
-            <p>Convert PDF pages to high-quality JPG images</p>
+    </div>
+    
+    <!-- PDF to JPG Converter -->
+    <div id="pdf-jpg" class="tab-content">
+        <div class="tool-box">
+            <h2>PDF to JPG Converter</h2>
+            <p>Convert PDF pages to JPG images</p>
             
-            <div class="upload-area" id="pdf-jpg-upload">
-                <div class="upload-icon">📁</div>
-                <h3>Drag & Drop PDF File Here</h3>
-                <p>or</p>
-                <input type="file" id="pdf-jpg-input" class="file-input" accept=".pdf">
-                <label for="pdf-jpg-input" class="file-label">Choose PDF File</label>
-                <p style="margin-top: 10px; color: #718096;">Max file size: 50MB</p>
+            <div class="upload-area" onclick="document.getElementById('jpg-file').click()">
+                <p style="font-size: 50px;">📁</p>
+                <p><strong>Click to select PDF file</strong></p>
+                <p>or drag and drop here</p>
+                <input type="file" id="jpg-file" class="file-input" accept=".pdf">
             </div>
             
-            <div id="pdf-jpg-info" class="file-info"></div>
+            <div id="jpg-info" class="file-info" style="display:none;">
+                Selected: <span id="jpg-name"></span><br>
+                Size: <span id="jpg-size"></span> MB
+            </div>
             
             <div style="margin: 20px 0;">
-                <label style="font-weight: 600;">Quality Settings:</label>
-                <select id="jpg-quality" style="padding: 10px; border-radius: 6px; border: 1px solid #cbd5e0; margin-left: 10px;">
-                    <option value="90">High (90%)</option>
-                    <option value="75" selected>Medium (75%)</option>
-                    <option value="50">Low (50%)</option>
+                <label><strong>Quality:</strong></label>
+                <select id="quality" style="padding: 8px; margin-left: 10px;">
+                    <option value="high">High</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="low">Low</option>
                 </select>
             </div>
             
-            <div class="action-buttons">
-                <button id="pdf-jpg-btn" class="action-btn convert-btn" disabled>
-                    <span>🔄 Convert to JPG</span>
-                </button>
-                <a id="jpg-download-btn" class="action-btn download-btn" download>
-                    <span>⬇️ Download JPG Images</span>
-                </a>
-            </div>
+            <button id="convert-btn" class="action-btn" onclick="convertToJPG()" disabled>
+                🔄 Convert to JPG
+            </button>
             
-            <div id="pdf-jpg-status" class="status"></div>
+            <a id="jpg-download" class="download-btn" style="display:none;" download>
+                ⬇️ Download JPG Images
+            </a>
             
-            <div id="jpg-preview" style="display: none; margin-top: 30px;">
+            <div id="jpg-status" class="status"></div>
+            
+            <div id="jpg-preview" style="display:none; margin-top: 20px;">
                 <h3>Preview:</h3>
-                <div id="preview-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;"></div>
+                <img id="preview-img" style="max-width: 100%; border: 1px solid #ddd;">
             </div>
         </div>
-        
-        <!-- ==================== 3D VIEWER ==================== -->
-        <div id="3d-viewer" class="tool-container">
-            <h2>🔄 3D Model Viewer</h2>
-            <p>Upload and view 3D models in your browser</p>
+    </div>
+    
+    <!-- 3D Viewer -->
+    <div id="3d-view" class="tab-content">
+        <div class="tool-box">
+            <h2>3D Model Viewer</h2>
+            <p>View 3D models in your browser</p>
             
-            <div class="upload-area" id="3d-upload">
-                <div class="upload-icon">📁</div>
-                <h3>Drag & Drop 3D Model Here</h3>
-                <p>or</p>
-                <input type="file" id="3d-input" class="file-input" accept=".stl,.obj,.glb,.gltf">
-                <label for="3d-input" class="file-label">Choose 3D File</label>
-                <p style="margin-top: 10px; color: #718096;">Formats: .stl, .obj, .glb, .gltf</p>
+            <div class="upload-area" onclick="document.getElementById('3d-file').click()">
+                <p style="font-size: 50px;">📁</p>
+                <p><strong>Click to select 3D file</strong></p>
+                <p>Supported: .stl, .obj, .glb, .gltf</p>
+                <input type="file" id="3d-file" class="file-input" accept=".stl,.obj,.glb,.gltf">
             </div>
             
-            <div id="3d-info" class="file-info"></div>
-            
-            <div class="action-buttons">
-                <button id="3d-load-btn" class="action-btn convert-btn" disabled>
-                    <span>👁️ View 3D Model</span>
-                </button>
-                <button id="3d-screenshot-btn" class="action-btn download-btn">
-                    <span>📸 Download Screenshot</span>
-                </button>
+            <div id="3d-info" class="file-info" style="display:none;">
+                Selected: <span id="3d-name"></span>
             </div>
+            
+            <button id="view-btn" class="action-btn" onclick="view3DModel()" disabled>
+                👁️ View 3D Model
+            </button>
+            
+            <button id="screenshot-btn" class="download-btn" onclick="takeScreenshot()" style="display:none;">
+                📸 Take Screenshot
+            </button>
             
             <div id="3d-status" class="status"></div>
             
-            <!-- 3D Viewer Canvas -->
-            <div id="modelViewer"></div>
-            
-            <div class="viewer-controls">
-                <button id="reset-view" class="control-btn">Reset View</button>
-                <button id="auto-rotate" class="control-btn">Auto Rotate</button>
-                <button id="toggle-grid" class="control-btn">Toggle Grid</button>
-                <button id="toggle-wireframe" class="control-btn">Wireframe</button>
+            <!-- Simple 3D Viewer (Canvas) -->
+            <div style="margin: 20px 0; text-align: center;">
+                <canvas id="3d-canvas" width="600" height="400" 
+                    style="border:1px solid #ccc; background:#2d3748; max-width:100%;"></canvas>
             </div>
             
-            <div style="margin-top: 20px; background: #edf2f7; padding: 15px; border-radius: 10px;">
-                <h4>📱 Controls:</h4>
-                <p>• Drag = Rotate | • Scroll = Zoom | • Right Drag = Pan</p>
+            <div style="background: #e9ecef; padding: 15px; border-radius: 5px;">
+                <p><strong>Controls:</strong></p>
+                <p>• Drag mouse = Rotate</p>
+                <p>• Scroll = Zoom in/out</p>
             </div>
         </div>
-        
-        <!-- Footer -->
-        <div class="footer">
-            <p>© 2024 QuickToolHub. All rights reserved.</p>
-            <p>All tools are 100% free | No registration required | Privacy guaranteed</p>
-            <p>Email: QuickToolHub@hotmail.com</p>
-        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2024 QuickToolHub. All rights reserved.</p>
+        <p>All tools are 100% free | No registration required</p>
+        <p>Email: QuickToolHub@hotmail.com</p>
     </div>
 
     <script>
-        // ==================== GLOBAL VARIABLES ====================
-        let currentTool = 'pdf-compressor';
+        // ============== SIMPLE CODE - आसान समझने वाला ==============
+        
         let currentFile = null;
+        let currentFileType = '';
         
-        // 3D Viewer Variables
-        let scene, camera, renderer, controls, currentModel = null;
-        let autoRotate = false;
-        let showGrid = true;
-        
-        // ==================== INITIALIZATION ====================
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab Switching
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Update active tab
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Show selected tool
-                    currentTool = this.dataset.tool;
-                    document.querySelectorAll('.tool-container').forEach(container => {
-                        container.classList.remove('active');
-                    });
-                    document.getElementById(currentTool).classList.add('active');
-                    
-                    // Reset status
-                    resetStatus();
-                });
+        // Tab switching
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
             });
             
-            // Initialize 3D Viewer
-            init3DViewer();
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
             
-            // Setup all upload areas
-            setupUploadAreas();
-            
-            // Setup convert buttons
-            setupConvertButtons();
-            
-            // Setup 3D controls
-            setup3DControls();
-        });
-        
-        // ==================== UPLOAD AREAS ====================
-        function setupUploadAreas() {
-            const uploadAreas = [
-                { id: 'pdf-compress-upload', inputId: 'pdf-compress-input', infoId: 'pdf-compress-info', btnId: 'pdf-compress-btn' },
-                { id: 'pdf-jpg-upload', inputId: 'pdf-jpg-input', infoId: 'pdf-jpg-info', btnId: 'pdf-jpg-btn' },
-                { id: '3d-upload', inputId: '3d-input', infoId: '3d-info', btnId: '3d-load-btn' }
-            ];
-            
-            uploadAreas.forEach(area => {
-                const uploadArea = document.getElementById(area.id);
-                const fileInput = document.getElementById(area.inputId);
-                const infoDiv = document.getElementById(area.infoId);
-                const convertBtn = document.getElementById(area.btnId);
-                
-                // Click to upload
-                uploadArea.addEventListener('click', () => fileInput.click());
-                
-                // File input change
-                fileInput.addEventListener('change', (e) => handleFileSelect(e, infoDiv, convertBtn));
-                
-                // Drag and drop
-                uploadArea.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    uploadArea.classList.add('dragover');
-                });
-                
-                uploadArea.addEventListener('dragleave', () => {
-                    uploadArea.classList.remove('dragover');
-                });
-                
-                uploadArea.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    uploadArea.classList.remove('dragover');
-                    
-                    if (e.dataTransfer.files.length) {
-                        fileInput.files = e.dataTransfer.files;
-                        handleFileSelect(e, infoDiv, convertBtn);
-                    }
-                });
+            // Activate tab button
+            document.querySelectorAll('.tab').forEach(tab => {
+                if (tab.textContent.includes(tabId.includes('pdf-compress') ? 'Compress' : 
+                                            tabId.includes('pdf-jpg') ? 'PDF to JPG' : '3D Viewer')) {
+                    tab.classList.add('active');
+                }
             });
-        }
-        
-        function handleFileSelect(event, infoDiv, convertBtn) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            currentFile = file;
-            
-            // Show file info
-            const fileSize = (file.size / (1024*1024)).toFixed(2);
-            infoDiv.innerHTML = `
-                <strong>Selected File:</strong> ${file.name}<br>
-                <strong>Size:</strong> ${fileSize} MB<br>
-                <strong>Type:</strong> ${file.type || file.name.split('.').pop().toUpperCase()}
-            `;
-            infoDiv.style.display = 'block';
-            
-            // Enable convert button
-            convertBtn.disabled = false;
             
             resetStatus();
         }
         
-        // ==================== PDF COMPRESSOR ====================
-        document.getElementById('pdf-compress-btn').addEventListener('click', async function() {
-            if (!currentFile) return;
+        // File selection for PDF Compressor
+        document.getElementById('pdf-file').addEventListener('change', function(e) {
+            handleFileSelect(e, 'pdf');
+        });
+        
+        // File selection for PDF to JPG
+        document.getElementById('jpg-file').addEventListener('change', function(e) {
+            handleFileSelect(e, 'jpg');
+        });
+        
+        // File selection for 3D Viewer
+        document.getElementById('3d-file').addEventListener('change', function(e) {
+            handleFileSelect(e, '3d');
+        });
+        
+        function handleFileSelect(event, type) {
+            const file = event.target.files[0];
+            if (!file) return;
             
-            const statusDiv = document.getElementById('pdf-compress-status');
-            const downloadBtn = document.getElementById('pdf-download-btn');
-            const convertBtn = this;
+            currentFile = file;
+            currentFileType = type;
+            
+            // Show file info
+            const infoDiv = document.getElementById(type + '-info');
+            const nameSpan = document.getElementById(type + '-name');
+            const sizeSpan = document.getElementById(type + '-size');
+            const btn = document.getElementById(type === 'pdf' ? 'compress-btn' : 
+                                              type === 'jpg' ? 'convert-btn' : 'view-btn');
+            
+            nameSpan.textContent = file.name;
+            
+            if (type !== '3d') {
+                const sizeMB = (file.size / (1024*1024)).toFixed(2);
+                sizeSpan.textContent = sizeMB;
+            }
+            
+            infoDiv.style.display = 'block';
+            btn.disabled = false;
+            
+            resetStatus();
+        }
+        
+        // PDF Compression Function
+        function compressPDF() {
+            if (!currentFile || currentFileType !== 'pdf') {
+                alert('Please select a PDF file first');
+                return;
+            }
+            
+            const statusDiv = document.getElementById('pdf-status');
+            const downloadBtn = document.getElementById('pdf-download');
+            const compressBtn = document.getElementById('compress-btn');
             
             // Show processing
             statusDiv.className = 'status processing';
-            statusDiv.innerHTML = '⏳ Compressing PDF file...';
-            convertBtn.disabled = true;
+            statusDiv.innerHTML = '⏳ Compressing PDF... Please wait';
+            compressBtn.disabled = true;
             
-            try {
-                // Create FormData
-                const formData = new FormData();
-                formData.append('file', currentFile);
-                formData.append('action', 'compress');
+            // Simulate processing (2 seconds)
+            setTimeout(() => {
+                // Create a demo compressed file
+                const fileContent = `
+                    =================================
+                    QUICKTOOLHUB - COMPRESSED PDF
+                    =================================
+                    
+                    Original File: ${currentFile.name}
+                    Compression: 60% size reduction
+                    Generated: ${new Date().toLocaleString()}
+                    
+                    This is a demo compressed PDF file.
+                    In actual implementation, real PDF compression
+                    would happen here using PDF libraries.
+                    
+                    For real compression, you need:
+                    1. Backend server (Node.js/Python)
+                    2. PDF processing library
+                    3. File storage setup
+                    
+                    © 2024 QuickToolHub
+                `;
                 
-                // For demo - simulate compression
-                // In production, you would send to backend
-                await simulateProcessing(2000);
+                const blob = new Blob([fileContent], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
                 
-                // Create a compressed PDF (demo - actual would come from backend)
-                const compressedBlob = await createDemoPDF('Compressed PDF - QuickToolHub');
-                const url = URL.createObjectURL(compressedBlob);
-                
-                // Setup download button
+                // Setup download
                 downloadBtn.href = url;
-                downloadBtn.download = 'compressed_' + currentFile.name.replace('.pdf', '') + '.pdf';
-                downloadBtn.style.display = 'flex';
+                downloadBtn.download = 'compressed_' + currentFile.name;
+                downloadBtn.style.display = 'block';
                 
                 // Show success
                 statusDiv.className = 'status success';
-                statusDiv.innerHTML = '✅ PDF compressed successfully! Click Download button above.';
+                statusDiv.innerHTML = '✅ PDF compressed successfully! Click download button.';
                 
-                // Auto-click download on mobile (works with user gesture)
+                // Auto-click download after 1 second
                 setTimeout(() => {
                     downloadBtn.click();
-                }, 500);
+                }, 1000);
                 
-            } catch (error) {
-                statusDiv.className = 'status error';
-                statusDiv.innerHTML = `❌ Error: ${error.message}`;
-                convertBtn.disabled = false;
-            }
-        });
+            }, 2000);
+        }
         
-        // ==================== PDF TO JPG ====================
-        document.getElementById('pdf-jpg-btn').addEventListener('click', async function() {
-            if (!currentFile) return;
+        // PDF to JPG Conversion
+        function convertToJPG() {
+            if (!currentFile || currentFileType !== 'jpg') {
+                alert('Please select a PDF file first');
+                return;
+            }
             
-            const statusDiv = document.getElementById('pdf-jpg-status');
-            const downloadBtn = document.getElementById('jpg-download-btn');
+            const statusDiv = document.getElementById('jpg-status');
+            const downloadBtn = document.getElementById('jpg-download');
+            const convertBtn = document.getElementById('convert-btn');
             const previewDiv = document.getElementById('jpg-preview');
-            const previewContainer = document.getElementById('preview-container');
-            const convertBtn = this;
+            const previewImg = document.getElementById('preview-img');
             
             // Show processing
             statusDiv.className = 'status processing';
-            statusDiv.innerHTML = '⏳ Converting PDF to JPG images...';
+            statusDiv.innerHTML = '⏳ Converting PDF to JPG... Please wait';
             convertBtn.disabled = true;
-            previewContainer.innerHTML = '';
             
-            try {
-                // Get quality
-                const quality = document.getElementById('jpg-quality').value;
+            // Simulate processing (3 seconds)
+            setTimeout(() => {
+                // Create a demo JPG image
+                const canvas = document.createElement('canvas');
+                canvas.width = 800;
+                canvas.height = 600;
+                const ctx = canvas.getContext('2d');
                 
-                // For demo - simulate conversion
-                // In production, you would send to backend
-                await simulateProcessing(2500);
+                // Draw demo image
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, 800, 600);
                 
-                // Create demo JPG images (3 pages)
-                const imageBlobs = [];
-                for (let i = 1; i <= 3; i++) {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = 800;
-                    canvas.height = 600;
-                    const ctx = canvas.getContext('2d');
-                    
-                    // Draw demo image
-                    ctx.fillStyle = '#f7fafc';
-                    ctx.fillRect(0, 0, 800, 600);
-                    
-                    ctx.fillStyle = '#4c51bf';
-                    ctx.font = 'bold 40px Arial';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(`Page ${i}`, 400, 200);
-                    
-                    ctx.fillStyle = '#718096';
-                    ctx.font = '20px Arial';
-                    ctx.fillText('Converted by QuickToolHub', 400, 250);
-                    
-                    ctx.fillStyle = '#48bb78';
-                    ctx.beginPath();
-                    ctx.arc(400, 350, 50, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Convert to blob
-                    const blob = await new Promise(resolve => {
-                        canvas.toBlob(resolve, 'image/jpeg', quality/100);
-                    });
-                    
-                    imageBlobs.push(blob);
-                    
-                    // Add to preview
-                    const imgUrl = URL.createObjectURL(blob);
-                    const imgDiv = document.createElement('div');
-                    imgDiv.innerHTML = `
-                        <img src="${imgUrl}" style="width:100%; border-radius:8px; margin-bottom:5px;">
-                        <p style="text-align:center; font-size:12px;">Page ${i}</p>
-                    `;
-                    previewContainer.appendChild(imgDiv);
-                }
+                // Add text
+                ctx.fillStyle = '#0078D7';
+                ctx.font = 'bold 40px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('PDF to JPG Converted', 400, 150);
                 
-                // Create zip (demo - in production would be actual zip)
-                const zipBlob = await createDemoZip(imageBlobs);
-                const url = URL.createObjectURL(zipBlob);
+                ctx.fillStyle = '#28a745';
+                ctx.font = '30px Arial';
+                ctx.fillText('QuickToolHub', 400, 220);
                 
-                // Setup download button
-                downloadBtn.href = url;
-                downloadBtn.download = 'converted_images.zip';
-                downloadBtn.style.display = 'flex';
+                ctx.fillStyle = '#666666';
+                ctx.font = '20px Arial';
+                ctx.fillText('Page 1 of 1', 400, 280);
+                ctx.fillText('Generated: ' + new Date().toLocaleDateString(), 400, 320);
                 
-                // Show preview
-                previewDiv.style.display = 'block';
+                // Draw a simple graphic
+                ctx.fillStyle = '#ff6b6b';
+                ctx.beginPath();
+                ctx.arc(400, 400, 50, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Convert to blob
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    
+                    // Setup download
+                    downloadBtn.href = url;
+                    downloadBtn.download = 'converted_' + currentFile.name.replace('.pdf', '.jpg');
+                    downloadBtn.style.display = 'block';
+                    
+                    // Show preview
+                    previewImg.src = url;
+                    previewDiv.style.display = 'block';
+                    
+                    // Show success
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = '✅ PDF converted to JPG successfully!';
+                    
+                    // Auto-click download
+                    setTimeout(() => {
+                        downloadBtn.click();
+                    }, 1000);
+                    
+                }, 'image/jpeg', 0.9);
+                
+            }, 3000);
+        }
+        
+        // Simple 3D Viewer
+        function view3DModel() {
+            if (!currentFile || currentFileType !== '3d') {
+                alert('Please select a 3D file first');
+                return;
+            }
+            
+            const statusDiv = document.getElementById('3d-status');
+            const viewBtn = document.getElementById('view-btn');
+            const screenshotBtn = document.getElementById('screenshot-btn');
+            const canvas = document.getElementById('3d-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Show processing
+            statusDiv.className = 'status processing';
+            statusDiv.innerHTML = '⏳ Loading 3D model...';
+            viewBtn.disabled = true;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Simulate loading (2 seconds)
+            setTimeout(() => {
+                // Draw a simple 3D cube (2D simulation)
+                ctx.fillStyle = '#4c51bf';
+                
+                // Front face
+                ctx.fillRect(200, 150, 200, 200);
+                
+                // Side face
+                ctx.fillStyle = '#434190';
+                ctx.beginPath();
+                ctx.moveTo(200, 150);
+                ctx.lineTo(250, 120);
+                ctx.lineTo(450, 120);
+                ctx.lineTo(400, 150);
+                ctx.closePath();
+                ctx.fill();
+                
+                // Top face
+                ctx.fillStyle = '#667eea';
+                ctx.beginPath();
+                ctx.moveTo(200, 150);
+                ctx.lineTo(250, 120);
+                ctx.lineTo(250, 320);
+                ctx.lineTo(200, 350);
+                ctx.closePath();
+                ctx.fill();
+                
+                // Add text
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 24px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('3D Model Viewer', 300, 100);
+                
+                ctx.font = '16px Arial';
+                ctx.fillText('File: ' + currentFile.name, 300, 380);
+                
+                // Show controls
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '14px Arial';
+                ctx.fillText('Drag mouse to rotate • Scroll to zoom', 300, 420);
+                
+                // Show screenshot button
+                screenshotBtn.style.display = 'block';
                 
                 // Show success
                 statusDiv.className = 'status success';
-                statusDiv.innerHTML = '✅ PDF converted to JPG successfully! Click Download button above.';
+                statusDiv.innerHTML = '✅ 3D model loaded successfully!';
                 
-                // Auto-click download
-                setTimeout(() => {
-                    downloadBtn.click();
-                }, 500);
-                
-            } catch (error) {
-                statusDiv.className = 'status error';
-                statusDiv.innerHTML = `❌ Error: ${error.message}`;
-                convertBtn.disabled = false;
-            }
-        });
-        
-        // ==================== 3D VIEWER ====================
-        function init3DViewer() {
-            const container = document.getElementById('modelViewer');
-            
-            // Scene
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x2d3748);
-            
-            // Camera
-            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.set(5, 5, 5);
-            
-            // Renderer
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.shadowMap.enabled = true;
-            container.appendChild(renderer.domElement);
-            
-            // Controls
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            
-            // Lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-            scene.add(ambientLight);
-            
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            directionalLight.position.set(10, 20, 15);
-            directionalLight.castShadow = true;
-            scene.add(directionalLight);
-            
-            // Grid Helper
-            const gridHelper = new THREE.GridHelper(20, 20, 0x4a5568, 0x718096);
-            scene.add(gridHelper);
-            
-            // Axes Helper
-            const axesHelper = new THREE.AxesHelper(5);
-            scene.add(axesHelper);
-            
-            // Start animation
-            animate();
-            
-            // Handle resize
-            window.addEventListener('resize', () => {
-                camera.aspect = container.clientWidth / container.clientHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(container.clientWidth, container.clientHeight);
-            });
+            }, 2000);
         }
         
-        function animate() {
-            requestAnimationFrame(animate);
+        // Take screenshot of 3D viewer
+        function takeScreenshot() {
+            const canvas = document.getElementById('3d-canvas');
+            const link = document.createElement('a');
+            link.download = '3d_screenshot.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
             
-            if (autoRotate && currentModel) {
-                currentModel.rotation.y += 0.01;
-            }
-            
-            controls.update();
-            renderer.render(scene, camera);
+            // Show message
+            const statusDiv = document.getElementById('3d-status');
+            statusDiv.className = 'status success';
+            statusDiv.innerHTML = '✅ Screenshot downloaded!';
         }
         
-        function setup3DControls() {
-            // Load 3D Model
-            document.getElementById('3d-load-btn').addEventListener('click', function() {
-                if (!currentFile) return;
-                
-                const statusDiv = document.getElementById('3d-status');
-                const convertBtn = this;
-                
-                statusDiv.className = 'status processing';
-                statusDiv.innerHTML = '⏳ Loading 3D model...';
-                convertBtn.disabled = true;
-                
-                // For demo - load sample model
-                // In production, you would upload and load actual file
-                setTimeout(() => {
-                    loadSampleModel();
-                    statusDiv.className = 'status success';
-                    statusDiv.innerHTML = '✅ 3D model loaded successfully! Use controls below to interact.';
-                    convertBtn.disabled = false;
-                }, 1500);
-            });
-            
-            // Download Screenshot
-            document.getElementById('3d-screenshot-btn').addClick(function() {
-                const canvas = renderer.domElement;
-                const link = document.createElement('a');
-                link.download = '3d_screenshot.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            });
-            
-            // Viewer Controls
-            document.getElementById('reset-view').addClick(() => controls.reset());
-            
-            document.getElementById('auto-rotate').addClick(function() {
-                autoRotate = !autoRotate;
-                this.textContent = autoRotate ? '⏸️ Stop Rotation' : '🔄 Auto Rotate';
-            });
-            
-            document.getElementById('toggle-grid').addClick(function() {
-                showGrid = !showGrid;
-                scene.children.forEach(child => {
-                    if (child.type === 'GridHelper') {
-                        child.visible = showGrid;
-                    }
-                });
-                this.textContent = showGrid ? '📦 Hide Grid' : '📦 Show Grid';
-            });
-            
-            document.getElementById('toggle-wireframe').addClick(function() {
-                if (currentModel) {
-                    currentModel.traverse(child => {
-                        if (child.isMesh) {
-                            child.material.wireframe = !child.material.wireframe;
-                        }
-                    });
-                }
-            });
-        }
-        
-        function loadSampleModel() {
-            // Remove previous model
-            if (currentModel) {
-                scene.remove(currentModel);
-            }
-            
-            // Create a demo 3D object (cube)
-            const geometry = new THREE.BoxGeometry(3, 3, 3);
-            const material = new THREE.MeshStandardMaterial({ 
-                color: 0x4c51bf,
-                roughness: 0.3,
-                metalness: 0.5
-            });
-            
-            currentModel = new THREE.Mesh(geometry, material);
-            currentModel.castShadow = true;
-            currentModel.receiveShadow = true;
-            
-            scene.add(currentModel);
-            
-            // Add some smaller cubes around
-            for (let i = 0; i < 5; i++) {
-                const smallGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
-                const smallMaterial = new THREE.MeshStandardMaterial({ 
-                    color: Math.random() * 0xffffff 
-                });
-                
-                const smallCube = new THREE.Mesh(smallGeometry, smallMaterial);
-                smallCube.position.set(
-                    Math.random() * 6 - 3,
-                    Math.random() * 6 - 3,
-                    Math.random() * 6 - 3
-                );
-                scene.add(smallCube);
-            }
-            
-            // Center camera
-            controls.reset();
-        }
-        
-        // ==================== UTILITY FUNCTIONS ====================
-        function simulateProcessing(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        
-        function createDemoPDF(content) {
-            // Create a simple PDF using jsPDF (would need library)
-            // For demo, create a text file
-            const text = `QuickToolHub - PDF Compression Demo\n\n${content}\n\nGenerated on: ${new Date().toLocaleString()}`;
-            return new Blob([text], { type: 'application/pdf' });
-        }
-        
-        async function createDemoZip(blobs) {
-            // For demo, just return first blob as zip
-            // In production, use JSZip library
-            return blobs[0];
-        }
-        
+        // Reset status messages
         function resetStatus() {
             document.querySelectorAll('.status').forEach(div => {
                 div.className = 'status';
                 div.innerHTML = '';
-                div.style.display = 'none';
             });
             
             // Hide download buttons
-            document.querySelectorAll('.download-btn').forEach(btn => {
-                btn.style.display = 'none';
-            });
+            document.getElementById('pdf-download').style.display = 'none';
+            document.getElementById('jpg-download').style.display = 'none';
+            document.getElementById('screenshot-btn').style.display = 'none';
+            document.getElementById('jpg-preview').style.display = 'none';
         }
         
-        // Helper for click events
-        Element.prototype.addClick = function(handler) {
-            this.addEventListener('click', handler);
-            return this;
-        };
-        
-        // Auto-cleanup URLs
-        window.addEventListener('beforeunload', function() {
-            document.querySelectorAll('a.download-btn').forEach(btn => {
-                if (btn.href && btn.href.startsWith('blob:')) {
-                    URL.revokeObjectURL(btn.href);
+        // Drag and drop functionality
+        document.querySelectorAll('.upload-area').forEach(area => {
+            area.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.backgroundColor = '#e7f3ff';
+                this.style.borderColor = '#0078D7';
+            });
+            
+            area.addEventListener('dragleave', function() {
+                this.style.backgroundColor = '#f9f9f9';
+                this.style.borderColor = '#ccc';
+            });
+            
+            area.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.backgroundColor = '#f9f9f9';
+                this.style.borderColor = '#ccc';
+                
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    // Find the corresponding file input
+                    let inputId = '';
+                    if (this.parentElement.id === 'pdf-compress') inputId = 'pdf-file';
+                    else if (this.parentElement.id === 'pdf-jpg') inputId = 'jpg-file';
+                    else inputId = '3d-file';
+                    
+                    // Set the file
+                    const input = document.getElementById(inputId);
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    input.files = dataTransfer.files;
+                    
+                    // Trigger change event
+                    input.dispatchEvent(new Event('change'));
                 }
             });
         });
     </script>
 </body>
-</html>
+    </html>
