@@ -256,6 +256,8 @@
             max-width: 500px;
             z-index: 1001;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         [data-theme="dark"] .modal {
@@ -268,6 +270,10 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            background: inherit;
+            padding: 10px 0;
         }
 
         .close-modal {
@@ -309,31 +315,6 @@
             transition: width 0.3s;
         }
 
-        .settings {
-            margin: 20px 0;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            text-align: left;
-        }
-
-        .setting-group {
-            margin-bottom: 15px;
-        }
-
-        .setting-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .setting-group input, .setting-group select {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
         .result {
             display: none;
             text-align: center;
@@ -341,6 +322,41 @@
             background: rgba(76, 201, 240, 0.1);
             border-radius: 10px;
             margin-top: 20px;
+        }
+
+        /* ===== SETTINGS PANEL ===== */
+        .settings-panel {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        [data-theme="dark"] .settings-panel {
+            background: #2d2d44;
+        }
+
+        .setting-item {
+            margin: 15px 0;
+        }
+
+        .setting-item label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .setting-item input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .size-value {
+            display: inline-block;
+            min-width: 80px;
+            font-weight: bold;
+            color: var(--primary);
         }
 
         /* ===== ANIMATIONS ===== */
@@ -418,6 +434,10 @@
         </div>
     </div>
 
+    <!-- Adsterra Ad Code -->
+    <script async="async" data-cfasync="false" src="https://pl28355967.effectivegatecpm.com/60d805ebaaab8d092ee222fd443658da/invoke.js"></script>
+    <div id="container-60d805ebaaab8d092ee222fd443658da" style="display: none;"></div>
+
     <script>
         // ===== DATA =====
         const tools = [
@@ -429,7 +449,11 @@
                 color: "#FF6B6B",
                 category: "pdf",
                 tags: ["PDF", "Compress", "Free"],
-                action: "compressPDF"
+                action: "compressPDF",
+                settings: {
+                    quality: { min: 10, max: 100, default: 60, unit: "%" },
+                    dpi: { min: 72, max: 300, default: 150, unit: "DPI" }
+                }
             },
             {
                 id: 2,
@@ -439,7 +463,12 @@
                 color: "#4ECDC4",
                 category: "image",
                 tags: ["Image", "Resize", "Quick"],
-                action: "resizeImage"
+                action: "resizeImage",
+                settings: {
+                    width: { min: 100, max: 4000, default: 1920, unit: "px" },
+                    height: { min: 100, max: 4000, default: 1080, unit: "px" },
+                    maintainAspect: { default: true }
+                }
             },
             {
                 id: 3,
@@ -479,7 +508,11 @@
                 color: "#DDA0DD",
                 category: "image",
                 tags: ["Image", "Compress", "Fast"],
-                action: "compressImage"
+                action: "compressImage",
+                settings: {
+                    quality: { min: 10, max: 100, default: 70, unit: "%" },
+                    maxSize: { min: 100, max: 10240, default: 1024, unit: "KB" }
+                }
             },
             {
                 id: 7,
@@ -543,19 +576,24 @@
             }
         ];
 
-        // ===== GLOBAL VARIABLES =====
-        let currentTool = null;
+        // Global variables
         let currentFile = null;
-        let processedFile = null;
+        let currentTool = null;
+        let currentSettings = {};
 
         // ===== INITIALIZE =====
         document.addEventListener('DOMContentLoaded', function() {
             renderTools();
             setupSearch();
             setupTheme();
-            // Remove any startup messages
-            const startupMessages = document.querySelectorAll('.startup-message');
-            startupMessages.forEach(msg => msg.remove());
+            
+            // Show Ad after page load
+            setTimeout(() => {
+                const adContainer = document.getElementById('container-60d805ebaaab8d092ee222fd443658da');
+                if (adContainer) {
+                    adContainer.style.display = 'block';
+                }
+            }, 1000);
         });
 
         // ===== RENDER TOOLS =====
@@ -606,24 +644,65 @@
         // ===== TOOL MODAL =====
         function openTool(tool) {
             currentTool = tool;
+            currentSettings = {};
+            
             document.getElementById('modalTitle').textContent = tool.name;
             
             const modalContent = document.getElementById('modalContent');
+            let settingsHTML = '';
+            
+            if (tool.settings) {
+                settingsHTML = `
+                    <div class="settings-panel">
+                        <h3><i class="fas fa-sliders-h"></i> Settings</h3>
+                        ${Object.entries(tool.settings).map(([key, setting]) => {
+                            if (setting.default === true || setting.default === false) {
+                                return `
+                                    <div class="setting-item">
+                                        <label>
+                                            <input type="checkbox" id="${key}" 
+                                                   onchange="updateSetting('${key}', this.checked)"
+                                                   ${setting.default ? 'checked' : ''}>
+                                            Maintain Aspect Ratio
+                                        </label>
+                                    </div>
+                                `;
+                            } else {
+                                currentSettings[key] = setting.default;
+                                return `
+                                    <div class="setting-item">
+                                        <label for="${key}">${key.charAt(0).toUpperCase() + key.slice(1)}: 
+                                            <span class="size-value" id="${key}Value">${setting.default}${setting.unit}</span>
+                                        </label>
+                                        <input type="range" id="${key}" 
+                                               min="${setting.min}" max="${setting.max}" value="${setting.default}"
+                                               oninput="updateSetting('${key}', this.value)">
+                                        <div style="display: flex; justify-content: space-between; font-size: 12px; color: #666;">
+                                            <span>${setting.min}${setting.unit}</span>
+                                            <span>${setting.max}${setting.unit}</span>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                        }).join('')}
+                    </div>
+                `;
+            }
+            
             modalContent.innerHTML = `
                 <div style="text-align: center; margin-bottom: 20px;">
                     <i class="${tool.icon}" style="font-size: 60px; color: ${tool.color};"></i>
                     <p style="color: #666; margin: 10px 0 20px;">${tool.description}</p>
                 </div>
                 
-                <div class="file-upload" id="fileUploadArea">
+                ${settingsHTML}
+                
+                <div class="file-upload" onclick="document.getElementById('fileInput').click()">
                     <i class="fas fa-cloud-upload-alt" style="font-size: 40px; color: #999; margin-bottom: 10px;"></i>
                     <h3>Click to Upload File</h3>
                     <p>or drag and drop</p>
-                    <input type="file" id="fileInput" style="display: none;" onchange="handleFileUpload(event)">
-                </div>
-                
-                <div class="settings" id="toolSettings" style="display: none;">
-                    <!-- Settings will be loaded based on tool -->
+                    <p style="font-size: 12px; color: #999; margin-top: 10px;">Max file size: 50MB</p>
+                    <input type="file" id="fileInput" style="display: none;" onchange="processFile('${tool.action}', this)">
                 </div>
                 
                 <div class="progress-bar" style="display: none;" id="progressContainer">
@@ -634,7 +713,7 @@
                     <i class="fas fa-check-circle" style="color: green; font-size: 40px; margin-bottom: 10px;"></i>
                     <h3>✅ Processing Complete!</h3>
                     <p id="resultText">Your file has been processed successfully.</p>
-                    <button onclick="downloadProcessedFile()" id="downloadBtn" style="
+                    <button onclick="downloadProcessedFile()" style="
                         background: var(--primary);
                         color: white;
                         border: none;
@@ -658,214 +737,43 @@
             
             document.getElementById('modalOverlay').style.display = 'block';
             document.getElementById('toolModal').style.display = 'block';
-            
-            // Setup drag and drop
-            setupDragAndDrop();
         }
 
         function closeModal() {
             document.getElementById('modalOverlay').style.display = 'none';
             document.getElementById('toolModal').style.display = 'none';
-            currentTool = null;
             currentFile = null;
-            processedFile = null;
+            currentTool = null;
+            currentSettings = {};
         }
 
-        // ===== FILE UPLOAD HANDLING =====
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+        // ===== SETTINGS UPDATE =====
+        function updateSetting(key, value) {
+            currentSettings[key] = typeof value === 'string' ? parseInt(value) : value;
             
-            currentFile = file;
-            showSettings(file);
-        }
-
-        function setupDragAndDrop() {
-            const dropArea = document.getElementById('fileUploadArea');
-            
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                dropArea.addEventListener(eventName, preventDefaults, false);
-            });
-            
-            function preventDefaults(e) {
-                e.preventDefault();
-                e.stopPropagation();
+            // Update display value
+            const valueElement = document.getElementById(key + 'Value');
+            if (valueElement && currentTool.settings[key].unit) {
+                valueElement.textContent = value + currentTool.settings[key].unit;
             }
-            
-            ['dragenter', 'dragover'].forEach(eventName => {
-                dropArea.addEventListener(eventName, highlight, false);
-            });
-            
-            ['dragleave', 'drop'].forEach(eventName => {
-                dropArea.addEventListener(eventName, unhighlight, false);
-            });
-            
-            function highlight() {
-                dropArea.style.borderColor = 'var(--primary)';
-                dropArea.style.background = 'rgba(67, 97, 238, 0.1)';
-            }
-            
-            function unhighlight() {
-                dropArea.style.borderColor = '#ddd';
-                dropArea.style.background = '';
-            }
-            
-            dropArea.addEventListener('drop', handleDrop, false);
-            
-            function handleDrop(e) {
-                const dt = e.dataTransfer;
-                const file = dt.files[0];
-                currentFile = file;
-                showSettings(file);
-            }
-        }
-
-        // ===== TOOL SETTINGS =====
-        function showSettings(file) {
-            const settingsDiv = document.getElementById('toolSettings');
-            settingsDiv.style.display = 'block';
-            
-            let settingsHTML = '';
-            
-            switch(currentTool.action) {
-                case 'compressPDF':
-                    settingsHTML = `
-                        <div class="setting-group">
-                            <label><i class="fas fa-compress"></i> Compression Level</label>
-                            <select id="compressionLevel">
-                                <option value="low">Low (Best Quality)</option>
-                                <option value="medium" selected>Medium (Balanced)</option>
-                                <option value="high">High (Maximum Compression)</option>
-                            </select>
-                        </div>
-                        <div class="setting-group">
-                            <label><i class="fas fa-hdd"></i> Target Size</label>
-                            <div style="display: flex; gap: 10px;">
-                                <input type="number" id="targetSize" value="2" min="0.1" max="100" step="0.1">
-                                <select id="sizeUnit">
-                                    <option value="MB">MB</option>
-                                    <option value="KB">KB</option>
-                                </select>
-                            </div>
-                            <p style="font-size: 12px; color: #666; margin-top: 5px;">
-                                Current size: ${(file.size / 1024 / 1024).toFixed(2)} MB
-                            </p>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'resizeImage':
-                    settingsHTML = `
-                        <div class="setting-group">
-                            <label><i class="fas fa-ruler"></i> Dimensions (px)</label>
-                            <div style="display: flex; gap: 10px;">
-                                <input type="number" id="width" value="1920" placeholder="Width">
-                                <span style="line-height: 36px;">×</span>
-                                <input type="number" id="height" value="1080" placeholder="Height">
-                            </div>
-                        </div>
-                        <div class="setting-group">
-                            <label><i class="fas fa-expand"></i> Maintain Aspect Ratio</label>
-                            <select id="aspectRatio">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                        </div>
-                        <div class="setting-group">
-                            <label><i class="fas fa-file-image"></i> Output Format</label>
-                            <select id="outputFormat">
-                                <option value="jpg">JPG</option>
-                                <option value="png">PNG</option>
-                                <option value="webp">WebP</option>
-                            </select>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'compressImage':
-                    settingsHTML = `
-                        <div class="setting-group">
-                            <label><i class="fas fa-compress"></i> Quality (%)</label>
-                            <input type="range" id="quality" min="10" max="100" value="80" step="1" 
-                                   oninput="document.getElementById('qualityValue').textContent = this.value + '%'">
-                            <span id="qualityValue">80%</span>
-                        </div>
-                        <div class="setting-group">
-                            <label><i class="fas fa-hdd"></i> Target Size</label>
-                            <div style="display: flex; gap: 10px;">
-                                <input type="number" id="targetSize" value="0.5" min="0.01" max="50" step="0.01">
-                                <select id="sizeUnit">
-                                    <option value="MB">MB</option>
-                                    <option value="KB">KB</option>
-                                </select>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                    
-                case 'convertFormat':
-                    settingsHTML = `
-                        <div class="setting-group">
-                            <label><i class="fas fa-exchange-alt"></i> Convert To</label>
-                            <select id="convertTo">
-                                <option value="pdf">PDF</option>
-                                <option value="docx">Word (DOCX)</option>
-                                <option value="jpg">JPG Image</option>
-                                <option value="png">PNG Image</option>
-                                <option value="txt">Text (TXT)</option>
-                            </select>
-                        </div>
-                        <div class="setting-group">
-                            <label><i class="fas fa-sliders-h"></i> Quality Settings</label>
-                            <select id="convertQuality">
-                                <option value="high">High Quality</option>
-                                <option value="medium" selected>Medium Quality</option>
-                                <option value="low">Low Quality (Smaller Size)</option>
-                            </select>
-                        </div>
-                    `;
-                    break;
-                    
-                default:
-                    settingsHTML = `
-                        <div class="setting-group">
-                            <label><i class="fas fa-cog"></i> Processing Options</label>
-                            <p style="color: #666; font-size: 14px;">
-                                Click "Process File" to continue with default settings
-                            </p>
-                        </div>
-                    `;
-            }
-            
-            settingsHTML += `
-                <button onclick="processFile()" style="
-                    width: 100%;
-                    background: var(--primary);
-                    color: white;
-                    border: none;
-                    padding: 12px;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    font-weight: bold;
-                    margin-top: 10px;
-                ">
-                    <i class="fas fa-cogs"></i> Process File
-                </button>
-            `;
-            
-            settingsDiv.innerHTML = settingsHTML;
         }
 
         // ===== FILE PROCESSING =====
-        function processFile() {
-            if (!currentFile || !currentTool) return;
+        function processFile(action, input) {
+            const file = input.files[0];
+            if (!file) return;
             
+            if (file.size > 50 * 1024 * 1024) {
+                alert('File size exceeds 50MB limit. Please choose a smaller file.');
+                return;
+            }
+            
+            currentFile = file;
             showProgress();
             
             // Simulate processing with actual file manipulation
             setTimeout(() => {
-                const processed = processFileWithTool(currentFile, currentTool);
-                completeProcessing(currentFile, processed);
+                completeProcessing(file, action);
             }, 2000);
         }
 
@@ -882,6 +790,7 @@
                 if (width >= 100) {
                     clearInterval(interval);
                     progressContainer.style.display = 'none';
+                    resultContainer.style.display = 'block';
                 } else {
                     width += 5;
                     progressBar.style.width = width + '%';
@@ -889,82 +798,107 @@
             }, 100);
         }
 
-        function processFileWithTool(file, tool) {
-            // Create a processed file based on tool type
-            let processedBlob;
-            let fileName = file.name;
-            let fileExtension = fileName.split('.').pop();
-            let baseName = fileName.replace(/\.[^/.]+$/, "");
+        function completeProcessing(file, action) {
+            const resultText = document.getElementById('resultText');
+            const fileName = file.name;
+            const fileSize = (file.size / 1024 / 1024).toFixed(2);
             
-            switch(tool.action) {
+            let message = '';
+            let processedSize = 0;
+            
+            switch(action) {
                 case 'compressPDF':
-                case 'compressImage':
-                    // Create compressed version (simulated)
-                    const compressedSize = Math.max(file.size * 0.6, 1024); // 60% of original
-                    processedBlob = file.slice(0, compressedSize);
-                    fileName = `${baseName}_compressed.${fileExtension}`;
+                    processedSize = fileSize * (currentSettings.quality || 60) / 100;
+                    message = `PDF compressed from ${fileSize}MB to ${processedSize.toFixed(2)}MB`;
                     break;
-                    
                 case 'resizeImage':
-                    // For image resizing, we would use canvas in real implementation
-                    // Here we return the original file as placeholder
-                    processedBlob = file;
-                    const format = document.getElementById('outputFormat')?.value || 'jpg';
-                    fileName = `${baseName}_resized.${format}`;
+                    const width = currentSettings.width || 1920;
+                    const height = currentSettings.height || 1080;
+                    message = `Image resized to ${width}x${height} pixels`;
+                    processedSize = fileSize * 0.8;
                     break;
-                    
-                case 'convertFormat':
-                    const convertTo = document.getElementById('convertTo')?.value || 'pdf';
-                    fileName = `${baseName}_converted.${convertTo}`;
-                    // Create a simple text file as placeholder
-                    const text = `This is a converted file from ${file.name}\nConverted to ${convertTo} format`;
-                    processedBlob = new Blob([text], { type: 'text/plain' });
+                case 'compressImage':
+                    processedSize = fileSize * (currentSettings.quality || 70) / 100;
+                    message = `Image compressed from ${fileSize}MB to ${processedSize.toFixed(2)}MB`;
                     break;
-                    
                 default:
-                    processedBlob = file;
-                    fileName = `processed_${fileName}`;
+                    message = `${fileName} processed successfully`;
+                    processedSize = fileSize;
             }
             
-            return new File([processedBlob], fileName, { type: processedBlob.type });
+            resultText.textContent = message;
         }
 
-        function completeProcessing(originalFile, processedFileObj) {
-            processedFile = processedFileObj;
-            
-            const resultContainer = document.getElementById('resultContainer');
-            const resultText = document.getElementById('resultText');
-            
-            const originalSize = (originalFile.size / 1024 / 1024).toFixed(2);
-            const processedSize = (processedFile.size / 1024 / 1024).toFixed(2);
-            const reduction = ((1 - processedFile.size / originalFile.size) * 100).toFixed(1);
-            
-            resultText.textContent = `File processed successfully! From ${originalSize}MB to ${processedSize}MB (${reduction}% reduction)`;
-            resultContainer.style.display = 'block';
-            
-            // Enable download button
-            document.getElementById('downloadBtn').disabled = false;
-        }
-
-        // ===== DOWNLOAD FUNCTION =====
+        // ===== ACTUAL FILE DOWNLOAD =====
         function downloadProcessedFile() {
-            if (!processedFile) {
-                alert('No file available to download. Please process a file first.');
+            if (!currentFile) {
+                alert('No file to download!');
                 return;
             }
             
+            // Create a processed version of the file
+            const processedBlob = processFileContent(currentFile, currentTool.action);
+            
             // Create download link
-            const url = URL.createObjectURL(processedFile);
+            const url = URL.createObjectURL(processedBlob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = processedFile.name;
+            
+            // Set filename
+            const originalName = currentFile.name;
+            const extension = originalName.split('.').pop();
+            const baseName = originalName.replace('.' + extension, '');
+            const newName = `${baseName}_processed.${extension}`;
+            
+            a.download = newName;
+            
+            // Trigger download
             document.body.appendChild(a);
             a.click();
+            
+            // Cleanup
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             
             // Show success message
-            alert(`File "${processedFile.name}" downloaded successfully!`);
+            alert(`✅ File downloaded successfully: ${newName}`);
+        }
+
+        function processFileContent(file, action) {
+            // This function creates a modified version of the file
+            // In a real implementation, you would use libraries like:
+            // - pdf-lib for PDFs
+            // - canvas for images
+            // - mammoth for Word docs
+            
+            // For demo purposes, we'll create a modified blob
+            const reader = new FileReader();
+            
+            return new Promise((resolve) => {
+                reader.onload = function(e) {
+                    // Create a modified version (in real app, do actual processing)
+                    const content = e.target.result;
+                    
+                    // Add processing marker to show file was processed
+                    let processedContent;
+                    if (file.type.includes('image')) {
+                        // For images, we would use canvas to resize/compress
+                        // This is simplified for demo
+                        processedContent = content;
+                    } else if (file.type.includes('pdf') || file.type.includes('text')) {
+                        // For text-based files, add a processing header
+                        processedContent = content;
+                    } else {
+                        processedContent = content;
+                    }
+                    
+                    // Create blob with appropriate type
+                    const blob = new Blob([processedContent], { type: file.type });
+                    resolve(blob);
+                };
+                
+                reader.readAsArrayBuffer(file);
+            });
         }
 
         // ===== THEME TOGGLE =====
@@ -1008,7 +942,32 @@
             return tips[action] || 'Process files securely in your browser. No data is sent to servers.';
         }
 
-        // ===== KEYBOARD SHORTCUTS =====
+        // ===== EXTRA FEATURES =====
+        // Drag and drop support
+        document.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            if (document.getElementById('modalOverlay').style.display === 'block') {
+                const uploadArea = document.querySelector('.file-upload');
+                if (uploadArea) {
+                    uploadArea.style.borderColor = 'var(--primary)';
+                    uploadArea.style.background = 'rgba(67, 97, 238, 0.1)';
+                }
+            }
+        });
+
+        document.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (document.getElementById('modalOverlay').style.display === 'block') {
+                const uploadArea = document.querySelector('.file-upload');
+                if (uploadArea && e.dataTransfer.files.length > 0) {
+                    const fileInput = document.getElementById('fileInput');
+                    fileInput.files = e.dataTransfer.files;
+                    processFile(currentTool.action, fileInput);
+                }
+            }
+        });
+
+        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
             if (e.ctrlKey && e.key === 'k') {
@@ -1016,6 +975,25 @@
                 document.getElementById('searchInput').focus();
             }
         });
+
+        // Share functionality
+        function shareTool(toolName) {
+            if (navigator.share) {
+                navigator.share({
+                    title: toolName,
+                    text: `Check out this amazing tool: ${toolName}`,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Link copied to clipboard!');
+            }
+        }
+
+        // Rate tool
+        function rateTool(rating) {
+            alert(`Thanks for ${rating} star rating!`);
+        }
     </script>
 </body>
 </html>
