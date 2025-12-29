@@ -5,162 +5,135 @@
     <title>QuickToolHub - Free Online Tools</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* === DESIGN 1: MODERN DASHBOARD === */
+        /* === DESIGN 2: MINIMALIST CLEAN === */
         * {margin:0; padding:0; box-sizing:border-box;}
-        body {font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background:#f8fafc; min-height:100vh; color:#1e293b;}
+        body {font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif; background:#ffffff; min-height:100vh; color:#2c3e50;}
         
-        .container {max-width:1200px; margin:0 auto; padding:20px;}
+        .container2 {max-width:1100px; margin:0 auto; padding:30px 20px;}
         
         /* Header */
-        .header1 {background:white; border-radius:20px; padding:40px; margin-bottom:30px; box-shadow:0 4px 20px rgba(0,0,0,0.05); text-align:center;}
-        .logo1 {display:flex; align-items:center; justify-content:center; gap:15px; margin-bottom:15px;}
-        .logo1-icon {font-size:3rem; background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
-        .logo1-text {font-size:2.5rem; font-weight:800; background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
-        .tagline1 {font-size:1.1rem; color:#64748b; max-width:600px; margin:0 auto 25px;}
+        .header2 {text-align:center; margin-bottom:50px;}
+        .logo2 {font-size:3rem; margin-bottom:20px; color:#2c3e50;}
+        .tagline2 {font-size:1.2rem; color:#7f8c8d; max-width:700px; margin:0 auto 30px; line-height:1.6;}
         
-        /* Stats */
-        .stats1 {display:flex; justify-content:center; gap:30px; margin:30px 0; flex-wrap:wrap;}
-        .stat-card1 {background:white; padding:20px; border-radius:15px; min-width:180px; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.05); border-left:4px solid #667eea;}
-        .stat-number1 {font-size:2.2rem; font-weight:700; color:#667eea; margin-bottom:5px;}
-        .stat-label1 {color:#64748b; font-size:0.9rem;}
+        /* Search Bar */
+        .search2 {max-width:500px; margin:40px auto; position:relative;}
+        .search-input2 {width:100%; padding:18px 50px 18px 25px; border:2px solid #ecf0f1; border-radius:50px; font-size:1.1rem; transition:all 0.3s;}
+        .search-input2:focus {outline:none; border-color:#3498db; box-shadow:0 0 0 3px rgba(52,152,219,0.1);}
+        .search-icon2 {position:absolute; right:20px; top:50%; transform:translateY(-50%); color:#95a5a6; font-size:1.2rem;}
         
         /* Tools Grid */
-        .tools-grid1 {display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:25px; margin:40px 0;}
-        .tool-card1 {background:white; border-radius:20px; padding:30px; transition:all 0.3s ease; cursor:pointer; position:relative; overflow:hidden; box-shadow:0 5px 20px rgba(0,0,0,0.05); border:1px solid #f1f5f9;}
-        .tool-card1:hover {transform:translateY(-5px); box-shadow:0 15px 40px rgba(102,126,234,0.15); border-color:#c7d2fe;}
-        .tool-card1::before {content:''; position:absolute; top:0; left:0; width:100%; height:5px; background:linear-gradient(90deg, #667eea, #764ba2);}
-        .tool-icon1 {font-size:3rem; margin-bottom:20px; color:#667eea;}
-        .tool-title1 {font-size:1.4rem; font-weight:600; color:#1e293b; margin-bottom:10px;}
-        .tool-desc1 {color:#64748b; line-height:1.6; margin-bottom:25px;}
-        .tool-tags1 {display:flex; gap:8px; margin-top:15px; flex-wrap:wrap;}
-        .tag1 {background:#f1f5f9; color:#475569; padding:5px 12px; border-radius:20px; font-size:0.85rem;}
+        .tools-section2 {margin:50px 0;}
+        .section-title2 {font-size:1.5rem; color:#2c3e50; margin-bottom:30px; font-weight:600;}
         
-        /* Action Button */
-        .action-btn1 {display:flex; align-items:center; justify-content:center; gap:10px; background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:15px 35px; border:none; border-radius:12px; font-weight:600; font-size:1.1rem; cursor:pointer; margin:30px auto; transition:all 0.3s ease; box-shadow:0 5px 20px rgba(102,126,234,0.3);}
-        .action-btn1:hover {transform:translateY(-3px); box-shadow:0 10px 30px rgba(102,126,234,0.4);}
+        .tools-grid2 {display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px;}
+        .tool-card2 {background:#f8f9fa; border-radius:12px; padding:25px; transition:all 0.2s ease; cursor:pointer; border:1px solid transparent;}
+        .tool-card2:hover {background:#fff; border-color:#3498db; transform:translateY(-2px); box-shadow:0 10px 30px rgba(0,0,0,0.05);}
+        .tool-icon2 {font-size:2.5rem; margin-bottom:20px; color:#3498db;}
+        .tool-title2 {font-size:1.3rem; color:#2c3e50; margin-bottom:10px; font-weight:600;}
+        .tool-desc2 {color:#7f8c8d; font-size:0.95rem; line-height:1.6;}
+        
+        /* Quick Stats */
+        .quick-stats2 {display:flex; justify-content:center; gap:40px; margin:40px 0; padding:30px 0; border-top:1px solid #ecf0f1; border-bottom:1px solid #ecf0f1;}
+        .quick-stat2 {text-align:center;}
+        .quick-stat2 .number {font-size:2rem; color:#3498db; font-weight:600; display:block;}
+        .quick-stat2 .label {color:#7f8c8d; font-size:0.9rem; margin-top:5px;}
+        
+        /* Ad Section */
+        .ad-section2 {background:#f8f9fa; border-radius:12px; padding:25px; margin:40px 0; text-align:center;}
+        .ad-label2 {display:inline-block; background:#3498db; color:white; padding:5px 15px; border-radius:20px; font-size:0.85rem; margin-bottom:15px;}
         
         /* Footer */
-        .footer1 {text-align:center; padding:40px 20px; color:#64748b; margin-top:40px; border-top:1px solid #e2e8f0;}
-        .footer-links1 {display:flex; justify-content:center; gap:25px; margin:20px 0; flex-wrap:wrap;}
-        .footer-links1 a {color:#667eea; text-decoration:none; font-weight:500;}
-        .footer-links1 a:hover {text-decoration:underline;}
+        .footer2 {text-align:center; padding:40px 0; margin-top:50px; border-top:1px solid #ecf0f1;}
+        .footer-text2 {color:#7f8c8d; margin-bottom:20px; line-height:1.6;}
+        .email2 {color:#3498db; font-weight:500; text-decoration:none;}
         
-        /* Ad */
-        .ad1 {background:white; border-radius:15px; padding:25px; margin:40px 0; text-align:center; border:2px dashed #e2e8f0;}
-        .ad-title1 {color:#475569; margin-bottom:15px; font-weight:600;}
-        
-        @media(max-width:768px){.tools-grid1{grid-template-columns:1fr;} .header1{padding:30px 20px;} .stats1{gap:15px;} .stat-card1{min-width:140px;}}
+        /* Responsive */
+        @media(max-width:768px){
+            .tools-grid2{grid-template-columns:1fr; gap:15px;}
+            .quick-stats2{flex-wrap:wrap; gap:25px;}
+            .container2{padding:20px 15px;}
+            .logo2{font-size:2.5rem;}
+        }
     </style>
 </head>
 <body>
-    <!-- DESIGN 1: MODERN DASHBOARD -->
-    <div class="container">
-        <div class="header1">
-            <div class="logo1">
-                <div class="logo1-icon">⚡</div>
-                <div class="logo1-text">QuickToolHub</div>
-            </div>
-            <div class="tagline1">Professional online tools for PDF, images, and 3D files. Free, fast, and secure.</div>
+    <!-- DESIGN 2: MINIMALIST CLEAN -->
+    <div class="container2">
+        <div class="header2">
+            <div class="logo2">🛠️ QuickToolHub</div>
+            <div class="tagline2">Simple, fast, and free online tools for your daily tasks. No registration required.</div>
             
-            <div class="stats1">
-                <div class="stat-card1">
-                    <div class="stat-number1">100%</div>
-                    <div class="stat-label1">Free Tools</div>
+            <div class="search2">
+                <input type="text" class="search-input2" placeholder="Search for tools (PDF compress, image convert, etc.)">
+                <div class="search-icon2">🔍</div>
+            </div>
+        </div>
+
+        <div class="quick-stats2">
+            <div class="quick-stat2">
+                <span class="number">4</span>
+                <span class="label">Tools</span>
+            </div>
+            <div class="quick-stat2">
+                <span class="number">100%</span>
+                <span class="label">Free</span>
+            </div>
+            <div class="quick-stat2">
+                <span class="number">⚡</span>
+                <span class="label">Fast</span>
+            </div>
+            <div class="quick-stat2">
+                <span class="number">🔒</span>
+                <span class="label">Secure</span>
+            </div>
+        </div>
+
+        <div class="tools-section2">
+            <h2 class="section-title2">Featured Tools</h2>
+            <div class="tools-grid2">
+                <div class="tool-card2" onclick="openTool('pdf-compress')">
+                    <div class="tool-icon2">📄</div>
+                    <div class="tool-title2">PDF Compressor</div>
+                    <div class="tool-desc2">Reduce PDF size for easy sharing and storage without quality loss.</div>
                 </div>
-                <div class="stat-card1">
-                    <div class="stat-number1">10K+</div>
-                    <div class="stat-label1">Users Monthly</div>
+
+                <div class="tool-card2" onclick="openTool('pdf-to-jpg')">
+                    <div class="tool-icon2">🖼️</div>
+                    <div class="tool-title2">PDF to Images</div>
+                    <div class="tool-desc2">Convert PDF pages to JPG, PNG, or other image formats.</div>
                 </div>
-                <div class="stat-card1">
-                    <div class="stat-number1">⚡</div>
-                    <div class="stat-label1">Fast Processing</div>
+
+                <div class="tool-card2" onclick="openTool('img-to-pdf')">
+                    <div class="tool-icon2">📸</div>
+                    <div class="tool-title2">Images to PDF</div>
+                    <div class="tool-desc2">Combine multiple images into a single PDF document.</div>
                 </div>
-                <div class="stat-card1">
-                    <div class="stat-number1">🔒</div>
-                    <div class="stat-label1">Secure & Private</div>
+
+                <div class="tool-card2" onclick="openTool('3d-viewer')">
+                    <div class="tool-icon2">🎮</div>
+                    <div class="tool-title2">3D Viewer</div>
+                    <div class="tool-desc2">View and interact with 3D models in your browser.</div>
                 </div>
             </div>
         </div>
 
         <!-- Ad Section -->
-        <div class="ad1">
-            <div class="ad-title1">Sponsored Ad</div>
-            <iframe src="https://www.effectivegatecpm.com/sux6c9ywrv?key=644ab26446f2144ed4bbb2a4d4bc526f" style="width:728px;height:90px;border:none;border-radius:8px;max-width:100%;"></iframe>
+        <div class="ad-section2">
+            <div class="ad-label2">Advertisement</div>
+            <iframe src="https://www.effectivegatecpm.com/sux6c9ywrv?key=644ab26446f2144ed4bbb2a4d4bc526f" style="width:300px;height:250px;border:none;border-radius:8px;max-width:100%;"></iframe>
         </div>
 
-        <!-- Tools Grid -->
-        <div class="tools-grid1">
-            <div class="tool-card1" onclick="openTool('pdf-compress')">
-                <div class="tool-icon1">📦</div>
-                <div class="tool-title1">PDF Compressor</div>
-                <div class="tool-desc1">Reduce PDF file size significantly while preserving quality. Perfect for email attachments and web uploads.</div>
-                <div class="tool-tags1">
-                    <span class="tag1">PDF</span>
-                    <span class="tag1">Compression</span>
-                    <span class="tag1">File Size</span>
-                </div>
+        <div class="footer2">
+            <div class="footer-text2">
+                <p>© 2024 QuickToolHub. All tools are completely free to use.</p>
+                <p>No registration required • Your files are processed securely</p>
             </div>
-
-            <div class="tool-card1" onclick="openTool('pdf-to-jpg')">
-                <div class="tool-icon1">🖼️</div>
-                <div class="tool-title1">PDF to JPG</div>
-                <div class="tool-desc1">Convert PDF pages to high-quality JPG images. Extract individual pages or convert entire documents.</div>
-                <div class="tool-tags1">
-                    <span class="tag1">PDF</span>
-                    <span class="tag1">JPG</span>
-                    <span class="tag1">Conversion</span>
-                </div>
+            <a href="mailto:QuickToolHub@hotmail.com" class="email2">QuickToolHub@hotmail.com</a>
+            <div style="margin-top:20px; color:#95a5a6; font-size:0.9rem;">
+                Privacy Policy • Terms of Service • Contact
             </div>
-
-            <div class="tool-card1" onclick="openTool('img-to-pdf')">
-                <div class="tool-icon1">📸→📄</div>
-                <div class="tool-title1">Image to PDF</div>
-                <div class="tool-desc1">Convert multiple images into a single PDF document. Reorder pages and adjust image quality.</div>
-                <div class="tool-tags1">
-                    <span class="tag1">Images</span>
-                    <span class="tag1">PDF</span>
-                    <span class="tag1">Merge</span>
-                </div>
-            </div>
-
-            <div class="tool-card1" onclick="openTool('3d-viewer')">
-                <div class="tool-icon1">🔍</div>
-                <div class="tool-title1">3D Viewer</div>
-                <div class="tool-desc1">View and interact with 3D models directly in your browser. Supports OBJ, STL, and GLB formats.</div>
-                <div class="tool-tags1">
-                    <span class="tag1">3D</span>
-                    <span class="tag1">Viewer</span>
-                    <span class="tag1">Interactive</span>
-                </div>
-            </div>
-        </div>
-
-        <button class="action-btn1" onclick="showAllTools()">
-            <span>View All Tools</span>
-            <span>→</span>
-        </button>
-
-        <div class="footer1">
-            <div class="footer-links1">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Contact Us</a>
-                <a href="#">About</a>
-            </div>
-            <p>© 2024 QuickToolHub. All rights reserved.</p>
-            <p>Email: QuickToolHub@hotmail.com</p>
-            <p>All tools are completely free to use | No registration required</p>
         </div>
     </div>
-
-    <script>
-        function openTool(toolName) {
-            alert(`Opening ${toolName.replace('-', ' ').toUpperCase()} tool\n\nIn a real application, this would open the specific tool interface.`);
-        }
-        
-        function showAllTools() {
-            alert("Showing all available tools...");
-        }
-    </script>
 </body>
-                        </html>
+</html>
