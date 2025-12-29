@@ -2,216 +2,139 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>QuickToolHub – Free Online Tools</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<!-- PDF & Image libs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Online Tools Hub</title>
 <style>
-body{margin:0;font-family:Arial;background:#0f172a;color:#fff}
-header{text-align:center;padding:25px;font-size:28px;font-weight:bold}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:20px}
-.card{background:#1e293b;padding:20px;border-radius:15px;text-align:center;cursor:pointer;transition:.3s}
-.card:hover{transform:scale(1.05);background:#334155}
-.card i{font-size:40px;margin-bottom:10px;color:#38bdf8}
-.tool{display:none;padding:20px}
-input,textarea,button{width:100%;padding:10px;margin:10px 0;border-radius:8px;border:none}
-button{background:#38bdf8;font-weight:bold;cursor:pointer}
-canvas,img{max-width:100%}
-footer{text-align:center;padding:20px;color:#94a3b8}
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f2f2f2; }
+    header { background:#4CAF50; color:white; padding:25px 20px; text-align:center; }
+    header h1 { margin:0; font-size:32px; }
+    header p { font-size:16px; margin-top:5px; opacity:.8; }
+
+    .tools-container { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:20px; padding:25px; }
+    .tool-card { background:white; padding:20px; border-radius:12px; box-shadow:0 3px 10px rgba(0,0,0,0.2); text-align:center; transition: transform .2s; }
+    .tool-card:hover { transform: translateY(-5px); }
+    .tool-icon { font-size:50px; margin-bottom:15px; }
+    .tool-card h3 { margin:10px 0 8px; font-size:20px; }
+    .tool-card p { font-size:14px; color:#555; margin-bottom:15px; }
+    .use-btn { background:#4CAF50; color:white; border:none; padding:12px 18px; border-radius:6px; cursor:pointer; font-weight:bold; }
+    .use-btn:hover { background:#45a049; }
+
+    .sponsored-card { background:#fff4e6; padding:20px; margin:30px auto; text-align:center; border:1px solid #ffd700; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.15); }
+    .sponsored-card p { margin-bottom:10px; font-weight:bold; }
+
+    footer { background:#222; color:white; padding:20px; text-align:center; font-size:13px; opacity:.85; }
 </style>
 </head>
-
 <body>
 
-<header>🛠️ QuickToolHub</header>
+<header>
+    <h1>Free Online Tools Hub</h1>
+    <p>All tools are free for educational and personal use</p>
+</header>
 
-<!-- ADS -->
-<div style="text-align:center">
-<script src="https://www.effectivegatecpm.com/sux6c9ywrv?key=644ab26446f2144ed4bbb2a4d4bc526f"></script>
+<div class="tools-container">
+
+    <!-- Tool 1 -->
+    <div class="tool-card">
+        <div class="tool-icon">🎤</div>
+        <h3>Text to Speech</h3>
+        <p>Convert any text into natural sounding speech. Supports multiple languages and voices.</p>
+        <button class="use-btn" onclick="window.open('text-to-speech.html','_blank')">Use Now</button>
+    </div>
+
+    <!-- Tool 2 -->
+    <div class="tool-card">
+        <div class="tool-icon">🔓</div>
+        <h3>PDF Unlock</h3>
+        <p>Remove passwords and restrictions from PDF files easily. No upload to server.</p>
+        <button class="use-btn" onclick="window.open('pdf-unlock.html','_blank')">Use Now</button>
+    </div>
+
+    <!-- Tool 3 -->
+    <div class="tool-card">
+        <div class="tool-icon">🖼️</div>
+        <h3>Image to PDF</h3>
+        <p>Convert images to PDF documents quickly. Multiple images supported in one file.</p>
+        <button class="use-btn" onclick="window.open('image-to-pdf.html','_blank')">Use Now</button>
+    </div>
+
+    <!-- Tool 4 -->
+    <div class="tool-card">
+        <div class="tool-icon">✏️</div>
+        <h3>Text Editor</h3>
+        <p>Edit your text online, save, and copy easily. Supports basic formatting.</p>
+        <button class="use-btn" onclick="window.open('text-editor.html','_blank')">Use Now</button>
+    </div>
+
+    <!-- Tool 5 -->
+    <div class="tool-card">
+        <div class="tool-icon">🗜️</div>
+        <h3>PDF Compressor</h3>
+        <p>Reduce PDF file size without losing quality. Works offline in your browser.</p>
+        <button class="use-btn" onclick="window.open('pdf-compressor.html','_blank')">Use Now</button>
+    </div>
+
+    <!-- Tool 6 -->
+    <div class="tool-card">
+        <div class="tool-icon">📄</div>
+        <h3>Word to PDF</h3>
+        <p>Convert Word documents to PDF instantly. Preserves formatting perfectly.</p>
+        <button class="use-btn" onclick="window.open('word-to-pdf.html','_blank')">Use Now</button>
+    </div>
+
+    <!-- Tool 7 -->
+    <div class="tool-card">
+        <div class="tool-icon">🔄</div>
+        <h3>PDF Merge</h3>
+        <p>Combine multiple PDFs into one file. Drag & drop interface for convenience.</p>
+        <button class="use-btn" onclick="window.open('pdf-merge.html','_blank')">Use Now</button>
+    </div>
+
+    <!-- Tool 8 -->
+    <div class="tool-card">
+        <div class="tool-icon">🖊️</div>
+        <h3>PDF Sign</h3>
+        <p>Add signatures to PDF files securely without uploading them online.</p>
+        <button class="use-btn" onclick="window.open('pdf-sign.html','_blank')">Use Now</button>
+    </div>
+
+    <!-- Tool 9 -->
+    <div class="tool-card">
+        <div class="tool-icon">📷</div>
+        <h3>Image Resizer</h3>
+        <p>Resize images easily for web, social media, or documents without quality loss.</p>
+        <button class="use-btn" onclick="window.open('image-resizer.html','_blank')">Use Now</button>
+    </div>
+
+    <!-- Tool 10 -->
+    <div class="tool-card">
+        <div class="tool-icon">🎨</div>
+        <h3>Color Picker</h3>
+        <p>Pick and copy color codes from images or web pages easily. Supports HEX & RGB.</p>
+        <button class="use-btn" onclick="window.open('color-picker.html','_blank')">Use Now</button>
+    </div>
+
 </div>
 
-<!-- HOME -->
-<div id="home" class="grid">
-
-<div class="card" onclick="openTool('imgpdf')"><i class="fa-solid fa-file-pdf"></i><p>Image to PDF</p></div>
-<div class="card" onclick="openTool('imgcompress')"><i class="fa-solid fa-image"></i><p>Image Compress</p></div>
-<div class="card" onclick="openTool('imgresize')"><i class="fa-solid fa-up-right-and-down-left-from-center"></i><p>Image Resize</p></div>
-<div class="card" onclick="openTool('pdfview')"><i class="fa-solid fa-eye"></i><p>PDF Viewer</p></div>
-<div class="card" onclick="openTool('pdfimg')"><i class="fa-solid fa-file-image"></i><p>PDF to Image</p></div>
-<div class="card" onclick="openTool('qr')"><i class="fa-solid fa-qrcode"></i><p>QR Generator</p></div>
-<div class="card" onclick="openTool('text')"><i class="fa-solid fa-font"></i><p>Text Tools</p></div>
-<div class="card" onclick="openTool('password')"><i class="fa-solid fa-key"></i><p>Password Generator</p></div>
-
+<!-- Sponsored Card 1 -->
+<div class="sponsored-card">
+    <p>Sponsored Tool Recommendation:</p>
+    <button class="use-btn" onclick="window.open('https://www.effectivegatecpm.com/sux6c9ywrv?key=644ab26446f2144ed4bbb2a4d4bc526f','_blank')">
+        Check Now
+    </button>
 </div>
 
-<!-- IMAGE TO PDF -->
-<div id="imgpdf" class="tool">
-<h2>Image to PDF</h2>
-<input type="file" multiple accept="image/*" id="imgFiles">
-<button onclick="makePDF()">Convert</button>
-</div>
-
-<!-- IMAGE COMPRESS -->
-<div id="imgcompress" class="tool">
-<h2>Image Compress</h2>
-<input type="file" id="compImg">
-<canvas id="cvs"></canvas>
-<button onclick="compress()">Compress</button>
-</div>
-
-<!-- IMAGE RESIZE -->
-<div id="imgresize" class="tool">
-<h2>Image Resize</h2>
-<input type="file" id="resizeImg">
-<input type="number" id="w" placeholder="Width">
-<input type="number" id="h" placeholder="Height">
-<canvas id="rc"></canvas>
-<button onclick="resize()">Resize</button>
-</div>
-
-<!-- PDF VIEW -->
-<div id="pdfview" class="tool">
-<h2>PDF Viewer</h2>
-<input type="file" id="pdfFile">
-<canvas id="pdfCanvas"></canvas>
-<button onclick="viewPDF()">View</button>
-</div>
-
-<!-- PDF TO IMAGE -->
-<div id="pdfimg" class="tool">
-<h2>PDF to Image</h2>
-<input type="file" id="pdfImgFile">
-<canvas id="pdfImgCanvas"></canvas>
-<button onclick="pdfToImg()">Convert</button>
-</div>
-
-<!-- QR -->
-<div id="qr" class="tool">
-<h2>QR Generator</h2>
-<input id="qrtext" placeholder="Enter text">
-<div id="qrcode"></div>
-<button onclick="genQR()">Generate</button>
-</div>
-
-<!-- TEXT -->
-<div id="text" class="tool">
-<h2>Text Tools</h2>
-<textarea id="txt"></textarea>
-<button onclick="upper()">UPPERCASE</button>
-<button onclick="lower()">lowercase</button>
-<p id="count"></p>
-</div>
-
-<!-- PASSWORD -->
-<div id="password" class="tool">
-<h2>Password Generator</h2>
-<button onclick="genPass()">Generate</button>
-<input id="pass">
+<!-- Sponsored Card 2 -->
+<div class="sponsored-card">
+    <p>Try this amazing tool:</p>
+    <button class="use-btn" onclick="window.open('https://www.effectivegatecpm.com/sux6c9ywrv?key=644ab26446f2144ed4bbb2a4d4bc526f','_blank')">
+        Visit Here
+    </button>
 </div>
 
 <footer>
-Contact: quicktoolhub@hotmail.com<br>
-© QuickToolHub
+<p>All tools are provided for educational and personal use only. We do not store or upload your files to any server.</p>
 </footer>
-
-<script>
-function openTool(id){
-document.querySelectorAll('.tool').forEach(t=>t.style.display='none');
-home.style.display='none';
-document.getElementById(id).style.display='block';
-}
-
-function makePDF(){
-const {jsPDF}=window.jspdf;
-let pdf=new jsPDF();
-let files=imgFiles.files;
-let i=0;
-function add(){
-if(i>=files.length){pdf.save("images.pdf");return;}
-let r=new FileReader();
-r.onload=e=>{
-let img=new Image();
-img.onload=()=>{
-pdf.addImage(img,'JPEG',10,10,190,0);
-if(i<files.length-1)pdf.addPage();
-i++;add();
-};
-img.src=e.target.result;
-};
-r.readAsDataURL(files[i]);
-}
-add();
-}
-
-function compress(){
-let f=compImg.files[0];
-let r=new FileReader();
-r.onload=e=>{
-let img=new Image();
-img.onload=()=>{
-let c=cvs;
-c.width=img.width;c.height=img.height;
-c.getContext("2d").drawImage(img,0,0);
-};
-img.src=e.target.result;
-};
-r.readAsDataURL(f);
-}
-
-function resize(){
-let f=resizeImg.files[0];
-let r=new FileReader();
-r.onload=e=>{
-let img=new Image();
-img.onload=()=>{
-rc.width=w.value;rc.height=h.value;
-rc.getContext("2d").drawImage(img,0,0,w.value,h.value);
-};
-img.src=e.target.result;
-};
-r.readAsDataURL(f);
-}
-
-function viewPDF(){
-let f=pdfFile.files[0];
-let r=new FileReader();
-r.onload=e=>{
-pdfjsLib.getDocument(e.target.result).promise.then(pdf=>{
-pdf.getPage(1).then(p=>{
-let v=p.getViewport({scale:1.5});
-pdfCanvas.width=v.width;pdfCanvas.height=v.height;
-p.render({canvasContext:pdfCanvas.getContext("2d"),viewport:v});
-});
-});
-};
-r.readAsArrayBuffer(f);
-}
-
-function pdfToImg(){viewPDF();}
-
-function genQR(){
-qrcode.innerHTML="";
-new QRCode(qrcode,qrtext.value);
-}
-
-function upper(){txt.value=txt.value.toUpperCase();count();}
-function lower(){txt.value=txt.value.toLowerCase();count();}
-function count(){count.innerText="Words: "+txt.value.split(/\s+/).length;}
-
-function genPass(){
-let c="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#";
-let p="";
-for(let i=0;i<12;i++)p+=c[Math.floor(Math.random()*c.length)];
-pass.value=p;
-}
-</script>
 
 </body>
 </html>
