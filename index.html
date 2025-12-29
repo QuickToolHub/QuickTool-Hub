@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🔥 QuickToolHub - All-in-One Toolkit</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Adsterra Code -->
+    <script async="async" data-cfasync="false" src="https://pl28355967.effectivegatecpm.com/60d805ebaaab8d092ee222fd443658da/invoke.js"></script>
     <style>
         /* ===== RESET & BASE ===== */
         * {
@@ -119,6 +121,33 @@
             color: rgba(255,255,255,0.9);
             max-width: 600px;
             margin: 0 auto 30px;
+        }
+
+        /* ===== AD CONTAINER ===== */
+        .ad-container {
+            max-width: 728px;
+            margin: 0 auto 40px;
+            text-align: center;
+            background: var(--glass);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .ad-container h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        #container-60d805ebaaab8d092ee222fd443658da {
+            margin: 0 auto;
+            min-height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* ===== SEARCH ===== */
@@ -318,6 +347,40 @@
             margin-top: 20px;
         }
 
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            opacity: 0.6;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
         /* ===== ANIMATIONS ===== */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -347,6 +410,15 @@
             .logo {
                 font-size: 22px;
             }
+            
+            .ad-container {
+                padding: 15px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
     </style>
 </head>
@@ -375,10 +447,31 @@
             </div>
         </section>
 
+        <!-- ADSTERRA AD -->
+        <div class="ad-container">
+            <h3>Advertisement</h3>
+            <div id="container-60d805ebaaab8d092ee222fd443658da"></div>
+        </div>
+
         <!-- TOOLS GRID -->
         <div class="tools-grid" id="toolsGrid">
             <!-- Tools will be generated here -->
         </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>QuickToolHub - Your All-in-One Toolkit</p>
+            <div class="footer-links">
+                <a href="terms.html">Terms & Conditions</a>
+                <a href="mailto:QuickToolHub@hotmail.com">Contact Support</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="javascript:shareSite()">Share</a>
+            </div>
+            <div class="copyright">
+                © 2024 QuickToolHub. All rights reserved.<br>
+                Tools work in your browser - no data uploaded to servers
+            </div>
+        </footer>
     </div>
 
     <!-- MODAL FOR TOOLS -->
@@ -730,6 +823,20 @@
             return tips[action] || 'Process files securely in your browser. No data is sent to servers.';
         }
 
+        // ===== SHARE FUNCTION =====
+        function shareSite() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'QuickToolHub - All-in-One Toolkit',
+                    text: 'Check out these amazing free tools for PDF, images, text, and more!',
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Link copied to clipboard! Share it with friends.');
+            }
+        }
+
         // ===== EXTRA FEATURES =====
         // Drag and drop support
         document.addEventListener('dragover', (e) => {
@@ -752,25 +859,6 @@
                 document.getElementById('searchInput').focus();
             }
         });
-
-        // Share functionality
-        function shareTool(toolName) {
-            if (navigator.share) {
-                navigator.share({
-                    title: toolName,
-                    text: `Check out this amazing tool: ${toolName}`,
-                    url: window.location.href
-                });
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert('Link copied to clipboard!');
-            }
-        }
-
-        // Rate tool
-        function rateTool(rating) {
-            alert(`Thanks for ${rating} star rating!`);
-        }
     </script>
 </body>
 </html>
