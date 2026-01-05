@@ -2,1472 +2,169 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QuickToolHub – Free Online Tools</title>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<meta name="description" content="100+ Free Online Tools for PDF, Image, Text & Video. No upload, no signup.">
-<meta name="keywords" content="online tools, pdf tools, image compressor, free tools">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root{
-  --primary:#4361ee;
-  --accent:#f72585;
-  --bg:#f4f6fb;
-  --dark:#111;
-  --light:#fff;
-  --gray:#666;
-  --card:#fff;
-  --shadow:0 10px 30px rgba(0,0,0,.08);
-}
-
-.dark-theme{
-  --primary:#6d8cff;
-  --accent:#ff4da6;
-  --bg:#121212;
-  --dark:#f1f1f1;
-  --light:#1e1e1e;
-  --gray:#aaa;
-  --card:#2d2d2d;
-  --shadow:0 10px 30px rgba(0,0,0,.3);
-}
-
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Inter,sans-serif}
-
-body{
-  background:var(--bg);
-  color:var(--dark);
-  transition:all 0.3s ease;
-}
-
-/* HEADER */
-header{
-  background:var(--light);
-  padding:20px 30px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-
-.logo{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  cursor:pointer;
-}
-
-.logo i{
-  font-size:30px;
-  color:var(--primary);
-  background:linear-gradient(45deg,var(--primary),var(--accent));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.logo span{
-  font-size:26px;
-  font-weight:800;
-  background:linear-gradient(45deg,var(--primary),var(--accent));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.header-right{
-  display:flex;
-  gap:15px;
-  align-items:center;
-}
-
-.theme-toggle{
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  background:var(--card);
-  border:1px solid rgba(0,0,0,.1);
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  color:var(--primary);
-  transition:all 0.3s;
-}
-
-.theme-toggle:hover{
-  transform:rotate(15deg);
-  box-shadow:0 5px 15px rgba(0,0,0,.1);
-}
-
-.header-btn{
-  padding:12px 26px;
-  background:var(--primary);
-  color:#fff;
-  border:none;
-  border-radius:10px;
-  font-weight:600;
-  cursor:pointer;
-  font-size:15px;
-  transition:all 0.3s;
-}
-
-.header-btn:hover{
-  background:var(--accent);
-  transform:translateY(-2px);
-  box-shadow:0 8px 20px rgba(67,97,238,0.3);
-}
-
-/* HERO */
-.hero{
-  text-align:center;
-  padding:100px 20px;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-  color:#fff;
-  position:relative;
-  overflow:hidden;
-}
-
-.hero::before{
-  content:'';
-  position:absolute;
-  top:-50%;
-  left:-50%;
-  width:200%;
-  height:200%;
-  background:radial-gradient(circle,rgba(255,255,255,0.1) 1px,transparent 1px);
-  background-size:50px 50px;
-  animation:moveBg 20s linear infinite;
-  opacity:0.3;
-}
-
-@keyframes moveBg{
-  0%{transform:translate(0,0) rotate(0deg);}
-  100%{transform:translate(-50px,-50px) rotate(360deg);}
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-  max-width:800px;
-  margin:0 auto;
-}
-
-.hero h1{
-  font-size:3.5rem;
-  margin-bottom:20px;
-  text-shadow:0 4px 10px rgba(0,0,0,0.2);
-}
-
-.hero p{
-  font-size:1.2rem;
-  max-width:700px;
-  margin:0 auto 40px;
-  opacity:.95;
-  line-height:1.6;
-}
-
-.hero-btn{
-  padding:16px 40px;
-  border:none;
-  border-radius:30px;
-  font-size:1.1rem;
-  font-weight:700;
-  cursor:pointer;
-  background:#fff;
-  color:var(--primary);
-  transition:all 0.3s;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
-}
-
-.hero-btn:hover{
-  transform:translateY(-5px) scale(1.05);
-  box-shadow:0 15px 40px rgba(0,0,0,0.3);
-}
-
-/* SEARCH */
-.search-container{
-  max-width:700px;
-  margin:40px auto;
-  padding:0 20px;
-}
-
-.search-box{
-  position:relative;
-}
-
-.search-box input{
-  width:100%;
-  padding:18px 60px 18px 25px;
-  border:none;
-  border-radius:15px;
-  background:var(--card);
-  color:var(--dark);
-  font-size:16px;
-  box-shadow:var(--shadow);
-  transition:all 0.3s;
-}
-
-.search-box input:focus{
-  outline:none;
-  box-shadow:0 0 0 3px rgba(67,97,238,0.2);
-}
-
-.search-box button{
-  position:absolute;
-  right:15px;
-  top:50%;
-  transform:translateY(-50%);
-  background:var(--primary);
-  color:#fff;
-  border:none;
-  width:45px;
-  height:45px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:18px;
-  transition:all 0.3s;
-}
-
-.search-box button:hover{
-  background:var(--accent);
-  transform:translateY(-50%) rotate(10deg);
-}
-
-/* TOOLS GRID */
-.section-title{
-  text-align:center;
-  font-size:2.8rem;
-  margin:60px 0 50px;
-  background:linear-gradient(45deg,var(--primary),var(--accent));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.tools-grid{
-  max-width:1300px;
-  margin:0 auto 80px;
-  padding:0 20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:30px;
-}
-
-.tool-card{
-  background:var(--card);
-  padding:30px;
-  border-radius:20px;
-  box-shadow:var(--shadow);
-  transition:all 0.3s ease;
-  cursor:pointer;
-  border:2px solid transparent;
-  position:relative;
-  overflow:hidden;
-}
-
-.tool-card:hover{
-  transform:translateY(-10px);
-  border-color:var(--primary);
-  box-shadow:0 20px 40px rgba(0,0,0,.15);
-}
-
-.tool-card::before{
-  content:'';
-  position:absolute;
-  top:0;
-  left:0;
-  width:5px;
-  height:100%;
-  background:linear-gradient(to bottom,var(--primary),var(--accent));
-}
-
-.tool-icon{
-  width:70px;
-  height:70px;
-  border-radius:15px;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:32px;
-  color:#fff;
-  margin-bottom:20px;
-  box-shadow:0 10px 20px rgba(67,97,238,0.2);
-}
-
-.tool-card h3{
-  font-size:1.4rem;
-  margin-bottom:10px;
-  color:var(--dark);
-}
-
-.tool-card p{
-  color:var(--gray);
-  line-height:1.5;
-  margin-bottom:20px;
-}
-
-.tool-tags{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.tag{
-  padding:5px 12px;
-  background:rgba(67,97,238,0.1);
-  color:var(--primary);
-  border-radius:20px;
-  font-size:12px;
-  font-weight:500;
-}
-
-/* FEATURES */
-.features{
-  max-width:1200px;
-  margin:80px auto;
-  padding:0 20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:30px;
-}
-
-.feature{
-  background:var(--card);
-  padding:35px;
-  border-radius:20px;
-  text-align:center;
-  box-shadow:var(--shadow);
-  transition:transform 0.3s;
-}
-
-.feature:hover{
-  transform:translateY(-5px);
-}
-
-.feature i{
-  font-size:48px;
-  margin-bottom:20px;
-  background:linear-gradient(45deg,var(--primary),var(--accent));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.feature h3{
-  font-size:1.4rem;
-  margin-bottom:10px;
-}
-
-.feature p{
-  color:var(--gray);
-  line-height:1.5;
-}
-
-/* FOOTER */
-footer{
-  background:var(--light);
-  color:var(--gray);
-  padding:60px 20px 30px;
-  text-align:center;
-  margin-top:80px;
-  border-top:1px solid rgba(0,0,0,.1);
-}
-
-.footer-content{
-  max-width:1200px;
-  margin:0 auto;
-}
-
-.footer-links{
-  display:flex;
-  justify-content:center;
-  gap:30px;
-  margin:30px 0;
-  flex-wrap:wrap;
-}
-
-.footer-links a{
-  color:var(--dark);
-  text-decoration:none;
-  transition:color 0.3s;
-}
-
-.footer-links a:hover{
-  color:var(--primary);
-}
-
-.copyright{
-  margin-top:30px;
-  font-size:14px;
-  opacity:0.7;
-}
-
-/* MODAL */
-.modal-overlay{
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
-  z-index:1000;
-  backdrop-filter:blur(5px);
-}
-
-.modal{
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  background:var(--card);
-  padding:30px;
-  border-radius:20px;
-  width:90%;
-  max-width:500px;
-  max-height:90vh;
-  overflow-y:auto;
-  z-index:1001;
-  box-shadow:0 30px 60px rgba(0,0,0,0.3);
-  display:none;
-  animation:modalSlide 0.3s ease;
-}
-
-@keyframes modalSlide{
-  from{transform:translate(-50%,-60%);opacity:0;}
-  to{transform:translate(-50%,-50%);opacity:1;}
-}
-
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-  padding-bottom:15px;
-  border-bottom:2px solid var(--primary);
-}
-
-.modal-header h2{
-  font-size:1.8rem;
-  color:var(--dark);
-}
-
-.close-modal{
-  background:none;
-  border:none;
-  font-size:28px;
-  cursor:pointer;
-  color:var(--gray);
-  transition:all 0.3s;
-}
-
-.close-modal:hover{
-  color:var(--accent);
-  transform:rotate(90deg);
-}
-
-/* FILE UPLOAD */
-.file-upload{
-  border:2px dashed var(--primary);
-  border-radius:15px;
-  padding:40px;
-  text-align:center;
-  margin:20px 0;
-  cursor:pointer;
-  transition:all 0.3s;
-  background:rgba(67,97,238,0.05);
-}
-
-.file-upload:hover{
-  background:rgba(67,97,238,0.1);
-  transform:translateY(-2px);
-}
-
-.file-upload i{
-  font-size:48px;
-  color:var(--primary);
-  margin-bottom:15px;
-  opacity:0.7;
-}
-
-.tool-btn{
-  padding:14px 28px;
-  background:var(--primary);
-  color:#fff;
-  border:none;
-  border-radius:10px;
-  font-weight:600;
-  cursor:pointer;
-  font-size:16px;
-  transition:all 0.3s;
-  margin:10px 5px;
-}
-
-.tool-btn:hover{
-  background:var(--accent);
-  transform:translateY(-2px);
-  box-shadow:0 10px 25px rgba(0,0,0,0.2);
-}
-
-.text-input{
-  width:100%;
-  padding:15px;
-  border:1px solid rgba(0,0,0,0.1);
-  border-radius:10px;
-  margin:15px 0;
-  font-size:16px;
-  background:var(--card);
-  color:var(--dark);
-  resize:vertical;
-  min-height:120px;
-}
-
-.progress-bar{
-  width:100%;
-  height:8px;
-  background:rgba(0,0,0,0.1);
-  border-radius:4px;
-  margin:20px 0;
-  overflow:hidden;
-  display:none;
-}
-
-.progress{
-  height:100%;
-  background:linear-gradient(90deg,var(--primary),var(--accent));
-  width:0%;
-  transition:width 0.3s;
-}
-
-.result{
-  padding:20px;
-  background:rgba(67,97,238,0.1);
-  border-radius:10px;
-  margin-top:20px;
-  display:none;
-}
-
-/* NOTIFICATION */
-.notification{
-  position:fixed;
-  top:20px;
-  right:20px;
-  background:var(--primary);
-  color:#fff;
-  padding:15px 25px;
-  border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
-  z-index:10000;
-  display:none;
-  animation:slideIn 0.3s ease;
-}
-
-@keyframes slideIn{
-  from{transform:translateX(100%);opacity:0;}
-  to{transform:translateX(0);opacity:1;}
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  .hero h1{font-size:2.5rem;}
-  .hero p{font-size:1.1rem;}
-  .tools-grid{grid-template-columns:1fr;}
-  .features{grid-template-columns:1fr;}
-  header{padding:15px;}
-  .logo span{font-size:22px;}
-  .hero-btn{padding:14px 30px;font-size:1rem;}
-}
-
-@media(max-width:480px){
-  .hero h1{font-size:2rem;}
-  .hero{padding:70px 20px;}
-  .section-title{font-size:2rem;}
-  .modal{padding:20px;}
-  .footer-links{gap:15px;}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
+}
+header {
+  background: #111;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+}
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+.tool {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+.tool h2 {
+  margin-top: 0;
+}
+input, textarea, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background: #0056b3;
+}
+canvas {
+  max-width: 100%;
+  margin-top: 10px;
+}
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #111;
+  color: #fff;
 }
 </style>
 </head>
 
-<body class="light-theme">
+<body>
 
-<!-- NOTIFICATION -->
-<div class="notification" id="notification"></div>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
-<div class="modal" id="toolModal">
-  <div class="modal-header">
-    <h2 id="modalTitle">Tool Name</h2>
-    <button class="close-modal" onclick="closeModal()">×</button>
-  </div>
-  <div id="modalContent"></div>
-</div>
-
-<!-- HEADER -->
 <header>
-  <div class="logo" onclick="scrollToTop()">
-    <i class="fas fa-tools"></i>
-    <span>QuickToolHub</span>
-  </div>
-  <div class="header-right">
-    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
-      <i class="fas fa-moon"></i>
-    </button>
-    <button class="header-btn" onclick="showAllTools()">All Tools</button>
-  </div>
+  <h1>QuickToolHub</h1>
+  <p>Fast • Free • Real Tools</p>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <h1>All-in-One Online Tools</h1>
-    <p>100+ free tools for PDF, images, text & video.  
-       No upload • No signup • Works 100% in browser</p>
-    <button class="hero-btn" onclick="scrollToTools()">
-      <i class="fas fa-play"></i> Start Using Tools
-    </button>
-  </div>
-</section>
+<div class="container">
 
-<!-- SEARCH -->
-<div class="search-container">
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search for tools... (PDF, Image, Text, Video)">
-    <button onclick="searchTools()"><i class="fas fa-search"></i></button>
+  <!-- IMAGE COMPRESSOR -->
+  <div class="tool">
+    <h2>🖼️ Image Compressor</h2>
+    <input type="file" id="compressInput" accept="image/*">
+    <button onclick="compressImage()">Compress Image</button>
+    <canvas id="compressCanvas"></canvas>
+    <a id="compressDownload" download="compressed.jpg"></a>
   </div>
+
+  <!-- IMAGE RESIZER -->
+  <div class="tool">
+    <h2>📐 Image Resizer</h2>
+    <input type="file" id="resizeInput" accept="image/*">
+    <input type="number" id="resizeWidth" placeholder="Width (px)">
+    <input type="number" id="resizeHeight" placeholder="Height (px)">
+    <button onclick="resizeImage()">Resize Image</button>
+    <canvas id="resizeCanvas"></canvas>
+    <a id="resizeDownload" download="resized.jpg"></a>
+  </div>
+
+  <!-- WORD COUNTER -->
+  <div class="tool">
+    <h2>📊 Word Counter</h2>
+    <textarea id="textInput" rows="6" placeholder="Type or paste text here..."></textarea>
+    <p>
+      Words: <span id="wordCount">0</span> |
+      Characters: <span id="charCount">0</span>
+    </p>
+  </div>
+
 </div>
 
-<!-- FEATURES -->
-<section class="features">
-  <div class="feature">
-    <i class="fas fa-shield-alt"></i>
-    <h3>Secure & Private</h3>
-    <p>Your files never leave your device. 100% browser processing</p>
-  </div>
-  <div class="feature">
-    <i class="fas fa-bolt"></i>
-    <h3>Lightning Fast</h3>
-    <p>Instant processing with modern Web APIs</p>
-  </div>
-  <div class="feature">
-    <i class="fas fa-laptop-code"></i>
-    <h3>No Installation</h3>
-    <p>Works directly in browser. No downloads needed</p>
-  </div>
-  <div class="feature">
-    <i class="fas fa-infinity"></i>
-    <h3>Free Forever</h3>
-    <p>No limits, no watermarks, completely free</p>
-  </div>
-</section>
-
-<!-- TOOLS -->
-<h2 class="section-title" id="toolsSection">Popular Tools</h2>
-
-<section class="tools-grid" id="toolsGrid">
-  <!-- Tools will be loaded here -->
-</section>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-content">
-    <div class="footer-links">
-      <a href="#" onclick="openAbout()">About</a>
-      <a href="#" onclick="openContact()">Contact</a>
-      <a href="#" onclick="openPrivacy()">Privacy</a>
-      <a href="#" onclick="openTerms()">Terms</a>
-    </div>
-    <div class="copyright">
-      © 2025 QuickToolHub • Free Online Tools • All rights reserved
-    </div>
-  </div>
+  © 2026 QuickToolHub
 </footer>
 
 <script>
-// ===== GLOBAL VARIABLES =====
-let currentFile = null;
-let currentTool = null;
-let processedBlob = null;
-let currentQuality = 80;
+// IMAGE COMPRESSOR
+function compressImage() {
+  const file = document.getElementById("compressInput").files[0];
+  if (!file) return alert("Select image first");
 
-// ===== TOOLS DATA =====
-const tools = [
-  {
-    id: 1,
-    name: "📄 PDF Compressor",
-    description: "Reduce PDF file size without losing quality",
-    icon: "fas fa-file-pdf",
-    category: "pdf",
-    tags: ["PDF", "Compress", "Free"],
-    action: "compressPDF"
-  },
-  {
-    id: 2,
-    name: "🖼️ Image Resizer",
-    description: "Resize images to any dimension instantly",
-    icon: "fas fa-image",
-    category: "image",
-    tags: ["Image", "Resize", "Quick"],
-    action: "resizeImage"
-  },
-  {
-    id: 3,
-    name: "🔒 PDF Merger",
-    description: "Combine multiple PDF files into one",
-    icon: "fas fa-copy",
-    category: "pdf",
-    tags: ["PDF", "Merge", "Secure"],
-    action: "mergePDF"
-  },
-  {
-    id: 4,
-    name: "🎨 Watermark Tool",
-    description: "Add text or image watermark to PDFs",
-    icon: "fas fa-tint",
-    category: "pdf",
-    tags: ["PDF", "Watermark", "Custom"],
-    action: "addWatermark"
-  },
-  {
-    id: 5,
-    name: "📝 Text Extractor",
-    description: "Extract text from images (OCR)",
-    icon: "fas fa-font",
-    category: "text",
-    tags: ["Text", "OCR", "AI"],
-    action: "extractText"
-  },
-  {
-    id: 6,
-    name: "⚡ Image Compressor",
-    description: "Compress images up to 90% smaller",
-    icon: "fas fa-compress-alt",
-    category: "image",
-    tags: ["Image", "Compress", "Fast"],
-    action: "compressImage"
-  },
-  {
-    id: 7,
-    name: "🔀 Format Converter",
-    description: "Convert between PDF, Word, Excel, PPT",
-    icon: "fas fa-exchange-alt",
-    category: "document",
-    tags: ["Convert", "Multi-format", "Free"],
-    action: "convertFormat"
-  },
-  {
-    id: 8,
-    name: "🎯 QR Code Generator",
-    description: "Create custom QR codes for URLs, text",
-    icon: "fas fa-qrcode",
-    category: "utility",
-    tags: ["QR Code", "Generate", "Business"],
-    action: "generateQR"
-  },
-  {
-    id: 9,
-    name: "📊 Word Counter",
-    description: "Count words, characters, sentences",
-    icon: "fas fa-calculator",
-    category: "text",
-    tags: ["Text", "Counter", "Writer"],
-    action: "countWords"
-  },
-  {
-    id: 10,
-    name: "🔐 PDF Password",
-    description: "Add/remove password from PDF files",
-    icon: "fas fa-lock",
-    category: "pdf",
-    tags: ["PDF", "Security", "Encrypt"],
-    action: "pdfPassword"
-  },
-  {
-    id: 11,
-    name: "🎨 Color Picker",
-    description: "Pick colors from screen with eye-dropper",
-    icon: "fas fa-eye-dropper",
-    category: "design",
-    tags: ["Color", "Design", "Web"],
-    action: "colorPicker"
-  },
-  {
-    id: 12,
-    name: "💬 Text to Speech",
-    description: "Convert text to natural sounding audio",
-    icon: "fas fa-volume-up",
-    category: "ai",
-    tags: ["AI", "Audio", "Voice"],
-    action: "textToSpeech"
-  }
-];
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.getElementById("compressCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0);
+    canvas.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const link = document.getElementById("compressDownload");
+      link.href = url;
+      link.innerText = "Download Compressed Image";
+    }, "image/jpeg", 0.6);
+  };
+  img.src = URL.createObjectURL(file);
+}
 
-// ===== INITIALIZE =====
-document.addEventListener('DOMContentLoaded', function() {
-  renderTools();
-  setupSearch();
-  setupTheme();
-  showWelcomeNotification();
+// IMAGE RESIZER
+function resizeImage() {
+  const file = document.getElementById("resizeInput").files[0];
+  const w = document.getElementById("resizeWidth").value;
+  const h = document.getElementById("resizeHeight").value;
+  if (!file || !w || !h) return alert("Select image & size");
+
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.getElementById("resizeCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = w;
+    canvas.height = h;
+    ctx.drawImage(img, 0, 0, w, h);
+    canvas.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const link = document.getElementById("resizeDownload");
+      link.href = url;
+      link.innerText = "Download Resized Image";
+    }, "image/jpeg", 0.9);
+  };
+  img.src = URL.createObjectURL(file);
+}
+
+// WORD COUNTER
+document.getElementById("textInput").addEventListener("input", e => {
+  const text = e.target.value;
+  document.getElementById("wordCount").innerText =
+    text.trim() ? text.trim().split(/\s+/).length : 0;
+  document.getElementById("charCount").innerText = text.length;
 });
 
-// ===== RENDER TOOLS =====
-function renderTools(filteredTools = tools) {
-  const grid = document.getElementById('toolsGrid');
-  grid.innerHTML = '';
-  
-  filteredTools.forEach((tool, index) => {
-    const card = document.createElement('div');
-    card.className = 'tool-card';
-    card.style.animationDelay = `${index * 0.1}s`;
-    card.onclick = () => openTool(tool);
-    
-    card.innerHTML = `
-      <div class="tool-icon">
-        <i class="${tool.icon}"></i>
-      </div>
-      <h3>${tool.name}</h3>
-      <p>${tool.description}</p>
-      <div class="tool-tags">
-        ${tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-      </div>
-    `;
-    
-    grid.appendChild(card);
-  });
-}
-
-// ===== SEARCH FUNCTION =====
-function setupSearch() {
-  const searchInput = document.getElementById('searchInput');
-  searchInput.addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase();
-    const filtered = tools.filter(tool => 
-      tool.name.toLowerCase().includes(searchTerm) ||
-      tool.description.toLowerCase().includes(searchTerm) ||
-      tool.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-    );
-    renderTools(filtered);
-    
-    if (searchTerm && filtered.length === 0) {
-      showNotification('No tools found. Try different keywords.', 2000);
-    }
-  });
-}
-
-function searchTools() {
-  const searchInput = document.getElementById('searchInput');
-  searchInput.focus();
-}
-
-// ===== TOOL MODAL =====
-function openTool(tool) {
-  currentTool = tool;
-  document.getElementById('modalTitle').textContent = tool.name;
-  
-  const modalContent = document.getElementById('modalContent');
-  
-  let content = '';
-  
-  if (tool.action === 'generateQR') {
-    content = getQRGenerator();
-  } else if (tool.action === 'countWords') {
-    content = getWordCounter();
-  } else {
-    content = getFileUploadTemplate(tool);
-  }
-  
-  modalContent.innerHTML = content;
-  
-  // Initialize tool
-  if (tool.action === 'generateQR') {
-    generateQRCode();
-  } else if (tool.action === 'countWords') {
-    countWords();
-  }
-  
-  // Show modal
-  document.getElementById('modalOverlay').style.display = 'block';
-  document.getElementById('toolModal').style.display = 'block';
-}
-
-function getFileUploadTemplate(tool) {
-  const isImageTool = tool.action.includes('Image');
-  const isPDFTool = tool.action.includes('PDF');
-  const isCompressTool = tool.action.includes('compress');
-  const isResizeTool = tool.action.includes('resize');
-  
-  return `
-    <div class="file-upload" id="uploadArea" onclick="triggerFileUpload('${isImageTool ? 'image/*' : isPDFTool ? '.pdf' : '*/*'}')">
-      <i class="fas fa-cloud-upload-alt"></i>
-      <h3>Click to upload files</h3>
-      <p>Supports: ${isPDFTool ? 'PDF files' : isImageTool ? 'Image files (JPG, PNG, GIF, WebP)' : 'All files'}</p>
-      <input type="file" id="fileInput" style="display: none;" 
-             accept="${isImageTool ? 'image/*' : isPDFTool ? '.pdf' : '*/*'}" 
-             onchange="handleFileUpload(event)">
-    </div>
-    
-    <div class="file-info" id="fileInfo"></div>
-    
-    ${isCompressTool || isResizeTool ? `
-      <div class="compression-controls">
-        <h4><i class="fas fa-sliders-h"></i> ${isResizeTool ? 'Resize Settings' : 'Compression Settings'}</h4>
-        <label>${isResizeTool ? 'Resize to:' : 'Quality:'} <span class="compression-value" id="compressionValue">${isResizeTool ? '50%' : '80%'}</span></label>
-        <input type="range" min="1" max="100" value="${isResizeTool ? '50' : '80'}" 
-               class="compression-slider" id="compressionSlider" 
-               oninput="updateCompressionValue(this.value, ${isResizeTool})">
-        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
-          <span style="font-size: 12px;">${isResizeTool ? 'Small' : 'Low Quality'}</span>
-          <span style="font-size: 12px;">${isResizeTool ? 'Large' : 'High Quality'}</span>
-        </div>
-      </div>
-    ` : ''}
-    
-    <div class="progress-bar" id="progressBar">
-      <div class="progress" id="progress"></div>
-    </div>
-    
-    <button class="tool-btn" onclick="processFile()" id="processBtn" style="width: 100%; margin-top: 20px; display: none;">
-      <i class="fas fa-magic"></i> ${isCompressTool ? 'Compress File' : isResizeTool ? 'Resize Image' : 'Process File'}
-    </button>
-    
-    <div class="result" id="resultContainer">
-      <div id="resultContent"></div>
-    </div>
-  `;
-}
-
-function getQRGenerator() {
-  return `
-    <div class="qr-code-container">
-      <input type="text" id="qrText" class="text-input" placeholder="Enter text or URL..." value="https://quicktoolhub.com">
-      <div style="margin: 20px 0;">
-        <button class="tool-btn" onclick="generateQRCode()">
-          <i class="fas fa-qrcode"></i> Generate QR Code
-        </button>
-        <button class="tool-btn" onclick="downloadQRCode()">
-          <i class="fas fa-download"></i> Download
-        </button>
-      </div>
-      <canvas id="qrCodeCanvas" width="200" height="200"></canvas>
-    </div>
-  `;
-}
-
-function getWordCounter() {
-  return `
-    <div style="margin: 20px 0;">
-      <textarea id="textInput" class="text-input" placeholder="Enter text to count words...">Welcome to QuickToolHub! This is an all-in-one toolkit with 100+ free tools. Everything works in your browser - no uploads, no registration required.</textarea>
-      <div id="wordCountResult" style="text-align: left; padding: 20px; background: rgba(0,0,0,0.05); border-radius: 10px; margin: 20px 0;">
-        <h4><i class="fas fa-chart-bar"></i> Text Statistics:</h4>
-        <div id="countDetails" style="margin-top: 10px;">
-          <p><strong>Words:</strong> <span id="wordCountNum">0</span></p>
-          <p><strong>Characters:</strong> <span id="charCountNum">0</span> (<span id="charNoSpaces">0</span> without spaces)</p>
-          <p><strong>Sentences:</strong> <span id="sentenceCount">0</span></p>
-          <p><strong>Reading Time:</strong> <span id="readingTime">0</span> minutes</p>
-        </div>
-      </div>
-      <div style="display: flex; gap: 10px;">
-        <button class="tool-btn" onclick="countWords()" style="flex: 1;">
-          <i class="fas fa-calculator"></i> Count
-        </button>
-        <button class="tool-btn" onclick="copyText()" style="flex: 1;">
-          <i class="fas fa-copy"></i> Copy Text
-        </button>
-      </div>
-    </div>
-  `;
-}
-
-// ===== FILE UPLOAD FUNCTIONS =====
-function triggerFileUpload(accept) {
-  const fileInput = document.getElementById('fileInput');
-  fileInput.accept = accept;
-  fileInput.click();
-}
-
-function handleFileUpload(event) {
-  const file = event.target.files[0];
-  if (file) {
-    currentFile = file;
-    showFileInfo(file);
-    document.getElementById('processBtn').style.display = 'block';
-    showNotification(`📁 ${file.name} uploaded successfully!`, 2000);
-  }
-}
-
-function showFileInfo(file) {
-  const fileInfo = document.getElementById('fileInfo');
-  const fileSize = formatBytes(file.size);
-  
-  let previewHTML = '';
-  if (file.type.startsWith('image/')) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const img = new Image();
-      img.src = e.target.result;
-      img.onload = function() {
-        previewHTML = `
-          <img src="${e.target.result}" style="max-width: 200px; border-radius: 10px; margin-top: 10px;" alt="Preview">
-          <p><strong>Dimensions:</strong> ${img.width} × ${img.height}px</p>
-        `;
-        fileInfo.innerHTML = `
-          <h4><i class="fas fa-file-image"></i> ${file.name}</h4>
-          <p><strong>Size:</strong> ${fileSize}</p>
-          <p><strong>Type:</strong> ${file.type}</p>
-          ${previewHTML}
-        `;
-        fileInfo.style.display = 'block';
-      };
-    };
-    reader.readAsDataURL(file);
-  } else {
-    fileInfo.innerHTML = `
-      <h4><i class="fas fa-file"></i> ${file.name}</h4>
-      <p><strong>Size:</strong> ${fileSize}</p>
-      <p><strong>Type:</strong> ${file.type || 'Unknown'}</p>
-    `;
-    fileInfo.style.display = 'block';
-  }
-}
-
-// ===== COMPRESSION CONTROL =====
-function updateCompressionValue(value, isResize) {
-  currentQuality = parseInt(value);
-  document.getElementById('compressionValue').textContent = isResize ? `${value}%` : `${value}%`;
-  showNotification(`${isResize ? 'Resize' : 'Quality'} set to ${value}%`, 1000);
-}
-
-// ===== PROCESS FILE =====
-async function processFile() {
-  if (!currentFile) {
-    showNotification('❌ Please select a file first!', 3000);
-    return;
-  }
-  
-  const progressBar = document.getElementById('progressBar');
-  const progress = document.getElementById('progress');
-  const processBtn = document.getElementById('processBtn');
-  
-  // Show progress
-  progressBar.style.display = 'block';
-  processBtn.disabled = true;
-  processBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-  
-  // Simulate progress
-  let progressValue = 0;
-  const progressInterval = setInterval(() => {
-    progressValue += 20;
-    progress.style.width = progressValue + '%';
-    if (progressValue >= 100) {
-      clearInterval(progressInterval);
-    }
-  }, 300);
-  
-  try {
-    // Get quality value
-    const qualityValue = document.getElementById('compressionSlider') ? 
-      parseInt(document.getElementById('compressionSlider').value) : 80;
-    
-    // Process based on tool type
-    let resultBlob;
-    const originalSize = currentFile.size;
-    
-    if (currentTool.action === 'compressImage' || currentTool.action === 'resizeImage') {
-      resultBlob = await processImageFile(currentFile, qualityValue, currentTool.action === 'resizeImage');
-    } else if (currentTool.action === 'compressPDF') {
-      resultBlob = await processPDFFile(currentFile, qualityValue);
-    } else {
-      // For other tools, just use original file
-      resultBlob = currentFile;
-    }
-    
-    // Finish progress
-    progress.style.width = '100%';
-    clearInterval(progressInterval);
-    
-    // Calculate reduction
-    const newSize = resultBlob.size;
-    const reduction = Math.round(100 - (newSize / originalSize * 100));
-    
-    // Show result
-    showResult(originalSize, newSize, reduction, resultBlob);
-    
-    // Store processed file
-    processedBlob = resultBlob;
-    
-  } catch (error) {
-    showNotification(`❌ Error: ${error.message}`, 3000);
-  } finally {
-    // Reset progress
-    setTimeout(() => {
-      progressBar.style.display = 'none';
-      progress.style.width = '0%';
-      processBtn.disabled = false;
-      processBtn.innerHTML = currentTool.action.includes('compress') ? 
-        '<i class="fas fa-compress-alt"></i> Compress File' : 
-        currentTool.action.includes('resize') ?
-        '<i class="fas fa-expand-alt"></i> Resize Image' :
-        '<i class="fas fa-magic"></i> Process File';
-    }, 500);
-  }
-}
-
-// ===== IMAGE PROCESSING =====
-async function processImageFile(file, quality, isResize = false) {
-  return new Promise((resolve, reject) => {
-    if (!file.type.startsWith('image/')) {
-      reject(new Error('Please select an image file'));
-      return;
-    }
-    
-    const img = new Image();
-    const reader = new FileReader();
-    
-    reader.onload = function(e) {
-      img.src = e.target.result;
-      
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        
-        let newWidth, newHeight;
-        
-        if (isResize) {
-          const scale = quality / 100;
-          newWidth = Math.round(img.width * scale);
-          newHeight = Math.round(img.height * scale);
-        } else {
-          newWidth = img.width;
-          newHeight = img.height;
-        }
-        
-        canvas.width = newWidth;
-        canvas.height = newHeight;
-        
-        ctx.drawImage(img, 0, 0, newWidth, newHeight);
-        
-        const mimeType = file.type || 'image/jpeg';
-        const qualityValue = quality / 100;
-        
-        canvas.toBlob(function(blob) {
-          if (blob) {
-            resolve(blob);
-          } else {
-            reject(new Error('Failed to process image'));
-          }
-        }, mimeType, qualityValue);
-      };
-      
-      img.onerror = function() {
-        reject(new Error('Failed to load image'));
-      };
-    };
-    
-    reader.onerror = function() {
-      reject(new Error('Failed to read file'));
-    };
-    
-    reader.readAsDataURL(file);
-  });
-}
-
-// ===== PDF PROCESSING =====
-async function processPDFFile(file, quality) {
-  return new Promise((resolve) => {
-    // Simulate PDF compression
-    showNotification('📝 PDF compression simulated. Downloading processed file.', 3000);
-    resolve(file);
-  });
-}
-
-function showResult(originalSize, newSize, reduction, resultBlob) {
-  const resultContainer = document.getElementById('resultContainer');
-  const resultContent = document.getElementById('resultContent');
-  
-  const originalFormatted = formatBytes(originalSize);
-  const newFormatted = formatBytes(newSize);
-  
-  resultContent.innerHTML = `
-    <div style="text-align: center; padding: 20px;">
-      <h3><i class="fas fa-check-circle" style="color: #00d4ff;"></i> File Processed Successfully!</h3>
-      <div style="display: flex; justify-content: space-around; margin: 30px 0;">
-        <div>
-          <h4>Original</h4>
-          <div style="font-size: 24px; font-weight: bold; color: var(--accent);">${originalFormatted}</div>
-        </div>
-        <div>
-          <h4>Processed</h4>
-          <div style="font-size: 24px; font-weight: bold; color: #00d4ff;">${newFormatted}</div>
-        </div>
-      </div>
-      <div style="background: rgba(0,212,255,0.1); padding: 15px; border-radius: 10px; margin: 20px 0;">
-        <i class="fas fa-${reduction > 0 ? 'arrow-down' : reduction < 0 ? 'arrow-up' : 'minus'}"></i>
-        <strong>${Math.abs(reduction)}% ${reduction > 0 ? 'Smaller' : reduction < 0 ? 'Larger' : 'Same Size'}</strong>
-      </div>
-      <div style="margin-top: 30px;">
-        <button class="tool-btn" onclick="downloadProcessedFile()" style="background: #00d4ff;">
-          <i class="fas fa-download"></i> Download Processed File
-        </button>
-        <button class="tool-btn" onclick="processAnotherFile()" style="background: var(--primary);">
-          <i class="fas fa-redo"></i> Process Another
-        </button>
-      </div>
-    </div>
-  `;
-  resultContainer.style.display = 'block';
-  
-  showNotification(`✅ File processed! ${Math.abs(reduction)}% ${reduction > 0 ? 'smaller' : 'larger'}`, 3000);
-}
-
-function processAnotherFile() {
-  currentFile = null;
-  processedBlob = null;
-  
-  document.getElementById('fileInfo').style.display = 'none';
-  document.getElementById('fileInfo').innerHTML = '';
-  document.getElementById('processBtn').style.display = 'none';
-  document.getElementById('resultContainer').style.display = 'none';
-  document.getElementById('progressBar').style.display = 'none';
-  
-  showNotification('📁 Ready for new file upload', 2000);
-}
-
-function downloadProcessedFile() {
-  if (!processedBlob) {
-    showNotification('❌ No processed file available!', 3000);
-    return;
-  }
-  
-  const extension = currentFile.name.split('.').pop();
-  const baseName = currentFile.name.replace(`.${extension}`, '');
-  const suffix = currentTool.action.includes('compress') ? '_compressed' : 
-                currentTool.action.includes('resize') ? '_resized' : '_processed';
-  
-  const newFileName = `${baseName}${suffix}.${extension}`;
-  
-  const url = URL.createObjectURL(processedBlob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = newFileName;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  
-  showNotification(`📥 ${newFileName} downloaded successfully!`, 2000);
-}
-
-// ===== QR CODE FUNCTIONS =====
-function generateQRCode() {
-  const text = document.getElementById('qrText').value || 'https://quicktoolhub.com';
-  const canvas = document.getElementById('qrCodeCanvas');
-  const ctx = canvas.getContext('2d');
-  
-  // Clear canvas
-  ctx.fillStyle = 'white';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  
-  // Draw QR pattern
-  ctx.fillStyle = '#000000';
-  ctx.fillRect(20, 20, 35, 35);
-  ctx.fillRect(20, canvas.height - 55, 35, 35);
-  ctx.fillRect(canvas.width - 55, 20, 35, 35);
-  
-  ctx.fillRect(canvas.width/2 - 15, canvas.height/2 - 15, 30, 30);
-  
-  ctx.font = '12px Arial';
-  ctx.textAlign = 'center';
-  ctx.fillText('QR Code', canvas.width/2, canvas.height - 10);
-  
-  showNotification('✅ QR Code generated!', 2000);
-}
-
-function downloadQRCode() {
-  const canvas = document.getElementById('qrCodeCanvas');
-  const url = canvas.toDataURL('image/png');
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'quicktoolhub-qrcode.png';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  
-  showNotification('📥 QR Code downloaded!', 2000);
-}
-
-// ===== WORD COUNTER FUNCTIONS =====
-function countWords() {
-  const text = document.getElementById('textInput').value;
-  const words = text.trim().split(/\s+/).filter(word => word.length > 0);
-  const characters = text.length;
-  const charactersNoSpaces = text.replace(/\s/g, '').length;
-  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
-  const readingTime = Math.ceil(words.length / 200);
-  
-  document.getElementById('wordCountNum').textContent = words.length;
-  document.getElementById('charCountNum').textContent = characters;
-  document.getElementById('charNoSpaces').textContent = charactersNoSpaces;
-  document.getElementById('sentenceCount').textContent = sentences;
-  document.getElementById('readingTime').textContent = readingTime;
-  
-  showNotification(`📊 Counted ${words.length} words`, 2000);
-}
-
-function copyText() {
-  const text = document.getElementById('textInput').value;
-  navigator.clipboard.writeText(text)
-    .then(() => showNotification('📋 Text copied to clipboard!', 2000))
-    .catch(() => showNotification('❌ Failed to copy text', 2000));
-}
-
-// ===== UTILITY FUNCTIONS =====
-function formatBytes(bytes, decimals = 2) {
-  if (bytes === 0) return '0 Bytes';
-  const k = 1024;
-  const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}
-
-// ===== NOTIFICATION SYSTEM =====
-function showNotification(message, duration = 3000) {
-  const notification = document.getElementById('notification');
-  notification.textContent = message;
-  notification.style.display = 'block';
-  
-  setTimeout(() => {
-    notification.style.display = 'none';
-  }, duration);
-}
-
-function showWelcomeNotification() {
-  setTimeout(() => {
-    showNotification('🎉 Welcome to QuickToolHub! Try our free tools.', 4000);
-  }, 1000);
-}
-
-// ===== THEME TOGGLE =====
-function setupTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  document.body.className = savedTheme + '-theme';
-  updateThemeIcon(savedTheme);
-}
-
-function toggleTheme() {
-  const currentTheme = document.body.className.includes('light') ? 'light' : 'dark';
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  
-  document.body.className = newTheme + '-theme';
-  localStorage.setItem('theme', newTheme);
-  updateThemeIcon(newTheme);
-  
-  showNotification(`Theme changed to ${newTheme} mode`, 2000);
-}
-
-function updateThemeIcon(theme) {
-  const icon = document.querySelector('.theme-toggle i');
-  icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
-}
-
-// ===== MODAL FUNCTIONS =====
-function closeModal() {
-  document.getElementById('modalOverlay').style.display = 'none';
-  document.getElementById('toolModal').style.display = 'none';
-  currentFile = null;
-  currentTool = null;
-  processedBlob = null;
-}
-
-// ===== LEGAL PAGES =====
-function openAbout() {
-  openLegalModal('About Us', `
-    <h3><i class="fas fa-info-circle"></i> About QuickToolHub</h3>
-    <p>QuickToolHub is a free online toolkit with 100+ tools for everyday needs. Our mission is to provide fast, secure, and easy-to-use tools that work 100% in your browser.</p>
-    <p><strong>Features:</strong></p>
-    <ul style="margin: 15px 0; padding-left: 20px;">
-      <li>No registration required</li>
-      <li>Files processed locally in your browser</li>
-      <li>No file uploads to servers</li>
-      <li>100% free forever</li>
-      <li>Works on all devices</li>
-    </ul>
-    <p><strong>Contact:</strong> support@quicktoolhub.com</p>
-  `);
-}
-
-function openTerms() {
-  openLegalModal('Terms & Conditions', `
-    <h3><i class="fas fa-file-contract"></i> Terms & Conditions</h3>
-    <p>By using QuickToolHub, you agree to these terms.</p>
-    <p><strong>Service Description:</strong> QuickToolHub provides browser-based tools for file processing.</p>
-    <p><strong>Privacy:</strong> We do not collect or store your files.</p>
-    <p><strong>Contact:</strong> For questions: support@quicktoolhub.com</p>
-  `);
-}
-
-function openPrivacy() {
-  openLegalModal('Privacy Policy', `
-    <h3><i class="fas fa-shield-alt"></i> Privacy Policy</h3>
-    <p><strong>1. Data Collection:</strong> We do not collect or store your files.</p>
-    <p><strong>2. Local Processing:</strong> Your files never leave your device.</p>
-    <p><strong>3. Cookies:</strong> We use localStorage for theme preference only.</p>
-  `);
-}
-
-function openContact() {
-  openLegalModal('Contact Us', `
-    <h3><i class="fas fa-envelope"></i> Contact QuickToolHub</h3>
-    <p><strong>Email:</strong> support@quicktoolhub.com</p>
-    <p><strong>Purpose:</strong> For tool suggestions, feedback, or reports</p>
-  `);
-}
-
-function openLegalModal(title, content) {
-  document.getElementById('modalTitle').textContent = title;
-  document.getElementById('modalContent').innerHTML = `
-    <div style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
-      ${content}
-    </div>
-    <button class="tool-btn" onclick="closeModal()" style="width: 100%; margin-top: 20px;">
-      <i class="fas fa-times"></i> Close
-    </button>
-  `;
-  
-  document.getElementById('modalOverlay').style.display = 'block';
-  document.getElementById('toolModal').style.display = 'block';
-}
-
-// ===== SCROLL FUNCTIONS =====
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function scrollToTools() {
-  const toolsSection = document.getElementById('toolsSection');
-  toolsSection.scrollIntoView({ behavior: 'smooth' });
-}
-
-function showAllTools() {
-  renderTools();
-  scrollToTools();
-}
-
-// ===== KEYBOARD SHORTCUTS =====
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
-  if (e.ctrlKey && e.key === 'k') {
-    e.preventDefault();
-    document.getElementById('searchInput').focus();
-  }
-  if (e.ctrlKey && e.key === '/') {
-    e.preventDefault();
-    toggleTheme();
-  }
-});
+// CPM AD SCRIPT (DELAYED – SAFE)
+setTimeout(() => {
+  const ad = document.createElement("script");
+  ad.src = "https://pl28370185.effectivegatecpm.com/a1/e1/c7/a1e1c7e6ac12de10c05e473ffaa93236.js";
+  ad.async = true;
+  document.body.appendChild(ad);
+}, 3000);
 </script>
 
 </body>
